@@ -54,10 +54,18 @@ public enum FieldElement {
     //Foundations
 
         //Blue
-    BOUNDATION_BOTTOM_EDGE,
+    BOUNDATION_GRAB_POINT,
 
         //Red
-    ROUNDATION_BOTTOM_EDGE,
+    ROUNDATION_GRAB_POINT,
+
+
+    //Fallback starting positions
+    BPOS1,
+    BPOS2,
+
+    RPOS1,
+    RPOS2,
 
 
     //Targets
