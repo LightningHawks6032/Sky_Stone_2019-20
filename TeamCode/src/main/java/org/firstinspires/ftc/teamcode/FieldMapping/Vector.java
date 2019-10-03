@@ -1,4 +1,4 @@
-package main.java.org.firstinspires.ftc.teamcode.FieldMapping;
+package org.firstinspires.ftc.teamcode.FieldMapping;
 
 
 public class Vector {

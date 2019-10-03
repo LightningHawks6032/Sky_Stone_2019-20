@@ -1,4 +1,4 @@
-package main.java.org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.Hardware;
 
 /**
  * An interface to be implemented by every Hardware component class (drivetrain, intake, outtake) that creates hardware devices
