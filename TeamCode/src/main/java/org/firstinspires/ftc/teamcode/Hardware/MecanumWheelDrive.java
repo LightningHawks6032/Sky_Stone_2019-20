@@ -411,7 +411,7 @@ public class MecanumWheelDrive implements RobotHardware {
     }
     public double getAverageDist() {
         double sum = Math.abs(leftFrontEncoder.linDistance()) + Math.abs(rightFrontEncoder.linDistance()) +
-                Math.abs(leftBackEncoder.linDistance()) + Math.abs(rightBackEncoder.linDistance());
+                     Math.abs(leftBackEncoder.linDistance()) + Math.abs(rightBackEncoder.linDistance());
         return sum / 4;
     }
     private int getTemporaryAngle(int adjustmentFactor) {
