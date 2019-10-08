@@ -1,0 +1,4 @@
+#Sun Oct 06 18:01:42 EDT 2019
+base.0=/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/transforms/dexMerger/debug/3
+path.0=classes.dex
+renamed.0=classes.dex

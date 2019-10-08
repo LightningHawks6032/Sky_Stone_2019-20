@@ -30,12 +30,14 @@ public class WeekendBot_Hardware implements RobotHardware{
         intake = new WeekendBot_Intake(
               hardwareMap.get(DcMotor.class, "li"), //left intake
               hardwareMap.get(DcMotor.class, "ri"), //right intake
-              manipsGamepad
+              hardwareMap.get(Servo.class, "lc"),
+                hardwareMap.get(Servo.class, "rc"),
+                manipsGamepad
         );
         outtake = new WeekendBot_Outtake(
               hardwareMap.get(DcMotor.class, "rm"), //raise motor
               hardwareMap.get(Servo.class, "f"), //flipper
-              hardwareMap.get(Servo.class, "c"), //claper
+              hardwareMap.get(Servo.class, "g"), //grabber
               manipsGamepad
         );
     }

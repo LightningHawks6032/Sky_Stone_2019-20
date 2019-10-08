@@ -13,15 +13,15 @@ public class WeekendBot_Outtake implements RobotHardware{
     public DcMotor raiseMotor;
     public Encoder raiseEncoder;
 
-    public Servo clamper;
+    public Servo grabber;
     public Servo flipper;
 
     private Gamepad gamepad;
 
     //Servo/limit Constants
-    public final double CLAMPER_OPEN = 1, CLAMPER_CLOSED = 0,
+    public final double GRABBER_OPEN = 1, GRABBER_CLOSED = 0,
                         FLIPPER_IN = 1, FLIPPER_OUT = 0;
-    public final double UPPER_LIMIT = 3500, LOWER_LIMIT = 0; //TBD
+    public final double UPPER_LIMIT = 385, LOWER_LIMIT = 85; //TBD
 
     //TeleOp vairables
     boolean open = true;
@@ -31,18 +31,26 @@ public class WeekendBot_Outtake implements RobotHardware{
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    protected  WeekendBot_Outtake (DcMotor upMotor, Servo clampie, Servo flippie, Gamepad manipsGamepad){
+    protected  WeekendBot_Outtake (DcMotor upMotor, Servo grabbie, Servo flippie, Gamepad manipsGamepad){
         raiseMotor = upMotor;
         flipper = flippie;
-        clamper = clampie;
+        grabber = grabbie;
         raiseEncoder = new Encoder(upMotor, AutonomousData.NEVEREST_20_ENCODER, 1.8);;
     }
 
     public void initHardware(){
-        raiseMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        raiseMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         raiseEncoder.runWith();
-        clamper.setPosition(CLAMPER_CLOSED);
+        raiseMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        grabber.setPosition(GRABBER_CLOSED);
         flipper.setPosition(FLIPPER_IN);
+    }
+
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
     }
 
 
@@ -52,36 +60,40 @@ public class WeekendBot_Outtake implements RobotHardware{
     public void manageTeleOp(){
         manageClamp();
         manageFlip();
-        manageRaise();
+        //manageRaise();
     }
 
     private void manageRaise(){
 
-        double pow = 0; // Control TBD
 
-        if (pow > 0 && raiseEncoder.getEncoderCount() < UPPER_LIMIT || pow < 0 && raiseEncoder.getEncoderCount() > LOWER_LIMIT) {
+        double pow = gamepad.left_stick_y*0.1; // Control TBD
+
+
+        if ((gamepad.left_stick_y > 0 && raiseEncoder.getEncoderCount() < UPPER_LIMIT) || (gamepad.left_stick_y < 0 && raiseEncoder.getEncoderCount() > LOWER_LIMIT)) {
             raiseMotor.setPower(pow);
         }else{
             raiseMotor.setPower(0);
         }
+
+
     }
 
     private void manageClamp(){
         if (false/*control TBD*/ && open){
-            clamper.setPosition(CLAMPER_CLOSED);
+            grabber.setPosition(GRABBER_CLOSED);
             open = false;
         }else if (false/*control TBD*/ && !open){
-            clamper.setPosition(CLAMPER_OPEN);
+            grabber.setPosition(GRABBER_OPEN);
             open = true;
         }
     }
 
     private void manageFlip(){
         if (false/*control TBD*/ && in){
-            clamper.setPosition(FLIPPER_OUT);
+            grabber.setPosition(FLIPPER_OUT);
             in = false;
         }else if (false/*control TBD*/ && !in){
-            clamper.setPosition(FLIPPER_IN);
+            grabber.setPosition(FLIPPER_IN);
             in = true;
         }
     }
