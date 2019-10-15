@@ -113,9 +113,9 @@ public class MecanumWheelDrive implements RobotHardware {
     // Shortcut method for setting the power of the motors
     public void setPowers(double lfp, double rfp, double lbp, double rbp) {
         leftFront.setPower(lfp);
-        rightFront.setPower(rfp);
+        rightFront.setPower(-rfp);
         leftBack.setPower(lbp);
-        rightBack.setPower(rbp);
+        rightBack.setPower(-rbp);
     }
 
     public void manageTeleOp() {

@@ -28,7 +28,7 @@ public class WeekendBot_Intake implements RobotHardware{
     public final double INTAKE_POWER = 1, POWER_RATIO = 1;
 
     //Final servo pos's
-    public final double LEFT_CLAMP_UP = 0, LEFT_CLAMP_DOWN = 1, RIGHT_CLAMP_UP = 1, RIGHT_CLAMP_DOWN = 0;
+    public final double LEFT_CLAMP_UP = .05, LEFT_CLAMP_DOWN = .55, RIGHT_CLAMP_UP = .15, RIGHT_CLAMP_DOWN = .7;
 
 
     public WeekendBot_Intake(DcMotor leftIn, DcMotor rightIn, Servo clampL, Servo clampR, Gamepad manipsGamepad){
@@ -42,6 +42,8 @@ public class WeekendBot_Intake implements RobotHardware{
     public void initHardware(){
         leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
         rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void setStartTime(long time) {
@@ -70,14 +72,25 @@ public class WeekendBot_Intake implements RobotHardware{
         }
     }
 
+    // Booleans to manage clamping foundation for tele-op
+    private boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+
     private void manageClampers(){
-        if(gamepad.right_bumper && clampersUp){
-            clampersDown();
-            clampersUp = false;
-        }else if(gamepad.right_bumper && !clampersUp){
+        //right bumper controls the toggle
+        togglePressed = gamepad.right_bumper;
+
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flippingIn = !flippingIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        if(flippingIn){
             clampersUp();
-            clampersUp = true;
+        }else{
+            clampersDown();
         }
+
     }
 
     public void clampersDown(){

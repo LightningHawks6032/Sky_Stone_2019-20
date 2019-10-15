@@ -19,8 +19,8 @@ public class WeekendBot_Outtake implements RobotHardware{
     private Gamepad gamepad;
 
     //Servo/limit Constants
-    public final double GRABBER_OPEN = 1, GRABBER_CLOSED = 0,
-                        FLIPPER_IN = 1, FLIPPER_OUT = 0;
+    public final double GRABBER_OPEN = 0, GRABBER_CLOSED = 0.6,
+                        FLIPPER_IN = 0, FLIPPER_OUT = 1;
     public final double UPPER_LIMIT = 385, LOWER_LIMIT = 85; //TBD
 
     //TeleOp vairables
@@ -36,6 +36,7 @@ public class WeekendBot_Outtake implements RobotHardware{
         flipper = flippie;
         grabber = grabbie;
         raiseEncoder = new Encoder(upMotor, AutonomousData.NEVEREST_20_ENCODER, 1.8);;
+        gamepad = manipsGamepad;
     }
 
     public void initHardware(){
@@ -60,13 +61,13 @@ public class WeekendBot_Outtake implements RobotHardware{
     public void manageTeleOp(){
         manageClamp();
         manageFlip();
-        //manageRaise();
+        manageRaise();
     }
 
     private void manageRaise(){
 
 
-        double pow = gamepad.left_stick_y*0.1; // Control TBD
+        double pow = gamepad.left_stick_y*.4; // Control TBD
 
 
         if ((gamepad.left_stick_y > 0 && raiseEncoder.getEncoderCount() < UPPER_LIMIT) || (gamepad.left_stick_y < 0 && raiseEncoder.getEncoderCount() > LOWER_LIMIT)) {
@@ -76,26 +77,50 @@ public class WeekendBot_Outtake implements RobotHardware{
         }
 
 
+
+
     }
+
+    //Booleans for managing the toggle for clamping
+    private boolean clampingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean clampTogglePressed = false; // Is the toggle button currently pressed?
+    private boolean clampToggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+
 
     private void manageClamp(){
-        if (false/*control TBD*/ && open){
-            grabber.setPosition(GRABBER_CLOSED);
-            open = false;
-        }else if (false/*control TBD*/ && !open){
-            grabber.setPosition(GRABBER_OPEN);
-            open = true;
+
+        clampTogglePressed = gamepad.b;
+
+        if (clampTogglePressed && !clampToggleLastPressed) // Only change clamper if toggle button wasn't pressed last iteration of loop()
+            clampingIn = !clampingIn;
+        clampToggleLastPressed = clampTogglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        if(clampingIn){
+            grabber.setPosition(FLIPPER_IN);
+        }else {
+            grabber.setPosition(FLIPPER_OUT);
         }
     }
 
+    // Booleans to manage flipping for tele-op
+    private boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+
     private void manageFlip(){
-        if (false/*control TBD*/ && in){
-            grabber.setPosition(FLIPPER_OUT);
-            in = false;
-        }else if (false/*control TBD*/ && !in){
-            grabber.setPosition(FLIPPER_IN);
-            in = true;
+
+        togglePressed = gamepad.x;
+
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flippingIn = !flippingIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        if(flippingIn){
+            flipper.setPosition(FLIPPER_IN);
+        }else {
+            flipper.setPosition(FLIPPER_OUT);
         }
+
     }
 
 

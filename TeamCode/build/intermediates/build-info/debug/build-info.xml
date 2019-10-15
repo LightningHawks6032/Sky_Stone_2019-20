@@ -2,35 +2,67 @@
 <instant-run
     abi="armeabi-v7a,armeabi"
     api-level="25"
-    build-mode="COLD"
+    build-mode="FULL"
     density="xhdpi"
     format="10"
-    ir-eligibility="COMPATIBLE"
     plugin-version="3.4.1"
-    timestamp="1570399301016"
+    timestamp="1570564932638"
     token="-8989346008722195740"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="141" />
+        duration="395" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="15" />
+        duration="38" />
     <task
         name="verifier"
-        duration="8" />
+        duration="14" />
 
     <artifact
         location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_3.apk"
         type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/dep/dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1570398350149"
+        timestamp="1570564932638"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_3.apk"
@@ -68,15 +100,6 @@
         <artifact
             location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/instant-run-apk/debug/TeamCode-debug.apk"
             type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1570399301016"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/split-apk/debug/slices/slice_3.apk"
-            type="SPLIT" />
     </build>
 
 </instant-run>
