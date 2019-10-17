@@ -160,6 +160,50 @@ public class MecanumWheelDrive implements RobotHardware {
             setPowers(-pow, pow, pow, -pow);
         }
     }
+    boolean strafing = false;
+    boolean previouslyStrafing = false;
+    double curAngle = 0;
+    double prevAngle = 0;
+    double strafePowMult =1;
+    private void manageStrafingWithGyro(boolean right, boolean backHeavy){
+        double pow;
+
+        if(gamepad.right_trigger > 0 || gamepad.left_trigger > 0){
+            strafing = true;
+        }else{
+            strafing = false;
+        }
+
+        if (strafing) {
+
+            if(!previouslyStrafing){
+                gyro.zero();
+            }
+
+            curAngle = gyro.getAngle();
+
+            if (curAngle > 180 && ((curAngle != prevAngle) && curAngle !=0)){
+                strafePowMult += 0.1*(360-curAngle) ;
+            }else if (curAngle < 180 && ((curAngle != prevAngle) && curAngle !=0)){
+                strafePowMult -= 0.1*(curAngle);
+            }
+
+            if (right) { // rotating clockwise makes a positive angle; if the robot is back heavy it
+                         // will rotate counter clockwise when strafing right
+                pow = gamepad.right_trigger * boost;
+                setPowers(pow*strafePowMult, -pow*strafePowMult, -pow, pow);
+            } else { //left
+                pow = gamepad.left_trigger * boost;
+                setPowers(-pow*strafePowMult, pow*strafePowMult, pow, -pow);
+            }
+
+        }else{
+            strafePowMult = 1;
+        }
+        previouslyStrafing = strafing;
+        prevAngle = curAngle;
+
+    }
 
     private void manageDiagonalStrafing(boolean right) {
         double pow;
