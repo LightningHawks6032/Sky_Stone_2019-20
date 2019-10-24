@@ -14,13 +14,14 @@ public class GoToPleaseWork extends LinearOpMode {
 
     private Auto auto;
     private WeekendBot_Hardware hardware;
-    private final int QUADRANT = 1;
+    private final int QUADRANT = 2;
     private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException{
         hardware = new WeekendBot_Hardware(hardwareMap,gamepad1,gamepad2,true);
         auto = new Auto(this, hardware);
         hardware.initHardware();
+        hardware.drivetrain.setRobotAngle(90);
 
         telemetry.addLine("Successfully set up");
         telemetry.update();
@@ -30,7 +31,7 @@ public class GoToPleaseWork extends LinearOpMode {
         hardware.drivetrain.gyro.zero();
         hardware.drivetrain.encoderSetup();
 
-        hardware.drivetrain.setRobotPos(auto.fieldMap.get(FieldElement.BPOS2));
+        hardware.drivetrain.setRobotPos(auto.fieldMap.get(FieldElement.BPOS1));
         hardware.drivetrain.face(auto.fieldMap.get(FieldElement.NINNERPARK));
     }
 }
