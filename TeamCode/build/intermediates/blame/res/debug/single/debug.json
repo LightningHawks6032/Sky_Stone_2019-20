@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_ic_arrow_back_black_24dp.png.flat",
-        "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/54227ad7593bc5c214bbb8a77a071cee/res/drawable-xxhdpi-v4/ic_arrow_back_black_24dp.png"
-    },
-    {
         "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/b74eb89f6036b157000a131ed5603031/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_ic_arrow_back_black_24dp.png.flat",
+        "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/54227ad7593bc5c214bbb8a77a071cee/res/drawable-xxhdpi-v4/ic_arrow_back_black_24dp.png"
     },
     {
         "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/raw_ss_r2d2_up.wav.flat",
@@ -98,6 +98,10 @@
     {
         "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/layout_activity_inspection.xml.flat",
         "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/e817499a33b1095042719bc96b21191f/res/layout/activity_inspection.xml"
+    },
+    {
+        "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/raw_dududu.wav.flat",
+        "source": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/src/main/res/raw/dududu.wav"
     },
     {
         "merged": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/res/merged/debug/layout-v21_notification_action.xml.flat",

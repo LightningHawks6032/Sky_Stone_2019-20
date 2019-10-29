@@ -7,20 +7,24 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Sounds {
     HardwareMap hardwareMap;
-    Context myApp;
+    Context context;
+    private int dududuID;
+    boolean soundPlaying = false;
+
+
 
 
     public Sounds (HardwareMap hardwareMa){
         hardwareMap = hardwareMa;
-        myApp = hardwareMap.appContext;
-        SoundPlayer.PlaySoundParams params = new SoundPlayer.PlaySoundParams();
-        params.loopControl = 0;
-        params.waitForNonLoopingSoundsToFinish = true;
+        context = hardwareMap.appContext;
+        dududuID = hardwareMap.appContext.getResources().getIdentifier("dududu", "raw", hardwareMap.appContext.getPackageName());
     }
 
 
 
-    public void playSound(){
+    public void playMegalovenia(){
+        SoundPlayer.getInstance().stopPlayingAll();
+        SoundPlayer.getInstance().startPlaying(context, dududuID);
 
     }
 }
