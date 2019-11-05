@@ -62,8 +62,8 @@ public class Auto {
     }
 
     //for simplicity of code, this method assumes that the robot is facing a nav target
-    //facing: own wall by default; in method with facing as parameter:
-    //                      1: Judges/non-audience 2: Blue side 3: Audience 4: Red side
+    //facing: own (closest) wall by default; in method with facing as parameter:
+    //                      1: closest wall 2: left 3: farther wall 4: right
     public int startAngle(int quadrant){
         if(quadrant == 1 || quadrant == 2){
             return 90;
@@ -71,11 +71,14 @@ public class Auto {
         return 270;
     }
 
-    public int startAngle(int quadrant, int facing){
-        if (quadrant == 1 || quadrant == 2){
-            if(facing == 1) ;
+    public int startAngle(int quadrant, int facing) {
+        if(facing == 1) {
+            if (quadrant == 1 || quadrant == 2) {
+                return 90;
+            }
+            return 270;
         }
-        return 0;
+
     }
 
 
