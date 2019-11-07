@@ -252,7 +252,6 @@ public class GeneralDetector {
             camPos = lastLocation.getTranslation();
 
             // Express the rotation of the robot in degrees. Extrinsic = Roll, XYZ = Pitch, DEGREES = Yaw
-            // More info about Roll, Pitch, Yaw: https://www.novatel.com/assets/Web-Phase-2-2012/Solution-Pages/AttitudePlane.png
             robotRotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
         }
     }
