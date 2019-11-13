@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -270,5 +271,62 @@ public class GeneralDetector {
     public String visibleTarget() {
         return whichTargetVisible;
     }
+
+    // Returns vector of camera's position in inches
+    public Vector getCamPosition() {
+        double x = camPos.get(0) / mmPerInch, y = camPos.get(1) / mmPerInch;
+
+        // Craters
+        if (specificTargetVisible(2)) {
+            return new Vector(y, -x);
+        }
+
+        // Footprint
+        else if (specificTargetVisible(1)) {
+            return new Vector(-x, -y);
+        }
+
+        // Space
+        else if (specificTargetVisible(3)) {
+            return new Vector(-y, x);
+        }
+
+        // Rover
+        return new Vector(x, y);
+    }
+
+    // Converts camera position into robot center's position using camForwardDisplacement
+    // THIS WILL WORK IF ROBOT IS IN CENTER OF FRONT SIDE (camLeftDisplacement = 0)
+    public Vector getRobotPosition() {
+        double yawR = -(robotRotation.thirdAngle) * Math.PI / 180; // draw line from nav target to robot, this is the angle (in radians) the line makes with nearest axis
+
+        double x = getCamPosition().getX(); // Camera Position X
+        double y = getCamPosition().getY(); // Camera Position Y
+        double disp = camForwardDisplacement; // How far forward from robot center is the camera?
+
+        // Craters
+        if (specificTargetVisible(2)) {
+            return new Vector(x - disp * Math.cos(yawR), y + disp * Math.sin(yawR));
+        }
+
+        // Rover
+        else if (specificTargetVisible(0)) {
+            return new Vector(x - disp * Math.sin(yawR), y - disp * Math.cos(yawR));
+        }
+
+        // Space
+        else if (specificTargetVisible(3)) {
+            return new Vector(x + disp * Math.cos(yawR), y - disp * Math.sin(yawR));
+        }
+
+        // Footprint
+        else if (specificTargetVisible(1)) {
+            return new Vector(x + disp * Math.sin(yawR), y + disp * Math.cos(yawR));
+        }
+
+        // If everything fails, just return original phone position
+        return getCamPosition();
+    }
+
 }
 
