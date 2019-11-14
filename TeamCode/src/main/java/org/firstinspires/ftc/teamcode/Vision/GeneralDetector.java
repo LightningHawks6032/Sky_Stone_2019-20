@@ -78,6 +78,8 @@ public class GeneralDetector {
     private VectorF camPos;
     public Orientation robotRotation;
 
+    List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+
     public GeneralDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
         this.hardwareMap = hwMap;
@@ -142,7 +144,7 @@ public class GeneralDetector {
             rear2.setName(targetNames[12]);
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
-        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        //List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsSkyStone);
 
         stoneTarget.setLocation(OpenGLMatrix
@@ -228,7 +230,7 @@ public class GeneralDetector {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
         }
 
-
+        targetsSkyStone.activate();
     }
 
     public void lookForTargets() {

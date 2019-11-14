@@ -62,6 +62,7 @@ public class IsVisionWorking extends OpMode {
         hardware.drivetrain.manageTeleOp();
         detector.lookForTargets();
 
+        /*
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
@@ -75,6 +76,7 @@ public class IsVisionWorking extends OpMode {
         } else
             telemetry.addLine("The robot sees: No Target");
         telemetry.update();
+        */
     }
 
     /*
