@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Hardware;
+package org.firstinspires.ftc.teamcode.Hardware.WeekendBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class WeekendBot_Intake implements RobotHardware{
+import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
+
+public class WeekendBot_Intake implements RobotHardware {
 
     public DcMotor leftIntake; //
     public DcMotor rightIntake; //

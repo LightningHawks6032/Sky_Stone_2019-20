@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
-import org.firstinspires.ftc.teamcode.Hardware.WeekendBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.WeekendBot.WeekendBot_Hardware;
 import org.firstinspires.ftc.teamcode.WeekendBot.Auto;
 
 @Autonomous(name = "GoTo Test", group = "Test Opmode")

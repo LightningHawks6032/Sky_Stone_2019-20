@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
-import org.firstinspires.ftc.teamcode.Hardware.WeekendBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.WeekendBot.WeekendBot_Hardware;
 
 
 public class Auto {
