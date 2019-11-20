@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware.BeltBot;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,8 +23,12 @@ public class BeltBot_Outtake {
     public CRServo rightBelt;
     public DcMotor leftLift;
     public DcMotor rightLift;
+    private Gamepad gamepad;
 
-    public BeltBot_Outtake (CRServo fc, CRServo bc, Servo t, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl){
+    private final double TURNER_PARALLEL = 0;
+    private final double TURNER_PERPENDICULAR = 90; //gears facing in?
+
+    public BeltBot_Outtake (CRServo fc, CRServo bc, Servo t, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
         frontClaw = fc;
         backClaw = bc;
         turner = t;
@@ -31,5 +36,29 @@ public class BeltBot_Outtake {
         rightBelt = rb;
         leftLift = ll;
         rightLift = rl;
+        gamepad = manipsGamepad;
     }
+
+
+    public void initHardware(){
+        frontClaw.setDirection(CRServo.Direction.FORWARD);
+        backClaw.setDirection(CRServo.Direction.FORWARD);
+        turner.setPosition(TURNER_PARALLEL);
+        leftBelt.setDirection(CRServo.Direction.FORWARD);
+        rightBelt.setDirection(CRServo.Direction.FORWARD);
+
+        leftLift.setDirection(DcMotor.Direction.FORWARD);
+        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLift.setDirection(DcMotor.Direction.FORWARD);
+        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    //tele-op methods
+    public void manageTeleOp(){
+
+    }
+
+
+
+    //auto methods
 }
