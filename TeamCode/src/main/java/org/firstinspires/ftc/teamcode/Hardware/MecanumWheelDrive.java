@@ -278,6 +278,13 @@ public class MecanumWheelDrive implements RobotHardware {
         runWithoutEncoders();
     }
 
+    public void driveForTime(double pow, double seconds) throws InterruptedException {
+        //encoderSetup();
+        setPowers(pow, pow, pow, pow);
+        Thread.sleep((long) seconds * 1000);
+        setPowers(0, 0, 0, 0);
+    }
+
     /**
      * Robot strafes left or right a set amount of linear distance using encoders
      * @param direction : right (1) or left (-1)

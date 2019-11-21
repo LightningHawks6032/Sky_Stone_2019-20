@@ -21,7 +21,7 @@ public class WeekendBot_Outtake implements RobotHardware {
     private Gamepad gamepad;
 
     //Servo/limit Constants
-    public final double GRABBER_OPEN = 0, GRABBER_CLOSED = 0.6,
+    public final double GRABBER_OPEN = 0.4, GRABBER_CLOSED = 0.6,
                         FLIPPER_IN = 0, FLIPPER_OUT = 1;
     public final double UPPER_LIMIT = 385, LOWER_LIMIT = 85; //TBD
 
@@ -98,9 +98,9 @@ public class WeekendBot_Outtake implements RobotHardware {
         clampToggleLastPressed = clampTogglePressed; // toggleLastPressed updated for the next iteration of loop()
 
         if(clampingIn){
-            grabber.setPosition(FLIPPER_IN);
+            grabber.setPosition(GRABBER_CLOSED);
         }else {
-            grabber.setPosition(FLIPPER_OUT);
+            grabber.setPosition(GRABBER_OPEN);
         }
     }
 

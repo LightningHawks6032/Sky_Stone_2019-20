@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.WeekendBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardware.WeekendBot.WeekendBot_Outtake;
 
 
 @TeleOp(name = "Weekend Raise Encoder Test", group = "Test Opmode")
+@Disabled
 public class ArmEncoderTest extends OpMode {
 
     WeekendBot_Hardware hardware;

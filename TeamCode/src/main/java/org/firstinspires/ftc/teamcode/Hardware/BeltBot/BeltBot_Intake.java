@@ -44,7 +44,7 @@ public class BeltBot_Intake {
 
     //Tele-op Methods
     public void manageTeleOp(){
-        
+
     }
 
 

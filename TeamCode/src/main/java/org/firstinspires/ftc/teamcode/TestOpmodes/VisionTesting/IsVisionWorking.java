@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.VisionTesting;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Misc.Sounds;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @TeleOp (name = "General vision tester", group = "Test")
+@Disabled
 public class IsVisionWorking extends OpMode {
     //private GeneralDetector detector;
     private Sounds sounds;
