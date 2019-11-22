@@ -18,7 +18,7 @@ public class RobotTeleOp extends OpMode {
         hardware.drivetrain.manageTeleOp();
         hardware.outtake.manageTeleOp();
         hardware.intake.manageTeleOp();
-        telemetry.addData("Gyro angle: ", hardware.drivetrain.gyro.getAngle());
+        telemetry.addData("Arm power: ", hardware.outtake.raiseMotor.getPower());
         telemetry.update();
     }
 }

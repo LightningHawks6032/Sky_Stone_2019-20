@@ -11,25 +11,37 @@ import org.firstinspires.ftc.teamcode.Misc.Sounds;
 public class AutoThatJustMovesForward extends LinearOpMode {
     private WeekendBot_Hardware hardware;
     private Auto auto;
-    private Sounds haha;
+    //private Sounds haha;
 
     public void runOpMode() throws InterruptedException{
 
         hardware = new WeekendBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        haha = new Sounds(hardwareMap);
+        //haha = new Sounds(hardwareMap);
         auto = new Auto(this, hardware);
         hardware.initHardware();
 
-        haha.playMegalovenia();
+        //haha.playMegalovenia();
         telemetry.addLine("Autonomous Ready");
         telemetry.update();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        haha.playMegalovenia();
+        //haha.playMegalovenia();
         sleep(500);
-        haha.playMegalovenia();
-        hardware.drivetrain.driveForTime(0.5, 2);
-        haha.playMegalovenia();
+        //haha.playMegalovenia();
+        hardware.drivetrain.driveForTime(0.2, 1);
+        /*
+        hardware.drivetrain.leftBack.setPower(.3);
+        hardware.drivetrain.rightBack.setPower(.3);
+        hardware.drivetrain.leftFront.setPower(.3);
+        hardware.drivetrain.rightFront.setPower(.3);
+        //haha.playMegalovenia();
+        sleep(2000);
+        hardware.drivetrain.leftBack.setPower(0);
+        hardware.drivetrain.rightBack.setPower(0);
+        hardware.drivetrain.leftFront.setPower(0);
+        hardware.drivetrain.rightFront.setPower(0);
+
+         */
     }
 }

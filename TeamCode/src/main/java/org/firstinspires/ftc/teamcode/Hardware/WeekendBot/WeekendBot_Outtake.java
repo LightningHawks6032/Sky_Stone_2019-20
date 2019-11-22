@@ -16,7 +16,7 @@ public class WeekendBot_Outtake implements RobotHardware {
     public Encoder raiseEncoder;
 
     public Servo grabber;
-    public Servo flipper;
+    //public Servo flipper;
 
     private Gamepad gamepad;
 
@@ -33,9 +33,9 @@ public class WeekendBot_Outtake implements RobotHardware {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    protected  WeekendBot_Outtake (DcMotor upMotor, Servo grabbie, Servo flippie, Gamepad manipsGamepad){
+    protected  WeekendBot_Outtake (DcMotor upMotor, Servo grabbie/*, Servo flippie*/, Gamepad manipsGamepad){
         raiseMotor = upMotor;
-        flipper = flippie;
+        //flipper = flippie;
         grabber = grabbie;
         raiseEncoder = new Encoder(upMotor, AutonomousData.NEVEREST_20_ENCODER, 1.8);;
         gamepad = manipsGamepad;
@@ -46,7 +46,7 @@ public class WeekendBot_Outtake implements RobotHardware {
         raiseEncoder.runWith();
         raiseMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         grabber.setPosition(GRABBER_CLOSED);
-        flipper.setPosition(FLIPPER_IN);
+        //flipper.setPosition(FLIPPER_IN);
     }
 
     public void setStartTime(long time) {
@@ -62,21 +62,21 @@ public class WeekendBot_Outtake implements RobotHardware {
 
     public void manageTeleOp(){
         manageClamp();
-        manageFlip();
+        //manageFlip();
         manageRaise();
     }
 
     private void manageRaise(){
 
 
-        double pow = gamepad.left_stick_y*.4; // Control TBD
+        double pow = (-gamepad.left_stick_y*.3)+0.25; // Control TBD
 
 
-        if ((gamepad.left_stick_y > 0 && raiseEncoder.getEncoderCount() < UPPER_LIMIT) || (gamepad.left_stick_y < 0 && raiseEncoder.getEncoderCount() > LOWER_LIMIT)) {
+        //if ((gamepad.left_stick_y > 0 && raiseEncoder.getEncoderCount() < UPPER_LIMIT) || (gamepad.left_stick_y < 0 && raiseEncoder.getEncoderCount() > LOWER_LIMIT)) {
             raiseMotor.setPower(pow);
-        }else{
-            raiseMotor.setPower(0);
-        }
+        //}else{
+        //    raiseMotor.setPower(0);
+        //}
 
 
 
@@ -109,6 +109,7 @@ public class WeekendBot_Outtake implements RobotHardware {
     private boolean togglePressed = false; // Is the toggle button currently pressed?
     private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
+    /*
     private void manageFlip(){
 
         togglePressed = gamepad.x;
@@ -124,7 +125,7 @@ public class WeekendBot_Outtake implements RobotHardware {
         }
 
     }
-
+    */
 
     private boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
