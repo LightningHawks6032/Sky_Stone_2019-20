@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp (name = "Memes", group = "Memes")
-@Disabled
+//@Disabled
 public class MemingTesting extends OpMode {
     private Sounds sounds;
 
