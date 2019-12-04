@@ -28,6 +28,8 @@ public class GeneralDetector {
     private static final boolean PHONE_IS_PORTRAIT = false;
 
 
+    public boolean test = false;
+
     //Vuforia code
     private static final String VUFORIA_KEY =
             "AdwaKe7/////AAAAmVQWX/gUQE/gnK+olEmSWA5FCaxNrdY/EyKFLO2afR1IQD4gbnThc6LcCHIJ64hyC2i3n5VRiIRAMGxtKqjI7meHCphQAPrXpH9GomENr/fSXjVUhQao+Zw0/MLQEuTaqNYnp5EI/4oo6LTm/YPgYKOSPaP+tijaydiwNQn4A8zXPfDhkD/q6RTYMzS3UtpOR7WBZJPUBxW9XKim5ekHbYd1Hk2cFTTFAsL0XwycIWhuvHYpVlnZMqWwEnkTqp0o+5TE1FLkAfJ4OOUEfB8sP9kMEcged2/tczAh3GOcjOudp1S9F5xjPFZQX00OLV+QUCPzmT5kkqFBwiS30YR6L8urW2mJG4quq6NnrNYwzn47";
@@ -234,15 +236,19 @@ public class GeneralDetector {
     }
 
     public void lookForTargets() {
-        for (VuforiaTrackable trackable : navigationTargets) {
+        for (VuforiaTrackable trackable : allTrackables) {
+            test = true;
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                 targetVisible = true;
                 whichTargetVisible = trackable.getName();
+
 
                 OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                 if (robotLocationTransform != null) {
                     lastLocation = robotLocationTransform;
                 }
+
+
                 break; // Exit the for loop if we've found one of the nav targets
             } else {
                 targetVisible = false;
@@ -299,13 +305,30 @@ public class GeneralDetector {
 
     // Converts camera position into robot center's position using camForwardDisplacement
     // THIS WILL WORK IF ROBOT IS IN CENTER OF FRONT SIDE (camLeftDisplacement = 0)
+
     public Vector getRobotPosition() {
+        VectorF translation = lastLocation.getTranslation();
+        double x = translation.get(0) / mmPerInch; // Camera Position X
+        double y = translation.get(1) / mmPerInch; // Camera Position Y
+        return new Vector(x,y);
+    }
+
+
+    /*
+    public Vector getRobotPosition() {
+
+        VectorF translation = lastLocation.getTranslation();
+
         double yawR = -(robotRotation.thirdAngle) * Math.PI / 180; // draw line from nav target to robot, this is the angle (in radians) the line makes with nearest axis
 
-        double x = getCamPosition().getX(); // Camera Position X
-        double y = getCamPosition().getY(); // Camera Position Y
+        double x = translation.get(0) / mmPerInch; // Camera Position X
+        double y = translation.get(1) / mmPerInch; // Camera Position Y
+
+        //double x = getCamPosition().getX(); // Camera Position X
+        //double y = getCamPosition().getY(); // Camera Position Y
         double disp = camForwardDisplacement; // How far forward from robot center is the camera?
 
+        /*
         // Craters
         if (specificTargetVisible(2)) {
             return new Vector(x - disp * Math.cos(yawR), y + disp * Math.sin(yawR));
@@ -325,10 +348,13 @@ public class GeneralDetector {
         else if (specificTargetVisible(1)) {
             return new Vector(x + disp * Math.sin(yawR), y + disp * Math.cos(yawR));
         }
+        */
 
+/*
         // If everything fails, just return original phone position
         return getCamPosition();
     }
+    */
 
 }
 

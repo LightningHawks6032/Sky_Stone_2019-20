@@ -50,6 +50,19 @@ public class MecanumWheelDrive implements RobotHardware {
         rightBackEncoder = new Encoder(rb, AutonomousData.NEVEREST_20_ENCODER, wheelDiameter);
     }
 
+    public MecanumWheelDrive(DcMotor lf, DcMotor rf, DcMotor lb, DcMotor rb, ExpansionHubIMU hubIMU,  Gamepad gamepad) {
+        leftFront = lf;
+        rightFront = rf;
+        leftBack = lb;
+        rightBack = rb;
+        imu = hubIMU;
+        this.gamepad = gamepad;
+
+        leftFrontEncoder = new Encoder(lf, AutonomousData.NEVEREST_20_ENCODER, wheelDiameter);
+        rightFrontEncoder = new Encoder(rf, AutonomousData.NEVEREST_20_ENCODER, wheelDiameter);
+        leftBackEncoder = new Encoder(lb, AutonomousData.NEVEREST_20_ENCODER, wheelDiameter);
+        rightBackEncoder = new Encoder(rb, AutonomousData.NEVEREST_20_ENCODER, wheelDiameter);
+    }
     public void setStartTime(long time) {
         startTime = time;
     }

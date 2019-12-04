@@ -1,4 +1,4 @@
-#Tue Nov 26 15:44:13 EST 2019
+#Wed Dec 04 13:51:22 EST 2019
 base.0=/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/dex/debug/mergeDexDebug/out
 path.0=classes.dex
 renamed.0=classes.dex

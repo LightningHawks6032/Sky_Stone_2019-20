@@ -21,10 +21,10 @@ public class BeltBot_Intake {
     public Servo rightFoundation;
     private Gamepad gamepad;
 
-    private final double LEFT_FOUNDATION_UP = 0,
-                         LEFT_FOUNDATION_DOWN = 90,
-                         RIGHT_FOUNDATION_UP = 0,
-                         RIGHT_FOUNDATION_DOWN = 90;
+    private final double LEFT_FOUNDATION_UP = 0.3,
+                         LEFT_FOUNDATION_DOWN = 0.5,
+                         RIGHT_FOUNDATION_UP = 0.4,
+                         RIGHT_FOUNDATION_DOWN = 0.7;
 
 
     public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad){

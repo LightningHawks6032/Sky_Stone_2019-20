@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Misc.Sounds;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @TeleOp (name = "General vision tester", group = "Test")
-@Disabled
+
 public class IsVisionWorking extends OpMode {
     //private GeneralDetector detector;
     private Sounds sounds;
@@ -43,9 +43,15 @@ public class IsVisionWorking extends OpMode {
         sounds.playMegalovenia();
     }
 
+
+
     /*
      * Code to run REPEATEDLY when the driver hits INIT
      */
+
+    /*
+
+
     @Override
     public void init_loop() {
 
@@ -54,31 +60,38 @@ public class IsVisionWorking extends OpMode {
     /*
      * Code to run ONCE when the driver hits PLAY
      */
+
+    /*
     @Override
     public void start() {
 
     }
 
+    */
     @Override
     public void loop() {
         hardware.drivetrain.manageTeleOp();
         detector.lookForTargets();
 
-        /*
+
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
-            telemetry.addData("Cam Pos", detector.getCamPosition().toString());
+            //telemetry.addData("Cam Pos", detector.getCamPosition().toString());
             telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
-            telemetry.addData("Quadrant", detector.getRobotPosition().quadrant());
+            //telemetry.addData("Quadrant", detector.getRobotPosition().quadrant());
             //telemetry.addData("Robot Rotation", Math.round(detector.getRobotRotation()));
-            telemetry.addData("Detector FirstAngle", detector.robotRotation.firstAngle);
-            telemetry.addData("Detector SecondAngle", detector.robotRotation.secondAngle);
-            telemetry.addData("Detector ThirdAngle", detector.robotRotation.thirdAngle);
+            //telemetry.addData("Detector FirstAngle", detector.robotRotation.firstAngle);
+            //telemetry.addData("Detector SecondAngle", detector.robotRotation.secondAngle);
+            //telemetry.addData("Detector ThirdAngle", detector.robotRotation.thirdAngle);
+            telemetry.addLine("peepee poopoo");
         } else
             telemetry.addLine("The robot sees: No Target");
+
+        telemetry.addLine("Test is "+detector.test);
+
         telemetry.update();
-        */
+
     }
 
     /*
