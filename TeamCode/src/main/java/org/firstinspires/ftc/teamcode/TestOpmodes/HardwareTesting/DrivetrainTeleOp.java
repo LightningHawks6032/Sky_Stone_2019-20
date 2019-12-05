@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,6 +21,7 @@ public class DrivetrainTeleOp extends OpMode {
     public Servo leftFoundation;
     public Servo rightFoundation;
     ///////////////////////////////
+
     public void init(){
         drive = new MecanumWheelDrive(
                 hardwareMap.get(DcMotor.class, "fl"), //front left motor
@@ -32,6 +34,7 @@ public class DrivetrainTeleOp extends OpMode {
         );
         leftFoundation = hardwareMap.get(Servo.class, "lf");
         rightFoundation = hardwareMap.get(Servo.class, "rf");
+        drive.setAllDirections(DcMotorSimple.Direction.REVERSE);
     }
 
     //The grounds for testing other things with this program

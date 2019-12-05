@@ -131,6 +131,22 @@ public class MecanumWheelDrive implements RobotHardware {
         rightBack.setPower(-rbp);
     }
 
+    //Shortcut for switching motor directions
+    public void setDirections(DcMotorSimple.Direction lfd, DcMotorSimple.Direction rfd, DcMotorSimple.Direction lbd, DcMotorSimple.Direction rbd){
+        leftFront.setDirection(lfd);
+        rightFront.setDirection(rfd);
+        leftBack.setDirection(lbd);
+        rightBack.setDirection(rbd);
+    }
+
+    //Shortcut for switching all motor directions to the same direction
+    public void setAllDirections(DcMotorSimple.Direction d){
+        leftFront.setDirection(d);
+        rightFront.setDirection(d);
+        leftBack.setDirection(d);
+        rightBack.setDirection(d);
+    }
+
     public void manageTeleOp() {
         /*if (gamepad.left_stick_y == 0 && gamepad.right_stick_y == 0) {
             if (gamepad.right_trigger > 0) {

@@ -53,6 +53,7 @@ public class BeltBot_Outtake {
 
         leftLiftEncoder = new Encoder(ll, AutonomousData.NEVEREST_20_ENCODER, 0);
         rightLiftEncoder = new Encoder(rl, AutonomousData.NEVEREST_20_ENCODER, 0);
+
     }
 
 
@@ -80,20 +81,49 @@ public class BeltBot_Outtake {
         manageOGrabMe();
     }
 
-
     // Uses left stick vert to control lift
     // Uses slide limiting
     public void manageLift(){
         double pow = gamepad.left_stick_y;
-        if(pow > 0 && leftLiftEncoder.getEncoderCount() < LEFT_LIFT_UPPER_ENCODER){
 
+         //condition for when going up and the encoder count allows to go up more
+        if(pow > 0 && leftLiftEncoder.getEncoderCount() < LEFT_LIFT_UPPER_ENCODER){
+            leftLift.setPower(pow);
+            rightLift.setPower(pow);
+        }//condition for when going down and the encoder count allows to go down more
+        else if (pow < 0 && leftLiftEncoder.getEncoderCount() > LEFT_LIFT_LOWER_ENCODER){
+            leftLift.setPower(pow);
+            rightLift.setPower(pow);
+        }//when it isn't supposed to move
+        else {
+            leftLift.setPower(0);
+            rightLift.setPower(0);
         }
     }
 
     // Uses right stick vert to control horizontal slide
     // Uses slide limiting
     public void manageHorizontalSlide(){
+        double pow = gamepad.right_stick_y;
 
+        /*
+
+        //condition for when extending and the position count allows to extend more
+        if(pow > 0 && leftBelt.){
+            leftBelt.setPower(pow);
+            rightBelt.setPower(pow);
+        }//condition for when retracting and the position count allows to retract more
+        else if (pow < 0 && leftLiftEncoder.getEncoderCount() > LEFT_LIFT_LOWER_ENCODER){
+            leftBelt.setPower(pow);
+            rightBelt.setPower(pow);
+        }//when it isn't supposed to move
+        else {
+            leftBelt.setPower(0);
+            rightBelt.setPower(0);
+        }
+
+        
+         */
     }
 
     // Uses (control TBD) to turn the claw

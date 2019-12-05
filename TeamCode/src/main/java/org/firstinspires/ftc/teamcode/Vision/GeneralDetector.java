@@ -28,7 +28,7 @@ public class GeneralDetector {
     private static final boolean PHONE_IS_PORTRAIT = false;
 
 
-    public boolean test = false;
+    private boolean stoneDetected = false;
 
     //Vuforia code
     private static final String VUFORIA_KEY =
@@ -236,11 +236,15 @@ public class GeneralDetector {
     }
 
     public void lookForTargets() {
+        stoneDetected = false;
         for (VuforiaTrackable trackable : allTrackables) {
-            test = true;
+
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                 targetVisible = true;
                 whichTargetVisible = trackable.getName();
+                if(whichTargetVisible.equals(targetNames[0])) {
+                    stoneDetected = true;
+                }
 
 
                 OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
@@ -311,6 +315,10 @@ public class GeneralDetector {
         double x = translation.get(0) / mmPerInch; // Camera Position X
         double y = translation.get(1) / mmPerInch; // Camera Position Y
         return new Vector(x,y);
+    }
+
+    public boolean stoneVisible(){
+        return stoneDetected;
     }
 
 

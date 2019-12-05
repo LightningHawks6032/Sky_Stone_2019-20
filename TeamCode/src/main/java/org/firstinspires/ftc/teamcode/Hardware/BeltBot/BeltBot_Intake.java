@@ -42,9 +42,59 @@ public class BeltBot_Intake {
         leftFoundation.setPosition(LEFT_FOUNDATION_UP);
     }
 
+    //General Methods
+
+    private void clampersUp(){
+        leftFoundation.setPosition(LEFT_FOUNDATION_UP);
+        rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
+    }
+
+    private void clampersDown(){
+        leftFoundation.setPosition(LEFT_FOUNDATION_DOWN);
+        rightFoundation.setPosition(RIGHT_FOUNDATION_DOWN);
+    }
+
+
     //Tele-op Methods
     public void manageTeleOp(){
+        manageFoundationClamp();
+        manageIntake();
+    }
 
+    // Booleans to manage clamping foundation for tele-op
+    private boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+
+    private void manageFoundationClamp(){
+        //right bumper controls the toggle
+        togglePressed = gamepad.right_bumper;
+
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flippingIn = !flippingIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        if(flippingIn){
+            clampersUp();
+        }else{
+            clampersDown();
+        }
+
+    }
+
+    private void manageIntake(){
+        if (gamepad.a){
+            intakePowers(1);
+        }else if (gamepad.y){
+            intakePowers(-1);
+        }else{
+            intakePowers(0);
+        }
+    }
+
+    public void intakePowers(double pow){
+        leftIntake.setPower(pow);
+        rightIntake.setPower(pow);
     }
 
 

@@ -11,10 +11,10 @@ import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 @TeleOp (name = "General vision tester", group = "Test")
 
 public class IsVisionWorking extends OpMode {
-    //private GeneralDetector detector;
+    private GeneralDetector detector;
     private Sounds sounds;
 
-    /*
+
     public void init(){
         detector = new GeneralDetector(hardwareMap, 0, 0);
         sounds = new Sounds(hardwareMap);
@@ -22,16 +22,21 @@ public class IsVisionWorking extends OpMode {
         sounds.playMegalovenia();
     }
 
+    /*
     public void loop(){
         //telemetry data on robot/phone position
     }
     */
 
 
+    /*
     // Detector object
     private GeneralDetector detector;
     private WeekendBot_Hardware hardware;
+    */
 
+
+    /*
     @Override
     public void init() {
         // Set up detector
@@ -42,7 +47,7 @@ public class IsVisionWorking extends OpMode {
         sounds = new Sounds(hardwareMap);
         sounds.playMegalovenia();
     }
-
+    */
 
 
     /*
@@ -70,7 +75,7 @@ public class IsVisionWorking extends OpMode {
     */
     @Override
     public void loop() {
-        hardware.drivetrain.manageTeleOp();
+        //hardware.drivetrain.manageTeleOp();
         detector.lookForTargets();
 
 
@@ -84,11 +89,11 @@ public class IsVisionWorking extends OpMode {
             //telemetry.addData("Detector FirstAngle", detector.robotRotation.firstAngle);
             //telemetry.addData("Detector SecondAngle", detector.robotRotation.secondAngle);
             //telemetry.addData("Detector ThirdAngle", detector.robotRotation.thirdAngle);
-            telemetry.addLine("peepee poopoo");
+            telemetry.addData("Stone Visible", detector.stoneVisible());
         } else
             telemetry.addLine("The robot sees: No Target");
 
-        telemetry.addLine("Test is "+detector.test);
+        //telemetry.addLine("Test is "+detector.test);
 
         telemetry.update();
 
