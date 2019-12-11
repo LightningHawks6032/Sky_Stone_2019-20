@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware.BeltBot;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -30,6 +31,9 @@ public class BeltBot_Outtake {
     public Encoder rightLiftEncoder;
 
     private Gamepad gamepad;
+
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
 
     private final double TURNER_PARALLEL = 0;
     private final double TURNER_PERPENDICULAR = 90; //gears facing in?
@@ -71,6 +75,13 @@ public class BeltBot_Outtake {
 
         leftLiftEncoder.runWith();
         rightLiftEncoder.runWith();
+    }
+
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
     }
 
     //tele-op methods
@@ -122,7 +133,7 @@ public class BeltBot_Outtake {
             rightBelt.setPower(0);
         }
 
-        
+
          */
     }
 

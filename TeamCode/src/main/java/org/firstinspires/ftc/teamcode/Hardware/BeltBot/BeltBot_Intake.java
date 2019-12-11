@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware.BeltBot;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -21,10 +22,13 @@ public class BeltBot_Intake {
     public Servo rightFoundation;
     private Gamepad gamepad;
 
-    private final double LEFT_FOUNDATION_UP = 0.3,
-                         LEFT_FOUNDATION_DOWN = 0.5,
-                         RIGHT_FOUNDATION_UP = 0.4,
-                         RIGHT_FOUNDATION_DOWN = 0.7;
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
+
+    private final double LEFT_FOUNDATION_UP = 0.25,
+                         LEFT_FOUNDATION_DOWN = 0.4,
+                         RIGHT_FOUNDATION_UP = 0.65,
+                         RIGHT_FOUNDATION_DOWN = 0.47;
 
 
     public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad){
@@ -44,16 +48,22 @@ public class BeltBot_Intake {
 
     //General Methods
 
-    private void clampersUp(){
+    public void clampersUp(){
         leftFoundation.setPosition(LEFT_FOUNDATION_UP);
         rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
     }
 
-    private void clampersDown(){
+    public void clampersDown(){
         leftFoundation.setPosition(LEFT_FOUNDATION_DOWN);
         rightFoundation.setPosition(RIGHT_FOUNDATION_DOWN);
     }
 
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
+    }
 
     //Tele-op Methods
     public void manageTeleOp(){

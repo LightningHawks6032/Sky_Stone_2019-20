@@ -34,7 +34,8 @@ public class DrivetrainTeleOp extends OpMode {
         );
         leftFoundation = hardwareMap.get(Servo.class, "lf");
         rightFoundation = hardwareMap.get(Servo.class, "rf");
-        drive.setAllDirections(DcMotorSimple.Direction.REVERSE);
+        //drive.setAllDirections(DcMotorSimple.Direction.REVERSE);
+        //drive.setDirections(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
 
     //The grounds for testing other things with this program
@@ -45,11 +46,11 @@ public class DrivetrainTeleOp extends OpMode {
 
         ///////////////////////
         if(gamepad1.x){
-            leftFoundation.setPosition(0.2);
-            rightFoundation.setPosition(0.4);
+            leftFoundation.setPosition(0.25);
+            rightFoundation.setPosition(0.65);
         }else if(gamepad1.y){
             leftFoundation.setPosition(0.4);
-            rightFoundation.setPosition(0.7);
+            rightFoundation.setPosition(0.47);
         }
 
         //////////////////////
