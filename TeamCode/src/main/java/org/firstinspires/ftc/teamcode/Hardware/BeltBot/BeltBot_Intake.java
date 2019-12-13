@@ -67,7 +67,6 @@ public class BeltBot_Intake {
 
     //Tele-op Methods
     public void manageTeleOp(){
-        manageFoundationClamp();
         manageIntake();
     }
 
@@ -76,9 +75,9 @@ public class BeltBot_Intake {
     private boolean togglePressed = false; // Is the toggle button currently pressed?
     private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
-    private void manageFoundationClamp(){
+    public void manageFoundationClamp(Gamepad gp){
         //right bumper controls the toggle
-        togglePressed = gamepad.right_bumper;
+        togglePressed = gp.right_bumper;
 
         if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
             flippingIn = !flippingIn;

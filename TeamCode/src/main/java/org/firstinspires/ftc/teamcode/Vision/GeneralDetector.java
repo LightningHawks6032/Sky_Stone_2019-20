@@ -28,7 +28,7 @@ public class GeneralDetector {
     private static final boolean PHONE_IS_PORTRAIT = false;
 
 
-    private boolean stoneDetected = false;
+    public boolean stoneDetected = false;
 
     //Vuforia code
     private static final String VUFORIA_KEY =

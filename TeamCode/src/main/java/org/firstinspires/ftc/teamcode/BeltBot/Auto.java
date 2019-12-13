@@ -68,7 +68,7 @@ public class Auto {
         if(quadrant == 1 || quadrant == 2){
             hardware.drivetrain.setRobotAngle(90);
         }else {
-            hardware.drivetrain.setRobotAngle(270);;
+            hardware.drivetrain.setRobotAngle(270);
         }
     }
 
@@ -118,7 +118,10 @@ public class Auto {
         hardware.drivetrain.strafeDistance(directionMult*-1, distance, 0.2);
     }
 
-
+    public void updatePosFromNav(){
+        hardware.detector.lookForTargets();
+        hardware.drivetrain.setRobotPos(hardware.detector.getRobotPosition());
+    }
 
 }
 

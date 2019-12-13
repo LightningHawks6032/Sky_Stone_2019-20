@@ -20,7 +20,7 @@ public class MecanumWheelDrive implements RobotHardware {
     public Encoder rightBackEncoder;
     public ExpansionHubIMU imu;
     public MRGyro gyro;
-    private Gamepad gamepad;
+    public Gamepad gamepad;
 
     // Navigation/Positional Components
     public Vector robotPos; // Position on field

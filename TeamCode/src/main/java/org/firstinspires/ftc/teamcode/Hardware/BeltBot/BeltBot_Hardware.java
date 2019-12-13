@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Hardware.ExpansionHubIMU;
 import org.firstinspires.ftc.teamcode.Hardware.MRGyro;
 import org.firstinspires.ftc.teamcode.Hardware.MecanumWheelDrive;
 import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
+import org.firstinspires.ftc.teamcode.Misc.Sounds;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 public class BeltBot_Hardware implements RobotHardware{
@@ -28,6 +29,7 @@ public class BeltBot_Hardware implements RobotHardware{
     public BeltBot_Outtake outtake;
     public BeltBot_Intake intake;
     public GeneralDetector detector;
+    public Sounds sounds;
 
     public BeltBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors){
         drivetrain = new MecanumWheelDrive(
@@ -57,11 +59,19 @@ public class BeltBot_Hardware implements RobotHardware{
                 manipsGamepad
         );
         detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
+        sounds = new Sounds(hardwareMap);
     }
 
     public void initHardware(){
         outtake.initHardware();
+        intake.initHardware();
+        drivetrain.initHardware();
+    }
 
-
+    public void manageTeleOp(){
+        outtake.manageTeleOp();
+        intake.manageTeleOp();
+        intake.manageFoundationClamp(drivetrain.gamepad);
+        drivetrain.manageTeleOp();
     }
 }

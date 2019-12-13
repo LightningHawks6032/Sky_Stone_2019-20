@@ -15,13 +15,13 @@ public class FoundationGrabberTester extends OpMode {
     private ServoTester rightTester;
 
     public void init() {
-        leftTester = new ServoTester(this, hardwareMap.get(Servo.class, "lf"), "Left Foundation Servo", gamepad1);
-        //rightTester = new ServoTester(this, hardwareMap.get(Servo.class, "rf"), "Right Foundation Servo", gamepad1);
+        leftTester = new ServoTester(this, hardwareMap.get(Servo.class, "lf"), "Left Foundation Servo", gamepad2);
+        rightTester = new ServoTester(this, hardwareMap.get(Servo.class, "rf"), "Right Foundation Servo", gamepad1);
     }
 
     public void loop(){
         leftTester.run();
-        //rightTester.run();
+        rightTester.run();
         telemetry.update();
     }
 }

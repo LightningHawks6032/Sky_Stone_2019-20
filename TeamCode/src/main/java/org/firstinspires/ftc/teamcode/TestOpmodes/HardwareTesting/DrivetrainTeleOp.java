@@ -46,11 +46,11 @@ public class DrivetrainTeleOp extends OpMode {
 
         ///////////////////////
         if(gamepad1.x){
-            leftFoundation.setPosition(0.25);
-            rightFoundation.setPosition(0.65);
+            leftFoundation.setPosition(0);
+            rightFoundation.setPosition(0.95);
         }else if(gamepad1.y){
-            leftFoundation.setPosition(0.4);
-            rightFoundation.setPosition(0.47);
+            leftFoundation.setPosition(0.25);
+            rightFoundation.setPosition(0.75);
         }
 
         //////////////////////
