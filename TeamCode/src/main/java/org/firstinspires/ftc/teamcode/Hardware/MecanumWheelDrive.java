@@ -29,7 +29,9 @@ public class MecanumWheelDrive implements RobotHardware {
     private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
     private double wheelDiameter = 4.4;
-    private double boost = 0.4;
+
+    private final double ORIGINAL_BOOST = 0.4;
+    private double boost = ORIGINAL_BOOST;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -147,6 +149,11 @@ public class MecanumWheelDrive implements RobotHardware {
         rightBack.setDirection(d);
     }
 
+    //Used for setting the multiplier boostBoost and applying it to boost
+    public void boostBoost(double boostBooster){
+        boost = boostBooster*ORIGINAL_BOOST;
+    }
+
     public void manageTeleOp() {
         /*if (gamepad.left_stick_y == 0 && gamepad.right_stick_y == 0) {
             if (gamepad.right_trigger > 0) {
@@ -166,14 +173,35 @@ public class MecanumWheelDrive implements RobotHardware {
             }
         }*/
 
+
+
         if (gamepad.right_trigger > 0) {
-            double pow = gamepad.right_trigger * boost;
-            setPowers(pow, -pow, -pow, pow);
-        } else if (gamepad.left_trigger > 0) {
-            double pow = gamepad.left_trigger * boost;
-            setPowers(-pow, pow, pow, -pow);
+            if(Math.abs(gamepad.left_stick_y) > 0 && Math.abs(gamepad.right_stick_y) > 0){
+                //Right Diagonal
+                double pow = (gamepad.left_stick_y + gamepad.right_stick_y)/2;
+                setPowers(pow, 0, 0, pow);
+            }else{
+                //Right Strafing
+                double pow = gamepad.right_trigger * boost;
+                setPowers(pow, -pow, -pow, pow);
+            }
+
+        } else if (gamepad.left_trigger > 0) { //Left Strafing
+            if(Math.abs(gamepad.left_stick_y) > 0 && Math.abs(gamepad.right_stick_y) > 0){
+                //Left Diagonal
+                double pow = (gamepad.left_stick_y + gamepad.right_stick_y)/2;
+                setPowers(0, pow, pow, 0);
+            }else{
+                //Left Strafing
+                double pow = gamepad.left_trigger * boost;
+                setPowers(-pow, pow, pow, -pow);
+            }
+
         } else {
-            setPowers(-gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost, -gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost);
+                //Regular Drive
+            double lPow  = -gamepad.left_stick_y * boost;
+            double rPow = -gamepad.right_stick_y * boost;
+            setPowers(lPow, rPow, lPow, rPow);
         }
 
         //applyBoost();

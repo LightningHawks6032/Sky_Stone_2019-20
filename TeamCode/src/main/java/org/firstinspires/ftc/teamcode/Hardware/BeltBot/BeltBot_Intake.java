@@ -75,7 +75,8 @@ public class BeltBot_Intake {
     private boolean togglePressed = false; // Is the toggle button currently pressed?
     private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
-    public void manageFoundationClamp(Gamepad gp){
+    public boolean manageFoundationClamp(Gamepad gp){
+        boolean down = false;
         //right bumper controls the toggle
         togglePressed = gp.right_bumper;
 
@@ -87,7 +88,10 @@ public class BeltBot_Intake {
             clampersUp();
         }else{
             clampersDown();
+            down = true;
         }
+
+        return down;
 
     }
 

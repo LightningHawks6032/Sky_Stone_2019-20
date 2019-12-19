@@ -23,6 +23,6 @@ public class VerticalSlideEncoderTest extends OpMode {
     }
 
     public void loop(){
-        
+
     }
 }

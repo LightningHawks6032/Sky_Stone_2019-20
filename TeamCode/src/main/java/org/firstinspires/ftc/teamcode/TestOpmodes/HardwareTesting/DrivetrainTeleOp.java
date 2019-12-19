@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.ExampleThread;
 import org.firstinspires.ftc.teamcode.Hardware.ExpansionHubIMU;
 import org.firstinspires.ftc.teamcode.Hardware.MRGyro;
 import org.firstinspires.ftc.teamcode.Hardware.MecanumWheelDrive;
@@ -34,6 +35,8 @@ public class DrivetrainTeleOp extends OpMode {
         );
         leftFoundation = hardwareMap.get(Servo.class, "lf");
         rightFoundation = hardwareMap.get(Servo.class, "rf");
+        ExampleThread t1 = new ExampleThread(this);
+        t1.start();
         //drive.setAllDirections(DcMotorSimple.Direction.REVERSE);
         //drive.setDirections(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }

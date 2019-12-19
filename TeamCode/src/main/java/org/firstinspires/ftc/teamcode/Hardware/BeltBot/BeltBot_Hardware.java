@@ -71,7 +71,11 @@ public class BeltBot_Hardware implements RobotHardware{
     public void manageTeleOp(){
         outtake.manageTeleOp();
         intake.manageTeleOp();
-        intake.manageFoundationClamp(drivetrain.gamepad);
+        if (intake.manageFoundationClamp(drivetrain.gamepad)){
+            drivetrain.boostBoost(.3);
+        }else{
+            drivetrain.boostBoost(1);
+        }
         drivetrain.manageTeleOp();
     }
 }
