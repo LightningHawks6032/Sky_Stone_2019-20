@@ -357,7 +357,7 @@ public class MecanumWheelDrive implements RobotHardware {
         leftBackEncoder.setTarget(-direction * distance);
         rightBackEncoder.setTarget(direction * distance);
 
-        setPowers(2*pow, -2*pow, -2*pow, 2*pow);
+        setPowers(pow, -pow, -pow, pow);
 
         while (leftFront.isBusy() && rightFront.isBusy() && leftBack.isBusy() && rightBack.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
