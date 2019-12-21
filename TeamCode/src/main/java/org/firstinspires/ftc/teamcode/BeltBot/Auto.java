@@ -128,6 +128,18 @@ public class Auto {
         hardware.drivetrain.strafeDistance(directionMult*-1, distance, 0.2);
     }
 
+    public void moveToPark (boolean inner, int quadrant) throws InterruptedException{
+        int direction;
+        double distance;
+        if(quadrant == 1 || quadrant == 3) direction = 1;
+        else direction = -1;
+
+        distance = Math.abs(hardware.drivetrain.robotPos.getX());
+        hardware.drivetrain.strafeDistance(direction, distance, 0.5);
+
+        if(inner) hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.5);
+    }
+
     public void updatePosFromNav(){
         hardware.detector.lookForTargets();
         hardware.drivetrain.setRobotPos(hardware.detector.getRobotPosition());

@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
-@Autonomous (name = "Boundation", group = "Autonomous")
-public class BlueFoundationSide extends LinearOpMode {
+@Autonomous (name = "Boundation Binner", group = "Autonomous")
+public class BlueFoundationInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
     private final int QUADRANT = 1;
@@ -23,5 +23,6 @@ public class BlueFoundationSide extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.getFoundation(QUADRANT);
+        auto.moveToPark(true, QUADRANT);
     }
 }
