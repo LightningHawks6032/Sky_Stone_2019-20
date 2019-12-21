@@ -66,36 +66,36 @@ public class Auto {
     //                      1: closest wall 2: left (if forward is facing the wall) 3: farther wall 4: right
     public void setStartAngle(int quadrant){
         if(quadrant == 1 || quadrant == 2){
-            hardware.drivetrain.setRobotAngle(90);
+            hardware.drivetrain.setInitialRobotAngle(270);
         }else {
-            hardware.drivetrain.setRobotAngle(270);
+            hardware.drivetrain.setInitialRobotAngle(90);
         }
     }
 
     public void setStartAngle(int quadrant, int facing) {
         if(facing == 1) {
             if (quadrant == 1 || quadrant == 2) {
-                hardware.drivetrain.setRobotAngle(90);
+                hardware.drivetrain.setInitialRobotAngle(90);
             }else {
-                hardware.drivetrain.setRobotAngle(270);
+                hardware.drivetrain.setInitialRobotAngle(270);
             }
         }else if (facing == 3){
             if (quadrant == 1 || quadrant == 2){
-                hardware.drivetrain.setRobotAngle(270);
+                hardware.drivetrain.setInitialRobotAngle(270);
             }else {
-                hardware.drivetrain.setRobotAngle(90);
+                hardware.drivetrain.setInitialRobotAngle(90);
             }
         }else if (facing == 2){
             if (quadrant == 1 || quadrant == 2){
-                hardware.drivetrain.setRobotAngle(180);
+                hardware.drivetrain.setInitialRobotAngle(180);
             }else {
-                hardware.drivetrain.setRobotAngle(0);
+                hardware.drivetrain.setInitialRobotAngle(0);
             }
         }else{
             if (quadrant == 1 || quadrant == 2){
-                hardware.drivetrain.setRobotAngle(0);
+                hardware.drivetrain.setInitialRobotAngle(0);
             }else{
-                hardware.drivetrain.setRobotAngle(180);
+                hardware.drivetrain.setInitialRobotAngle(180);
             }
         }
 

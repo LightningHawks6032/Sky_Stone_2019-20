@@ -503,25 +503,6 @@ public class MecanumWheelDrive implements RobotHardware {
         autonomous.telemetry.update();
     }
 
-    //Mich's new methods
-
-    //Robot theta when
-    public int determineRobotTheta(FieldElement element, Vector robotPos){
-        int theta = 0;
-
-
-        return theta;
-    }
-
-    /*
-    public int determineElementTheta(FieldElement element){
-
-    }
-
-    */
-
-
-
     // Accessor methods
     public double getLeftFrontPower() {
         return leftFront.getPower();
