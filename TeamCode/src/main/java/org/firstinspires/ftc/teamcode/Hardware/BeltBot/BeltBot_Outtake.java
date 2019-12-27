@@ -35,8 +35,10 @@ public class BeltBot_Outtake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    private final double TURNER_PARALLEL = 0;
-    private final double TURNER_PERPENDICULAR = 90; //gears facing in?
+    private final double TURNER_PARALLEL = 0, TURNER_PERPENDICULAR = 90;
+
+    private final double FRONT_CLAW_IN = 0, FRONT_CLAW_OUT = 1,
+                         BACK_CLAW_IN = 0, BACK_CLAW_OUT = 1;
 
     //Encoder positions
     private final double LEFT_LIFT_UPPER_ENCODER = 1000;
@@ -94,8 +96,10 @@ public class BeltBot_Outtake {
 
     // Uses left stick vert to control lift
     // Uses slide limiting
-    public void manageLift(){
-        double pow = gamepad.left_stick_y;
+    private void manageLift(){
+        double pow = gamepad.left_stick_y*0.3;
+
+        /*
 
          //condition for when going up and the encoder count allows to go up more
         if(pow > 0 && leftLiftEncoder.getEncoderCount() < LEFT_LIFT_UPPER_ENCODER){
@@ -110,12 +114,20 @@ public class BeltBot_Outtake {
             leftLift.setPower(0);
             rightLift.setPower(0);
         }
+
+         */
+
+        leftLift.setPower(-pow);
+        rightLift.setPower(pow);
     }
 
     // Uses right stick vert to control horizontal slide
     // Uses slide limiting
-    public void manageHorizontalSlide(){
-        double pow = gamepad.right_stick_y;
+    private void manageHorizontalSlide(){
+        double pow = gamepad.right_stick_y*0.6;
+
+        leftBelt.setPower(pow);
+        rightBelt.setPower(pow);
 
         /*
 
@@ -137,16 +149,62 @@ public class BeltBot_Outtake {
          */
     }
 
-    // Uses (control TBD) to turn the claw
-    public void manageClawTurn(){
+    // Uses X (control TBD) to turn the claw
+        // Booleans to manage claw turning for tele-op
+    private boolean turningIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean turnPressed = false; // Is the toggle button currently pressed?
+    private boolean turnLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+        //
+    private void manageClawTurn(){
+        turnPressed = gamepad.right_bumper;
 
+        if (turnPressed && !turnLastPressed) // Only change turner if toggle button wasn't pressed last iteration of loop()
+            turningIn = !turningIn;
+        turnLastPressed = turnPressed; // turnLastPressed updated for the next iteration of loop()
+
+        if(turningIn){
+            turner.setPosition(TURNER_PERPENDICULAR);
+        }else{
+            turner.setPosition(TURNER_PARALLEL);
+        }
     }
 
 
-    // A toggles between open and closed
-    public void manageOGrabMe(){
+    // A toggles between open and closed using B (control TBD)
+        // Booleans to manage grabbing for tele-op
+    /*
+    private boolean flippingIn = true;
+    private boolean togglePressed = false;
+    private boolean toggleLastPressed = false;
+    */
+        //
+    private void manageOGrabMe() {
+        /*
+        togglePressed = gamepad.b;
 
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flippingIn = !flippingIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        if(flippingIn) grab(); else unGrab();
+        */
+
+        double pow = gamepad.right_trigger - gamepad.left_trigger;
+
+        frontClaw.setPower(pow);
+        backClaw.setPower(pow);
     }
 
-    //auto methods
+    //general methods
+    /*
+    public void grab(){
+        frontClaw.setPosition(FRONT_CLAW_IN);
+        backClaw.setPosition(BACK_CLAW_IN);
+    }
+
+    public void unGrab(){
+        frontClaw.setPosition(FRONT_CLAW_OUT);
+        backClaw.setPosition(BACK_CLAW_OUT);
+    }
+    */
 }

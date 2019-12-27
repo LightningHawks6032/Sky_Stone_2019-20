@@ -44,6 +44,10 @@ public class ServoTester {
         decreaseToggleLastPressed = decreaseTogglePressed;
     }
 
+    public void setServoPos(double pos){
+        servoPos = pos;
+    }
+
     public void display() {
         teleOp.telemetry.addLine("Testing Servo: " + name);
         teleOp.telemetry.addData("Actual Servo Position", servo.getPosition());

@@ -78,7 +78,7 @@ public class BeltBot_Intake {
     public boolean manageFoundationClamp(Gamepad gp){
         boolean down = false;
         //right bumper controls the toggle
-        togglePressed = gp.right_bumper;
+        togglePressed = gp.x;
 
         if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
             flippingIn = !flippingIn;
@@ -113,4 +113,9 @@ public class BeltBot_Intake {
 
     //Auto methods
 
+    public void intakeForTime (double secs) throws InterruptedException{
+        intakePowers(1);
+        Thread.sleep((long) secs*1000);
+        intakePowers(0);
+    }
 }

@@ -17,6 +17,7 @@ public class ClawTester extends OpMode{
     public void init() {
         frontTester = new ServoTester(this, hardwareMap.get(Servo.class, "fc"), "Front Claw Servo", gamepad2);
         backTester = new ServoTester(this, hardwareMap.get(Servo.class, "bc"), "Back Claw Servo", gamepad1);
+        backTester.setServoPos(0.5);
     }
 
     public void loop(){
