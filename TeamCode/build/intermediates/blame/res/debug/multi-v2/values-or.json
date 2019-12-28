@@ -4,7 +4,7 @@
             "outputFile": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/incremental/mergeDebugResources/merged.dir/values-or/values-or.xml",
             "map": [
                 {
-                    "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/b74eb89f6036b157000a131ed5603031/res/values-or/values-or.xml",
+                    "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/ccf94a4f227dfa4f17156620e28a8b98/support-compat-28.0.0/res/values-or/values-or.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

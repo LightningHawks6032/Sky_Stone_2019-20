@@ -4,7 +4,7 @@
             "outputFile": "/Users/mtoryu/Documents/Sky_Stone_2019-20/TeamCode/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v11/values-v11.xml",
             "map": [
                 {
-                    "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/54227ad7593bc5c214bbb8a77a071cee/res/values-v11/values-v11.xml",
+                    "source": "/Users/mtoryu/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/res/values-v11/values-v11.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

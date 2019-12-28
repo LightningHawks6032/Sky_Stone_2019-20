@@ -14,9 +14,13 @@ public class FieldMap {
     public final double HALF_SQUARE_LENGTH = SQUARE_LENGTH/2;
     public final double MID_QUADRANT = QUADRANT_LENGTH/2;
 
-    public final double ROBOT_LENGTH = HALF_SQUARE_LENGTH;
+    public final double ROBOT_LENGTH = 17.5;
     public final double HALF_ROBOT_LENGTH = ROBOT_LENGTH/2;
+    public final double ROBOT_WIDTH = 16;
+    public final double HALF_ROBOT_WIDTH = ROBOT_WIDTH/2;
 
+    public double pos2X = (SQUARE_LENGTH*2-HALF_ROBOT_WIDTH);
+    public double pos2Y = 72-HALF_ROBOT_LENGTH;
 
     // Constructor generates the map
     public FieldMap() {
@@ -27,7 +31,7 @@ public class FieldMap {
         //Quad 1 (+, +)
         add(FieldElement.BITE, new Vector (5*HALF_SQUARE_LENGTH, 5*HALF_SQUARE_LENGTH));
 
-        add(FieldElement.BPOS2, new Vector(MID_QUADRANT, (72-(HALF_ROBOT_LENGTH) )));
+        add(FieldElement.BPOS2, new Vector(pos2X, pos2Y ));
 
         add(FieldElement.BOUNDATION_GRAB_POINT, new Vector(MID_QUADRANT, SQUARE_LENGTH));
 
@@ -53,7 +57,7 @@ public class FieldMap {
         //Quad 4 (+, -)
         add(FieldElement.RITE, new Vector (5*HALF_SQUARE_LENGTH, -5*HALF_SQUARE_LENGTH));
 
-        add(FieldElement.RPOS2, new Vector(MID_QUADRANT, -(72-(HALF_ROBOT_LENGTH) )));
+        add(FieldElement.RPOS2, new Vector(pos2X, -pos2Y ));
 
         add(FieldElement.ROUNDATION_GRAB_POINT, new Vector(MID_QUADRANT, -SQUARE_LENGTH));
 

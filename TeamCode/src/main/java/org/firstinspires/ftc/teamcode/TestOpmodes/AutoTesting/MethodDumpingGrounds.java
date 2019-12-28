@@ -1,19 +1,21 @@
-package org.firstinspires.ftc.teamcode.BeltBot;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
+import org.firstinspires.ftc.teamcode.BeltBot.Auto;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
-@Autonomous (name = "Boundation Binner", group = "Autonomous")
-public class BlueFoundationInnerPark extends LinearOpMode {
+@Autonomous(name = "Auto Tester", group = "Autonomous Tests")
+public class MethodDumpingGrounds extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
     private final int QUADRANT = 1;
     private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
-    public void runOpMode() throws  InterruptedException{
+
+    public void runOpMode() throws InterruptedException{
         hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         auto = new Auto(this, hardware);
         hardware.initHardware();
@@ -23,8 +25,8 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        auto.getFoundation(QUADRANT);
-        hardware.drivetrain.turn(90, true);
-        //auto.moveToPark(true, QUADRANT);
+        //auto.getFoundation(QUADRANT);
+        hardware.drivetrain.strafeDistance(1, 24, 0.5);
     }
+
 }

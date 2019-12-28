@@ -25,10 +25,10 @@ public class BeltBot_Intake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    private final double LEFT_FOUNDATION_UP = 0.25,
-                         LEFT_FOUNDATION_DOWN = 0.4,
-                         RIGHT_FOUNDATION_UP = 0.65,
-                         RIGHT_FOUNDATION_DOWN = 0.47;
+    private final double LEFT_FOUNDATION_UP = 0,
+                         LEFT_FOUNDATION_DOWN = 0.25,
+                         RIGHT_FOUNDATION_UP = 0.95,
+                         RIGHT_FOUNDATION_DOWN = 0.75;
 
 
     public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad){
@@ -97,8 +97,10 @@ public class BeltBot_Intake {
 
     private void manageIntake(){
         if (gamepad.a){
+            //in
             intakePowers(1);
         }else if (gamepad.y){
+            //out
             intakePowers(-1);
         }else{
             intakePowers(0);
@@ -106,7 +108,7 @@ public class BeltBot_Intake {
     }
 
     public void intakePowers(double pow){
-        leftIntake.setPower(pow);
+        leftIntake.setPower(-pow);
         rightIntake.setPower(pow);
     }
 

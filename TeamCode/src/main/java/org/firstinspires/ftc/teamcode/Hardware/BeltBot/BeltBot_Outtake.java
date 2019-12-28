@@ -21,7 +21,7 @@ public class BeltBot_Outtake {
 
     public CRServo frontClaw;
     public CRServo backClaw;
-    public Servo turner;
+    // public Servo turner;
     public CRServo leftBelt;
     public CRServo rightBelt;
     public DcMotor leftLift;
@@ -35,8 +35,6 @@ public class BeltBot_Outtake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    private final double TURNER_PARALLEL = 0, TURNER_PERPENDICULAR = 90;
-
     private final double FRONT_CLAW_IN = 0, FRONT_CLAW_OUT = 1,
                          BACK_CLAW_IN = 0, BACK_CLAW_OUT = 1;
 
@@ -47,10 +45,9 @@ public class BeltBot_Outtake {
     private final double RIGHT_LIFT_LOWER_ENCODER = 0;
 
 
-    public BeltBot_Outtake (CRServo fc, CRServo bc, Servo t, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
+    public BeltBot_Outtake (CRServo fc, CRServo bc, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
         frontClaw = fc;
         backClaw = bc;
-        turner = t;
         leftBelt = lb;
         rightBelt = rb;
         leftLift = ll;
@@ -66,7 +63,6 @@ public class BeltBot_Outtake {
     public void initHardware(){
         frontClaw.setDirection(CRServo.Direction.FORWARD);
         backClaw.setDirection(CRServo.Direction.FORWARD);
-        turner.setPosition(TURNER_PARALLEL);
         leftBelt.setDirection(CRServo.Direction.FORWARD);
         rightBelt.setDirection(CRServo.Direction.FORWARD);
 
@@ -90,7 +86,6 @@ public class BeltBot_Outtake {
     public void manageTeleOp(){
         manageLift();
         manageHorizontalSlide();
-        manageClawTurn();
         manageOGrabMe();
     }
 
@@ -149,25 +144,6 @@ public class BeltBot_Outtake {
          */
     }
 
-    // Uses X (control TBD) to turn the claw
-        // Booleans to manage claw turning for tele-op
-    private boolean turningIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
-    private boolean turnPressed = false; // Is the toggle button currently pressed?
-    private boolean turnLastPressed = false; // Was the toggle button pressed last iteration of loop()?
-        //
-    private void manageClawTurn(){
-        turnPressed = gamepad.right_bumper;
-
-        if (turnPressed && !turnLastPressed) // Only change turner if toggle button wasn't pressed last iteration of loop()
-            turningIn = !turningIn;
-        turnLastPressed = turnPressed; // turnLastPressed updated for the next iteration of loop()
-
-        if(turningIn){
-            turner.setPosition(TURNER_PERPENDICULAR);
-        }else{
-            turner.setPosition(TURNER_PARALLEL);
-        }
-    }
 
 
     // A toggles between open and closed using B (control TBD)

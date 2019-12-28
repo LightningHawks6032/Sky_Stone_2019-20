@@ -30,7 +30,7 @@ public class DrivetrainTeleOp extends OpMode {
                 hardwareMap.get(DcMotor.class, "bl"), //back left motor
                 hardwareMap.get(DcMotor.class, "br"),
                 new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), false),
-                //new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), false),
+                new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), true),
                 gamepad1
         );
         leftFoundation = hardwareMap.get(Servo.class, "lf");
@@ -57,5 +57,8 @@ public class DrivetrainTeleOp extends OpMode {
         }
 
         //////////////////////
+        telemetry.addData("Gyro heading: ", drive.gyro.getHeading());
+        telemetry.addData("Gyro Angle: ", drive.gyro.getAngle());
+        telemetry.update();
     }
 }

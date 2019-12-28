@@ -102,14 +102,26 @@ public class Auto {
     }
 
     public void getFoundation (int quadrant) throws InterruptedException{
-        int targetY = 24;
+
+        int targetY = (int) fieldMap.SQUARE_LENGTH;
 
 
         double distance = (Math.abs(hardware.drivetrain.robotPos.getY()) - targetY);
+        int directionS = 0;
 
-        hardware.drivetrain.driveDistance(1, distance, 0.5);
+        if(quadrant == 1) directionS = -1; else directionS = 1;
+
+        hardware.drivetrain.strafeDistance(directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
+
+        hardware.drivetrain.driveDistance(1, distance, 0.3);
         hardware.intake.clampersDown();
         hardware.drivetrain.driveDistance(-1, distance, 0.2);
+        hardware.intake.clampersUp();
+
+        hardware.drivetrain.strafeDistance(-directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
+
+
+        //hardware.drivetrain.driveDistance(1,fieldMap.SQUARE_LENGTH, 0.5);
     }
 
     public void getFoundationStrafe (int quadrant) throws InterruptedException{

@@ -51,7 +51,6 @@ public class BeltBot_Hardware implements RobotHardware{
         outtake = new BeltBot_Outtake(
                 hardwareMap.get(CRServo.class, "fc"), //front claw
                 hardwareMap.get(CRServo.class, "bc"), //back claw
-                hardwareMap.get(Servo.class, "t"), //turner
                 hardwareMap.get(CRServo.class, "lb"), //left horizontal belt
                 hardwareMap.get(CRServo.class, "rb"), //right horiz. belt
                 hardwareMap.get(DcMotor.class, "ll"), //left lifter
@@ -72,9 +71,9 @@ public class BeltBot_Hardware implements RobotHardware{
         outtake.manageTeleOp();
         intake.manageTeleOp();
         if (intake.manageFoundationClamp(drivetrain.gamepad)){
-            drivetrain.boostBoost(.3);
+            drivetrain.activateSlowMode();
         }else{
-            drivetrain.boostBoost(1);
+            drivetrain.deactivateSlowMode();
         }
         drivetrain.manageTeleOp();
     }

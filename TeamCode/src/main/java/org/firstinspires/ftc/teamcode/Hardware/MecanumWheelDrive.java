@@ -30,7 +30,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
     private double wheelDiameter = 4.4;
 
-    private final double ORIGINAL_BOOST = 0.4;
+    private final double ORIGINAL_BOOST = 0.6;
     private double boost = ORIGINAL_BOOST;
 
     // AUTO BASED VARIABLES
@@ -103,6 +103,12 @@ public class MecanumWheelDrive implements RobotHardware {
         leftBackEncoder.setup();
         rightBackEncoder.setup();
     }
+    public void runWithEncoders(){
+        leftFrontEncoder.runWith();
+        rightFrontEncoder.runWith();
+        leftBackEncoder.runWith();
+        rightBackEncoder.runWith();
+    }
 
     private void resetEncoders() {
         leftFrontEncoder.reset();
@@ -150,8 +156,36 @@ public class MecanumWheelDrive implements RobotHardware {
     }
 
     //Used for setting the multiplier boostBoost and applying it to boost
-    public void boostBoost(double boostBooster){
+    private void boostBoost(double boostBooster){
         boost = boostBooster*ORIGINAL_BOOST;
+    }
+
+    public void activateSlowMode(){
+        boostBoost(0.3);
+    }
+
+    public void deactivateSlowMode(){
+        boostBoost(1);
+    }
+
+    private boolean toggled = false;
+    private boolean slow = false;
+    private boolean togglePressed = false;
+    private boolean toggleLastPressed = false;
+    public void manageSlowMode(){
+        togglePressed = gamepad.y;
+
+        if(togglePressed && !toggleLastPressed) toggled = !toggled;
+        toggleLastPressed = togglePressed;
+
+        if(toggled && !slow) {
+            activateSlowMode();
+            slow = true;
+        }
+        else if (toggled && slow){
+            deactivateSlowMode();
+            slow = false;
+        }
     }
 
     public void manageTeleOp() {
@@ -217,6 +251,7 @@ public class MecanumWheelDrive implements RobotHardware {
             setPowers(-pow, pow, pow, -pow);
         }
     }
+    /*
     boolean strafing = false;
     boolean previouslyStrafing = false;
     double curAngle = 0;
@@ -261,6 +296,7 @@ public class MecanumWheelDrive implements RobotHardware {
         prevAngle = curAngle;
 
     }
+    */
 
     private void manageDiagonalStrafing(boolean right) {
         double pow;
@@ -300,9 +336,9 @@ public class MecanumWheelDrive implements RobotHardware {
         runEncodersToPosition();
 
         leftFrontEncoder.setTarget(direction * distance);
-        rightFrontEncoder.setTarget(direction * distance);
+        rightFrontEncoder.setTarget(-direction * distance);
         leftBackEncoder.setTarget(direction * distance);
-        rightBackEncoder.setTarget(direction * distance);
+        rightBackEncoder.setTarget(-direction * distance);
 
         setPowers(direction * pow, direction * pow, direction * pow, direction * pow);
         while (leftFront.isBusy() && rightFront.isBusy() && leftBack.isBusy() && rightBack.isBusy() && autoRunning()) {
@@ -317,9 +353,9 @@ public class MecanumWheelDrive implements RobotHardware {
         resetEncoders();
         runEncodersToPosition();
         leftFrontEncoder.setTarget(direction * distance);
-        rightFrontEncoder.setTarget(direction * distance);
+        rightFrontEncoder.setTarget(-direction * distance);
         leftBackEncoder.setTarget(direction * distance);
-        rightBackEncoder.setTarget(direction * distance);
+        rightBackEncoder.setTarget(-direction * distance);
 
         setPowers(direction * pow, direction * pow, direction * pow, direction * pow);
 
@@ -353,9 +389,9 @@ public class MecanumWheelDrive implements RobotHardware {
         runEncodersToPosition();
 
         leftFrontEncoder.setTarget(direction * distance);
-        rightFrontEncoder.setTarget(-direction * distance);
+        rightFrontEncoder.setTarget(-(-direction) * distance);
         leftBackEncoder.setTarget(-direction * distance);
-        rightBackEncoder.setTarget(direction * distance);
+        rightBackEncoder.setTarget(-(direction) * distance);
 
         setPowers(pow, -pow, -pow, pow);
 
