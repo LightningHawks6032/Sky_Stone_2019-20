@@ -111,14 +111,26 @@ public class Auto {
 
         if(quadrant == 1) directionS = -1; else directionS = 1;
 
+        //utilized to get in place
         hardware.drivetrain.strafeDistance(directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
+        //post-strafe angle correction
+        hardware.drivetrain.turn((int)hardware.drivetrain.robotAngle, (hardware.drivetrain.robotAngle<180));
 
         hardware.drivetrain.driveDistance(1, distance, 0.3);
+        //Vector pos = new Vector (hardware.drivetrain.robotPos.getX(), hardware.drivetrain.robotPos.getY());
+        //hardware.drivetrain.goToLerp(new Vector(hardware.drivetrain.robotPos.getX(), fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).getY()), 0.5);
+
         hardware.intake.clampersDown();
-        hardware.drivetrain.driveDistance(-1, distance, 0.2);
+        //jimmies forward
+        hardware.drivetrain.driveDistance(1, 0.5, 0.7);
+        //
+
+        hardware.drivetrain.driveDistance(-1, distance+3, 0.2);
+        //hardware.drivetrain.goToBackwards(pos, 0.2);
+
         hardware.intake.clampersUp();
 
-        hardware.drivetrain.strafeDistance(-directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
+        //hardware.drivetrain.strafeDistance(-directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
 
 
         //hardware.drivetrain.driveDistance(1,fieldMap.SQUARE_LENGTH, 0.5);
@@ -140,16 +152,31 @@ public class Auto {
         hardware.drivetrain.strafeDistance(directionMult*-1, distance, 0.2);
     }
 
-    public void moveToPark (boolean inner, int quadrant) throws InterruptedException{
+    public void strafeToPark (boolean inner, int quadrant) throws InterruptedException{
         int direction;
         double distance;
         if(quadrant == 1 || quadrant == 3) direction = 1;
         else direction = -1;
 
-        distance = Math.abs(hardware.drivetrain.robotPos.getX());
+        //distance = Math.abs(hardware.drivetrain.robotPos.getX());
+        distance = fieldMap.SQUARE_LENGTH*2;
         hardware.drivetrain.strafeDistance(direction, distance, 0.5);
 
         if(inner) hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.5);
+    }
+
+    public void driveToPark (boolean inner, boolean fromInner, int quadrant) throws InterruptedException{
+        double distance = Math.abs(hardware.drivetrain.robotPos.getX());
+        hardware.drivetrain.driveDistance(1, distance, 0.5);
+        double absY = Math.abs(hardware.drivetrain.robotPos.getY());
+        double targetY = 0;
+        if(inner) targetY = fieldMap.get(FieldElement.BINNERPARK).getY();
+        else targetY = fieldMap.get(FieldElement.BOUTERPARK).getY();
+        if(!((inner && fromInner) ||(!inner && !fromInner))) {
+            if (quadrant == 1 || quadrant == 3)
+                hardware.drivetrain.strafeDistance(1, absY - targetY, 0.5);
+            else hardware.drivetrain.strafeDistance(-1, absY - targetY, 0.5);
+        }
     }
 
     public void updatePosFromNav(){

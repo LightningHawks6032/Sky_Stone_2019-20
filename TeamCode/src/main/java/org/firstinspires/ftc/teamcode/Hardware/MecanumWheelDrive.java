@@ -30,7 +30,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
     private double wheelDiameter = 4.4;
 
-    private final double ORIGINAL_BOOST = 0.6;
+    private final double ORIGINAL_BOOST = 0.45;
     private double boost = ORIGINAL_BOOST;
 
     // AUTO BASED VARIABLES
@@ -402,7 +402,7 @@ public class MecanumWheelDrive implements RobotHardware {
         setPowers(0, 0, 0, 0);
 
         runWithoutEncoders();
-        //updateAngleFromIMU();
+        updateAngleFromIMU();
     }
 
     public void strafeForTime(double pow, double seconds) throws InterruptedException {

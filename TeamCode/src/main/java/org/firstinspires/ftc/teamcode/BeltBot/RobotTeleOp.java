@@ -11,14 +11,15 @@ public class RobotTeleOp extends OpMode {
     private BeltBot_Hardware hardware;
 
     public void init(){
-        hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
+        hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
-        hardware.drivetrain.runWithEncoders();
+        //hardware.drivetrain.runWithEncoders();
         //hardware.drivetrain.gyro.calibrate();
     }
 
     public void loop(){
         hardware.manageTeleOp();
+        /*
         telemetry.addData("FL Encoder Val: ", hardware.drivetrain.leftFrontEncoder.getEncoderCount());
         telemetry.addData("FR Encoder Val: ", hardware.drivetrain.rightFrontEncoder.getEncoderCount());
         telemetry.addData("BL Encoder Val: ", hardware.drivetrain.leftBackEncoder.getEncoderCount());
@@ -26,5 +27,6 @@ public class RobotTeleOp extends OpMode {
         telemetry.addData("Gyro heading: ", hardware.drivetrain.gyro.getHeading());
         telemetry.addData("Gyro Angle: ", hardware.drivetrain.gyro.getAngle());
         telemetry.update();
+        */
     }
 }

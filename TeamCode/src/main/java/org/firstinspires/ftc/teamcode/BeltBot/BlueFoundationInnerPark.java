@@ -23,8 +23,12 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
+        telemetry.addData("Robot Pos (starting): ", hardware.drivetrain.robotPos.toString());
+        telemetry.update();
         auto.getFoundation(QUADRANT);
+        telemetry.addData("Robot Pos (after grab): ", hardware.drivetrain.robotPos.toString());
+        telemetry.update();
         hardware.drivetrain.turn(90, true);
-        //auto.moveToPark(true, QUADRANT);
+        //auto.strafeToPark(true, QUADRANT);
     }
 }
