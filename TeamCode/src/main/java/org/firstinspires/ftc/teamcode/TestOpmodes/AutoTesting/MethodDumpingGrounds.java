@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.BeltBot.Auto;
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
@@ -29,7 +30,9 @@ public class MethodDumpingGrounds extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         //auto.getFoundation(QUADRANT);
-        hardware.drivetrain.strafeDistance(1, map.SQUARE_LENGTH*2, 0.5);
+        //hardware.drivetrain.strafeDistance(1, map.SQUARE_LENGTH*2, 0.5);
+
+        hardware.drivetrain.face(map.get(FieldElement.NINNERPARK));
     }
 
 }

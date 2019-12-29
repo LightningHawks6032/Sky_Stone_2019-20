@@ -179,6 +179,25 @@ public class Auto {
         }
     }
 
+    // *includes moving to nudging position
+    public void nudgeFoundation(int quadrant) throws InterruptedException{
+        //assumes init pos as pos after foundation move, facing the respective park
+        int strafeDirection = 1;
+        double nudgeDist = fieldMap.SQUARE_LENGTH*.5;
+        if (quadrant == 1) strafeDirection = -1;
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.3);
+        hardware.drivetrain.strafeDistance(strafeDirection, fieldMap.SQUARE_LENGTH*1.5, 0.5);
+        hardware.drivetrain.driveDistance(-1, nudgeDist, 0.3);
+        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
+
+    }
+
+    public void rotateFoundation(int quadrant) throws InterruptedException{
+        hardware.intake.clampersDown();
+        hardware.drivetrain.turn(90, (quadrant == 4));
+        hardware.intake.clampersUp();
+    }
+
     public void updatePosFromNav(){
         hardware.detector.lookForTargets();
         hardware.drivetrain.setRobotPos(hardware.detector.getRobotPosition());

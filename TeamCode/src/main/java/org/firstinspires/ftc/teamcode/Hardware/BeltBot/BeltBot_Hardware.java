@@ -73,7 +73,7 @@ public class BeltBot_Hardware implements RobotHardware{
         if (intake.manageFoundationClamp(drivetrain.gamepad)){
             drivetrain.activateSlowMode();
         }else{
-            drivetrain.deactivateSlowMode();
+            drivetrain.manageSlowMode();
         }
         drivetrain.manageTeleOp();
     }

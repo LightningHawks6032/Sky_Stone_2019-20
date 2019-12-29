@@ -169,7 +169,6 @@ public class MecanumWheelDrive implements RobotHardware {
     }
 
     private boolean toggled = false;
-    private boolean slow = false;
     private boolean togglePressed = false;
     private boolean toggleLastPressed = false;
     public void manageSlowMode(){
@@ -178,14 +177,8 @@ public class MecanumWheelDrive implements RobotHardware {
         if(togglePressed && !toggleLastPressed) toggled = !toggled;
         toggleLastPressed = togglePressed;
 
-        if(toggled && !slow) {
-            activateSlowMode();
-            slow = true;
-        }
-        else if (toggled && slow){
-            deactivateSlowMode();
-            slow = false;
-        }
+        if(toggled) activateSlowMode();
+        if(!toggled) deactivateSlowMode();
     }
 
     public void manageTeleOp() {

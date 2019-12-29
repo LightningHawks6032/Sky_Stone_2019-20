@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
+import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
 @Autonomous (name = "Boundation Binner", group = "Autonomous")
 public class BlueFoundationInnerPark extends LinearOpMode {
@@ -20,15 +21,14 @@ public class BlueFoundationInnerPark extends LinearOpMode {
 
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
+        hardware.sounds.playMegalovenia();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        telemetry.addData("Robot Pos (starting): ", hardware.drivetrain.robotPos.toString());
-        telemetry.update();
         auto.getFoundation(QUADRANT);
-        telemetry.addData("Robot Pos (after grab): ", hardware.drivetrain.robotPos.toString());
-        telemetry.update();
         hardware.drivetrain.turn(90, true);
         //auto.strafeToPark(true, QUADRANT);
+
+        auto.nudgeFoundation(QUADRANT);
     }
 }
