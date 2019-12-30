@@ -113,8 +113,6 @@ public class Auto {
 
         //utilized to get in place
         hardware.drivetrain.strafeDistance(directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
-        //post-strafe angle correction
-        hardware.drivetrain.turn((int)hardware.drivetrain.robotAngle, (hardware.drivetrain.robotAngle<180));
 
         hardware.drivetrain.driveDistance(1, distance, 0.3);
         //Vector pos = new Vector (hardware.drivetrain.robotPos.getX(), hardware.drivetrain.robotPos.getY());
@@ -125,10 +123,12 @@ public class Auto {
         hardware.drivetrain.driveDistance(1, 0.5, 0.7);
         //
 
-        hardware.drivetrain.driveDistance(-1, distance+3, 0.2);
+        hardware.drivetrain.driveDistance(-1, distance-6, 0.2);
         //hardware.drivetrain.goToBackwards(pos, 0.2);
 
         hardware.intake.clampersUp();
+
+        hardware.drivetrain.driveDistance(-1, 6, 0.3);
 
         //hardware.drivetrain.strafeDistance(-directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
 

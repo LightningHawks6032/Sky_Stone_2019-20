@@ -67,8 +67,8 @@ public class BeltBot_Hardware implements RobotHardware{
         drivetrain.initHardware();
     }
 
-    public void manageTeleOp(){
-        outtake.manageTeleOp();
+    public void manageTeleOp(boolean slideLimiting){
+        outtake.manageTeleOp(slideLimiting);
         intake.manageTeleOp();
         if (intake.manageFoundationClamp(drivetrain.gamepad)){
             drivetrain.activateSlowMode();

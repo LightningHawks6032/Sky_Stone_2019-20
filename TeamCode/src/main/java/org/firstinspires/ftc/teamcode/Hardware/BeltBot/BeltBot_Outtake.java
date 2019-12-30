@@ -35,13 +35,10 @@ public class BeltBot_Outtake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    private final double FRONT_CLAW_IN = 0, FRONT_CLAW_OUT = 1,
-                         BACK_CLAW_IN = 0, BACK_CLAW_OUT = 1;
-
     //Encoder positions
-    private final double LEFT_LIFT_UPPER_ENCODER = 1000;
+    private final double LEFT_LIFT_UPPER_ENCODER = 1800;
     private final double LEFT_LIFT_LOWER_ENCODER = 0;
-    private final double RIGHT_LIFT_UPPER_ENCODER = 1000;
+    private final double RIGHT_LIFT_UPPER_ENCODER = -1800;
     private final double RIGHT_LIFT_LOWER_ENCODER = 0;
 
 
@@ -83,37 +80,39 @@ public class BeltBot_Outtake {
     }
 
     //tele-op methods
-    public void manageTeleOp(){
-        manageLift();
+    public void manageTeleOp(boolean slideLimiting){
+        manageLift(slideLimiting);
         manageHorizontalSlide();
         manageOGrabMe();
     }
 
     // Uses left stick vert to control lift
     // Uses slide limiting
-    private void manageLift(){
-        double pow = gamepad.left_stick_y*0.3;
+    private void manageLift(boolean slideLimiting){
+        double pow = -gamepad.left_stick_y*0.3;
 
-        /*
+        double averageEncoder = -(leftLiftEncoder.getEncoderCount() + -(rightLiftEncoder.getEncoderCount()))/2;
+        //double averageEncoder = leftLiftEncoder.getEncoderCount();
 
-         //condition for when going up and the encoder count allows to go up more
-        if(pow > 0 && leftLiftEncoder.getEncoderCount() < LEFT_LIFT_UPPER_ENCODER){
+
+        if(slideLimiting) {
+            //condition for when going up and the encoder count allows to go up more
+            if (pow > 0 && averageEncoder < LEFT_LIFT_UPPER_ENCODER) {
+                leftLift.setPower(-pow);
+                rightLift.setPower(pow);
+            }//condition for when going down and the encoder count allows to go down more
+            else if (pow < 0 && averageEncoder > LEFT_LIFT_LOWER_ENCODER) {
+                leftLift.setPower(-pow);
+                rightLift.setPower(pow);
+            }//when it isn't supposed to move
+            else {
+                leftLift.setPower(0);
+                rightLift.setPower(0);
+            }
+        }else {
             leftLift.setPower(pow);
-            rightLift.setPower(pow);
-        }//condition for when going down and the encoder count allows to go down more
-        else if (pow < 0 && leftLiftEncoder.getEncoderCount() > LEFT_LIFT_LOWER_ENCODER){
-            leftLift.setPower(pow);
-            rightLift.setPower(pow);
-        }//when it isn't supposed to move
-        else {
-            leftLift.setPower(0);
-            rightLift.setPower(0);
+            rightLift.setPower(-pow);
         }
-
-         */
-
-        leftLift.setPower(-pow);
-        rightLift.setPower(pow);
     }
 
     // Uses right stick vert to control horizontal slide
@@ -168,7 +167,7 @@ public class BeltBot_Outtake {
         double pow = gamepad.right_trigger - gamepad.left_trigger;
 
         frontClaw.setPower(pow);
-        backClaw.setPower(pow);
+        backClaw.setPower(-pow);
     }
 
     //general methods

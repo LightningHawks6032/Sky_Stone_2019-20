@@ -18,7 +18,7 @@ public class RobotTeleOp extends OpMode {
     }
 
     public void loop(){
-        hardware.manageTeleOp();
+        hardware.manageTeleOp(true);
         /*
         telemetry.addData("FL Encoder Val: ", hardware.drivetrain.leftFrontEncoder.getEncoderCount());
         telemetry.addData("FR Encoder Val: ", hardware.drivetrain.rightFrontEncoder.getEncoderCount());

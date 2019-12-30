@@ -22,14 +22,19 @@ public class VerticalSlideEncoderTest extends OpMode {
 
         leftLiftEncoder = new Encoder(leftLift, AutonomousData.NEVEREST_20_ENCODER, 0);
         rightLiftEncoder = new Encoder(rightLift, AutonomousData.NEVEREST_20_ENCODER, 0);
+        leftLiftEncoder.runWith();
+        rightLiftEncoder.runWith();
     }
 
     public void loop(){
         double pow1 = gamepad1.left_stick_y * 0.4;
-        double pow2 = gamepad1.right_stick_y * 0.4;
+        double pow2 = -gamepad1.right_stick_y * 0.4;
 
         leftLift.setPower(pow1);
         rightLift.setPower(pow2);
+
+        if(gamepad1.b){leftLiftEncoder.reset();
+        rightLiftEncoder.reset();}
 
         telemetry.addData("Left Encoder Pos", leftLiftEncoder.getEncoderCount());
         telemetry.addData("Right Encoder Pos", rightLiftEncoder.getEncoderCount());

@@ -98,10 +98,10 @@ public class BeltBot_Intake {
     private void manageIntake(){
         if (gamepad.a){
             //in
-            intakePowers(1);
+            intakePowers(0.6);
         }else if (gamepad.y){
             //out
-            intakePowers(-1);
+            intakePowers(-0.6);
         }else{
             intakePowers(0);
         }
