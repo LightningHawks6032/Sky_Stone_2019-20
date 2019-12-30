@@ -26,6 +26,7 @@ public class MethodDumpingGrounds extends LinearOpMode {
 
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
+        telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 

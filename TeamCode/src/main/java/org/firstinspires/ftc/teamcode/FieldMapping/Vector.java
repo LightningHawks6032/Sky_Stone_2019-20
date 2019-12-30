@@ -57,6 +57,10 @@ public class Vector {
         return 0;
     }
 
+    public double theta(){
+        return Math.atan2(x, y);
+    }
+
     public String toString() {
         return "(" + Math.round(x) + ", " + Math.round(y) + ")";
     }
