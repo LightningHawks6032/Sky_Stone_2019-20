@@ -61,7 +61,7 @@ public class Auto {
 
     }
 
-    //for simplicity of code, this method assumes that the robot is facing a nav target
+    //for simplicity of code, this method assumes that the robot is facing forwards in regards to the wall
     //facing: own (closest) wall by default; in method with facing as parameter:
     //                      1: closest wall 2: left (if forward is facing the wall) 3: farther wall 4: right
     public void setStartAngle(int quadrant){
