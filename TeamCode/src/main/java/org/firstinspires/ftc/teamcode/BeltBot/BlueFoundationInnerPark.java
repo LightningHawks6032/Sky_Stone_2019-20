@@ -22,6 +22,8 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
         hardware.sounds.playMegalovenia();
+        telemetry.addLine("Ready");
+        telemetry.update();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
@@ -29,6 +31,7 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         hardware.drivetrain.turn(90, true);
         //auto.strafeToPark(true, QUADRANT);
 
+        hardware.intake.clampersDown();
         auto.nudgeFoundation(QUADRANT);
     }
 }

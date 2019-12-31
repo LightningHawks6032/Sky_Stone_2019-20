@@ -123,12 +123,12 @@ public class Auto {
         hardware.drivetrain.driveDistance(1, 0.5, 0.7);
         //
 
-        hardware.drivetrain.driveDistance(-1, distance-6, 0.2);
+        hardware.drivetrain.driveDistance(-1, distance-4, 0.2);
         //hardware.drivetrain.goToBackwards(pos, 0.2);
 
         hardware.intake.clampersUp();
 
-        hardware.drivetrain.driveDistance(-1, 6, 0.3);
+        hardware.drivetrain.driveDistance(-1, 4, 0.3);
 
         //hardware.drivetrain.strafeDistance(-directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
 
@@ -183,12 +183,12 @@ public class Auto {
     public void nudgeFoundation(int quadrant) throws InterruptedException{
         //assumes init pos as pos after foundation move, facing the respective park
         int strafeDirection = 1;
-        double nudgeDist = fieldMap.SQUARE_LENGTH*.5;
+        double nudgeDist = fieldMap.SQUARE_LENGTH*.6;
         if (quadrant == 1) strafeDirection = -1;
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.3);
         hardware.drivetrain.strafeDistance(strafeDirection, fieldMap.SQUARE_LENGTH*1.5, 0.5);
         hardware.drivetrain.driveDistance(-1, nudgeDist, 0.3);
-        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
+        hardware.drivetrain.driveDistance(1, nudgeDist+5, 0.3);
 
     }
 

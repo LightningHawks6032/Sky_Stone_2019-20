@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
 @Autonomous(name = "Roundation Rinner", group = "Autonomous")
-@Disabled
+//@Disabled
 public class RedFoundationInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
@@ -23,6 +23,8 @@ public class RedFoundationInnerPark extends LinearOpMode {
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
         hardware.sounds.playMegalovenia();
+        telemetry.addLine("Ready");
+        telemetry.update();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
@@ -30,6 +32,7 @@ public class RedFoundationInnerPark extends LinearOpMode {
         hardware.drivetrain.turn(90, false);
         //auto.strafeToPark(true, QUADRANT);
 
-        //auto.nudgeFoundation(QUADRANT);
+        hardware.intake.clampersDown();
+        auto.nudgeFoundation(QUADRANT);
     }
 }
