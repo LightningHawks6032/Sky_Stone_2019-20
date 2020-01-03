@@ -20,14 +20,14 @@ public class BlueStoneSideInnerPark extends LinearOpMode {
         auto = new Auto(this, hardware);
         hardware.initHardware();
 
-        auto.setStartAngle(QUADRANT, 4);
+        auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
         hardware.sounds.playMegalovenia();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        hardware.drivetrain.strafeDistance(1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
         hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
-        hardware.sounds.playMegalovenia();
+        hardware.drivetrain.turn(90, false);
+        hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
     }
 }

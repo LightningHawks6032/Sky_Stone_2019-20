@@ -26,8 +26,8 @@ public class RedStoneSideInnerPark extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        hardware.drivetrain.strafeDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
         hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
-        hardware.sounds.playMegalovenia();
+        hardware.drivetrain.turn(90, true);
+        hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
     }
 }

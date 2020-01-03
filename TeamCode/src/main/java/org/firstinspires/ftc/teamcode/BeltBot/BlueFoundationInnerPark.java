@@ -32,6 +32,6 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         //auto.strafeToPark(true, QUADRANT);
 
         hardware.intake.clampersDown();
-        auto.nudgeFoundation(QUADRANT);
+        auto.nudgeFoundation(QUADRANT, true);
     }
 }

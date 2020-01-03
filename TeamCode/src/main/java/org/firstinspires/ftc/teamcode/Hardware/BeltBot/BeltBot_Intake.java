@@ -47,8 +47,8 @@ public class BeltBot_Intake {
     public void initHardware(){
         leftIntake.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(DcMotor.Direction.FORWARD);
-        rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
-        leftFoundation.setPosition(LEFT_FOUNDATION_UP);
+        //rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
+        //leftFoundation.setPosition(LEFT_FOUNDATION_UP);
         leftIntakeExtender.setDirection(CRServo.Direction.FORWARD);
         rightIntakeExtender.setDirection(CRServo.Direction.FORWARD);
     }

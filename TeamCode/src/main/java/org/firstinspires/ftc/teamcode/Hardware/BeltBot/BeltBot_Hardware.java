@@ -22,9 +22,6 @@ public class BeltBot_Hardware implements RobotHardware{
     // X-position pixel value for center of robot (for mineral sampling)
     private final int ROBOT_CENTER_X = 225;
 
-    // Range Sensor Distance from Robot Center (inches)
-    public final int RANGE_SENSOR_DISPLACEMENT = 3;
-
     public MecanumWheelDrive drivetrain;
     public BeltBot_Outtake outtake;
     public BeltBot_Intake intake;

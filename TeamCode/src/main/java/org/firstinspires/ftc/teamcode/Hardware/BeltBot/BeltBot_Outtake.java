@@ -40,6 +40,7 @@ public class BeltBot_Outtake {
     private final double LEFT_LIFT_LOWER_ENCODER = 0;
     private final double RIGHT_LIFT_UPPER_ENCODER = -1800;
     private final double RIGHT_LIFT_LOWER_ENCODER = 0;
+    private final double ENCODER_MARGIN_OF_ERROR = 100;
 
 
     public BeltBot_Outtake (CRServo fc, CRServo bc, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
@@ -87,25 +88,35 @@ public class BeltBot_Outtake {
     }
 
     // Conditions for auto retract/extend
+    public double debugPow = 0;
+    public boolean debugLift = false;
+    public boolean debugLow = false;
+    public double debugEncoder = 0;
     private boolean autoRetract = false;
     private boolean autoExtend = false;
 
     // Uses left stick vert to control lift
     // Uses slide limiting
     private void manageLift(boolean slideLimiting){
-        double pow = -gamepad.left_stick_y*0.3;
+        double pow = gamepad.left_stick_y*0.2;
+        debugPow = pow;
+        debugLift = autoExtend;
+        debugLow = autoRetract;
 
         double averageEncoder = -(leftLiftEncoder.getEncoderCount() + -(rightLiftEncoder.getEncoderCount()))/2;
         //double averageEncoder = leftLiftEncoder.getEncoderCount();
-
+        debugEncoder = averageEncoder;
 
         if(slideLimiting) {
-            //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
-            if ((pow > 0 && averageEncoder < LEFT_LIFT_UPPER_ENCODER) && (pow < 0 && averageEncoder > LEFT_LIFT_LOWER_ENCODER)) {
-                autoExtend = false;
-                autoRetract = false;
-                leftLift.setPower(-pow);
-                rightLift.setPower(pow);
+            if(!autoExtend && !autoRetract){
+                if ((pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) && (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
+                    //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
+
+                    autoExtend = false;
+                    autoRetract = false;
+                    leftLift.setPower(-pow);
+                    rightLift.setPower(pow);
+                }
             }
             else if (autoExtend && averageEncoder < LEFT_LIFT_UPPER_ENCODER){ //move up automatically
                 autoRetract = false;
@@ -116,8 +127,7 @@ public class BeltBot_Outtake {
                 leftLift.setPower(0.4);
                 rightLift.setPower(-0.4);
             }
-            //when it isn't supposed to move
-            else {
+            else {//when it isn't supposed to move
                 autoRetract = false;
                 autoExtend = false;
                 leftLift.setPower(0);

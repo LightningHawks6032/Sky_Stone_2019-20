@@ -102,6 +102,7 @@ public class Auto {
     }
 
     public void getFoundation (int quadrant) throws InterruptedException{
+        hardware.intake.clampersUp();
 
         int targetY = (int) fieldMap.SQUARE_LENGTH;
 
@@ -179,17 +180,26 @@ public class Auto {
         }
     }
 
-    // *includes moving to nudging position
-    public void nudgeFoundation(int quadrant) throws InterruptedException{
+    // *includes moving to nudging position and parking afterwards
+    public void nudgeFoundation(int quadrant, boolean toInner) throws InterruptedException{
         //assumes init pos as pos after foundation move, facing the respective park
         int strafeDirection = 1;
-        double nudgeDist = fieldMap.SQUARE_LENGTH*.6;
+        double nudgeDist = fieldMap.SQUARE_LENGTH*.5;
         if (quadrant == 1) strafeDirection = -1;
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.3);
         hardware.drivetrain.strafeDistance(strafeDirection, fieldMap.SQUARE_LENGTH*1.5, 0.5);
         hardware.drivetrain.driveDistance(-1, nudgeDist, 0.3);
-        hardware.drivetrain.driveDistance(1, nudgeDist+5, 0.3);
-
+        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
+        if(toInner){
+            hardware.drivetrain.driveDistance(1, 5, 0.5);
+        }else{
+            if(quadrant == 1) {
+                hardware.drivetrain.strafeDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
+            }else{
+                hardware.drivetrain.strafeDistance(-1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
+            }
+            hardware.drivetrain.driveDistance(1, 5, 0.5);
+        }
     }
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
