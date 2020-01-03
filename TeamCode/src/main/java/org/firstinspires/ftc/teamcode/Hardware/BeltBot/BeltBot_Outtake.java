@@ -86,6 +86,10 @@ public class BeltBot_Outtake {
         manageOGrabMe();
     }
 
+    // Conditions for auto retract/extend
+    private boolean autoRetract = false;
+    private boolean autoExtend = false;
+
     // Uses left stick vert to control lift
     // Uses slide limiting
     private void manageLift(boolean slideLimiting){
@@ -96,23 +100,38 @@ public class BeltBot_Outtake {
 
 
         if(slideLimiting) {
-            //condition for when going up and the encoder count allows to go up more
-            if (pow > 0 && averageEncoder < LEFT_LIFT_UPPER_ENCODER) {
+            //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
+            if ((pow > 0 && averageEncoder < LEFT_LIFT_UPPER_ENCODER) && (pow < 0 && averageEncoder > LEFT_LIFT_LOWER_ENCODER)) {
+                autoExtend = false;
+                autoRetract = false;
                 leftLift.setPower(-pow);
                 rightLift.setPower(pow);
-            }//condition for when going down and the encoder count allows to go down more
-            else if (pow < 0 && averageEncoder > LEFT_LIFT_LOWER_ENCODER) {
-                leftLift.setPower(-pow);
-                rightLift.setPower(pow);
-            }//when it isn't supposed to move
+            }
+            else if (autoExtend && averageEncoder < LEFT_LIFT_UPPER_ENCODER){ //move up automatically
+                autoRetract = false;
+                leftLift.setPower(-0.4);
+                rightLift.setPower(0.4);
+            }else if (autoRetract && averageEncoder > LEFT_LIFT_LOWER_ENCODER){
+                autoExtend = false;
+                leftLift.setPower(0.4);
+                rightLift.setPower(-0.4);
+            }
+            //when it isn't supposed to move
             else {
+                autoRetract = false;
+                autoExtend = false;
                 leftLift.setPower(0);
                 rightLift.setPower(0);
             }
-        }else {
+
+
+        } else {
             leftLift.setPower(pow);
             rightLift.setPower(-pow);
         }
+
+        if(gamepad.dpad_down) autoRetract = true;
+        if(gamepad.dpad_up) autoExtend = true;
     }
 
     // Uses right stick vert to control horizontal slide

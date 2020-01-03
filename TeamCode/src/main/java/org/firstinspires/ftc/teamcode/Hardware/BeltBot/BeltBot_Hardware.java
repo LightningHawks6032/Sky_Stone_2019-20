@@ -46,7 +46,9 @@ public class BeltBot_Hardware implements RobotHardware{
                 hardwareMap.get(DcMotor.class, "ri"), //right intake
                 hardwareMap.get(Servo.class, "lf"), //left flipper
                 hardwareMap.get(Servo.class, "rf"), //right flipper
-                manipsGamepad
+                manipsGamepad,
+                hardwareMap.get(CRServo.class, "lie"), //left intake extender
+                hardwareMap.get(CRServo.class, "rie") //right intake extender
         );
         outtake = new BeltBot_Outtake(
                 hardwareMap.get(CRServo.class, "fc"), //front claw

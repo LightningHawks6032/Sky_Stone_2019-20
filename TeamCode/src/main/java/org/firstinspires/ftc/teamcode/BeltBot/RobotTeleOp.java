@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 @TeleOp(name = "BeltBot TeleOp", group = "Iterative Opmode")
 public class RobotTeleOp extends OpMode {
     private BeltBot_Hardware hardware;
+    boolean limiting = true;
 
     public void init(){
         hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
@@ -18,7 +19,12 @@ public class RobotTeleOp extends OpMode {
     }
 
     public void loop(){
-        hardware.manageTeleOp(true);
+        hardware.manageTeleOp(limiting);
+
+        //off switch for slide limiting
+        if(gamepad1.a && gamepad1.dpad_down){
+            limiting = false;
+        }
         /*
         telemetry.addData("FL Encoder Val: ", hardware.drivetrain.leftFrontEncoder.getEncoderCount());
         telemetry.addData("FR Encoder Val: ", hardware.drivetrain.rightFrontEncoder.getEncoderCount());

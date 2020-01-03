@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.BeltBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.TestOpmodes.ServoTester;
 
 @TeleOp(name="Claw Servo Test", group="Test Opmode")
-//@Disabled
+@Disabled
 
 //(for BeltBot)\\
 public class ClawTester extends OpMode{

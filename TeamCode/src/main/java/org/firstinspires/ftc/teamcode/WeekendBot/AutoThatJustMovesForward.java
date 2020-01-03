@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.WeekendBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardware.WeekendBot.WeekendBot_Hardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
 @Autonomous(name="Auto that just moves forward", group = AutonomousData.OFFICIAL_GROUP)
+@Disabled
 public class AutoThatJustMovesForward extends LinearOpMode {
     private WeekendBot_Hardware hardware;
     private Auto auto;

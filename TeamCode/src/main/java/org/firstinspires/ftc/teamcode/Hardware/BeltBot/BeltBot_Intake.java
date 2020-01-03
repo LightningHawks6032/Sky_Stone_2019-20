@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware.BeltBot;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -18,6 +19,8 @@ public class BeltBot_Intake {
 
     public DcMotor leftIntake;
     public DcMotor rightIntake;
+    public CRServo leftIntakeExtender;
+    public CRServo rightIntakeExtender;
     public Servo leftFoundation;
     public Servo rightFoundation;
     private Gamepad gamepad;
@@ -31,12 +34,14 @@ public class BeltBot_Intake {
                          RIGHT_FOUNDATION_DOWN = 0.75;
 
 
-    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad){
+    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad, CRServo lie, CRServo rie){
         leftIntake = li;
         rightIntake = ri;
         leftFoundation = lf;
         rightFoundation = rf;
         gamepad = manipsGamepad;
+        leftIntakeExtender = lie;
+        rightIntakeExtender = rie;
     }
 
     public void initHardware(){
@@ -44,6 +49,8 @@ public class BeltBot_Intake {
         rightIntake.setDirection(DcMotor.Direction.FORWARD);
         rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
         leftFoundation.setPosition(LEFT_FOUNDATION_UP);
+        leftIntakeExtender.setDirection(CRServo.Direction.FORWARD);
+        rightIntakeExtender.setDirection(CRServo.Direction.FORWARD);
     }
 
     //General Methods
@@ -78,7 +85,7 @@ public class BeltBot_Intake {
     public boolean manageFoundationClamp(Gamepad gp){
         boolean down = false;
         //right bumper controls the toggle
-        togglePressed = gp.x;
+        togglePressed = gp.y;
 
         if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
             flippingIn = !flippingIn;
@@ -110,6 +117,8 @@ public class BeltBot_Intake {
     public void intakePowers(double pow){
         leftIntake.setPower(-pow);
         rightIntake.setPower(pow);
+        leftIntakeExtender.setPower(pow);
+        rightIntakeExtender.setPower(-pow);
     }
 
 

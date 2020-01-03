@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.BeltBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name = "Horizontal Slide Test", group = "Tests")
+@Disabled
 public class HorizontalSlideCRServoTest extends OpMode {
     public CRServo leftSlide;
     public CRServo rightSlide;
