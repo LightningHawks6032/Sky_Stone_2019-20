@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
-@Autonomous(name = "Roundation Router", group = "Autonomous")
+@Autonomous(name = "Red Foundation Side Outer Park", group = "Autonomous")
 //@Disabled
 public class RedFoundationOuterPark extends LinearOpMode {
     private BeltBot_Hardware hardware;

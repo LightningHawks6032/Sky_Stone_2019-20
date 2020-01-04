@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.BeltBot.Auto;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
-@Autonomous(name = "Boundation Bouter", group = "Autonomous")
+@Autonomous(name = "Blue Foundation Outer Park", group = "Autonomous")
 public class BlueFoundationOuterPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
-@Autonomous(name = "Bones Binner", group = "Autonomous")
+@Autonomous(name = "Blue Depot Side Inner Park", group = "Autonomous")
 //@Disabled
 public class BlueStoneSideInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
@@ -23,6 +23,7 @@ public class BlueStoneSideInnerPark extends LinearOpMode {
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
         hardware.sounds.playMegalovenia();
+        telemetry.addLine("Ready");
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
