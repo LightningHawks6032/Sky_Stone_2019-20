@@ -92,6 +92,9 @@ public class BeltBot_Outtake {
     public boolean debugLift = false;
     public boolean debugLow = false;
     public double debugEncoder = 0;
+    public boolean condition1 = false;
+    public boolean condition2 = false;
+    public String testLocation = "";
     private boolean autoRetract = false;
     private boolean autoExtend = false;
 
@@ -109,24 +112,30 @@ public class BeltBot_Outtake {
 
         if(slideLimiting) {
 
-            if ((-pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) && (-pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
+            condition1 = (pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR);
+            condition2 = (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR);
+            if ((pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) || (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
                 //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
 
                 //autoExtend = false;
                 //autoRetract = false;
                 leftLift.setPower(-pow);
                 rightLift.setPower(pow);
+                testLocation = "reached";
             }
             else if (autoExtend && averageEncoder < LEFT_LIFT_UPPER_ENCODER){ //move up automatically
                 //autoRetract = false;
+                testLocation = "not reached";
                 leftLift.setPower(-0.4);
                 rightLift.setPower(0.4);
             }else if (autoRetract && averageEncoder > LEFT_LIFT_LOWER_ENCODER){
                 //autoExtend = false;
+                testLocation = "not reached";
                 leftLift.setPower(0.4);
                 rightLift.setPower(-0.4);
             }
             else {//when it isn't supposed to move
+                testLocation = "not reached";
                 autoRetract = false;
                 autoExtend = false;
                 leftLift.setPower(0);

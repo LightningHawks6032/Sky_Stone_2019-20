@@ -172,7 +172,7 @@ public class MecanumWheelDrive implements RobotHardware {
     private boolean togglePressed = false;
     private boolean toggleLastPressed = false;
     public void manageSlowMode(){
-        togglePressed = gamepad.y;
+        togglePressed = gamepad.x;
 
         if(togglePressed && !toggleLastPressed) toggled = !toggled;
         toggleLastPressed = togglePressed;
@@ -230,6 +230,7 @@ public class MecanumWheelDrive implements RobotHardware {
             double rPow = -gamepad.right_stick_y * boost;
             setPowers(lPow, rPow, lPow, rPow);
         }
+        manageSlowMode();
 
         //applyBoost();
     }
@@ -463,6 +464,7 @@ public class MecanumWheelDrive implements RobotHardware {
         gyro.zero();
         encoderSetup();
 
+        double maxPow = 1;
         int currAngle = Math.abs(gyro.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double startPow = 1;
         double pow; // power applied to motors
@@ -471,7 +473,7 @@ public class MecanumWheelDrive implements RobotHardware {
         while (currAngle < degrees && autoRunning()) {
             prop = (double) (degrees - currAngle) / 90;/*currAngle / degrees;*/
             pow = startPow * Math.pow(prop, 1.8/*1.5*/) + 0.1;/*Math.pow(prop - 1, 2);*/
-            if (pow > 1) pow = 1;
+            if (pow > maxPow) pow = maxPow;
 
             // Apply power to motors and update currAngle
             if (right)
