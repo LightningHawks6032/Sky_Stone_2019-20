@@ -40,7 +40,7 @@ public class BeltBot_Outtake {
     private final double LEFT_LIFT_LOWER_ENCODER = 0;
     private final double RIGHT_LIFT_UPPER_ENCODER = -1800;
     private final double RIGHT_LIFT_LOWER_ENCODER = 0;
-    private final double ENCODER_MARGIN_OF_ERROR = 100;
+    private final double ENCODER_MARGIN_OF_ERROR = 50;
 
 
     public BeltBot_Outtake (CRServo fc, CRServo bc, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
@@ -98,7 +98,7 @@ public class BeltBot_Outtake {
     // Uses left stick vert to control lift
     // Uses slide limiting
     private void manageLift(boolean slideLimiting){
-        double pow = gamepad.left_stick_y*0.2;
+        double pow = -gamepad.left_stick_y*0.2;
         debugPow = pow;
         debugLift = autoExtend;
         debugLow = autoRetract;
@@ -108,22 +108,21 @@ public class BeltBot_Outtake {
         debugEncoder = averageEncoder;
 
         if(slideLimiting) {
-            if(!autoExtend && !autoRetract){
-                if ((pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) && (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
-                    //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
 
-                    autoExtend = false;
-                    autoRetract = false;
-                    leftLift.setPower(-pow);
-                    rightLift.setPower(pow);
-                }
+            if ((-pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) && (-pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
+                //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
+
+                //autoExtend = false;
+                //autoRetract = false;
+                leftLift.setPower(-pow);
+                rightLift.setPower(pow);
             }
             else if (autoExtend && averageEncoder < LEFT_LIFT_UPPER_ENCODER){ //move up automatically
-                autoRetract = false;
+                //autoRetract = false;
                 leftLift.setPower(-0.4);
                 rightLift.setPower(0.4);
             }else if (autoRetract && averageEncoder > LEFT_LIFT_LOWER_ENCODER){
-                autoExtend = false;
+                //autoExtend = false;
                 leftLift.setPower(0.4);
                 rightLift.setPower(-0.4);
             }
@@ -140,8 +139,14 @@ public class BeltBot_Outtake {
             rightLift.setPower(-pow);
         }
 
-        if(gamepad.dpad_down) autoRetract = true;
-        if(gamepad.dpad_up) autoExtend = true;
+        if(gamepad.dpad_down) {
+            autoRetract = true;
+            autoExtend = false;
+        }
+        if(gamepad.dpad_up) {
+            autoExtend = true;
+            autoRetract = false;
+        }
     }
 
     // Uses right stick vert to control horizontal slide
