@@ -28,6 +28,7 @@ public class RedFoundationInnerPark extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
+        auto.rest();
         auto.getFoundation(QUADRANT);
         hardware.drivetrain.turn(90, false);
         //auto.strafeToPark(true, QUADRANT);

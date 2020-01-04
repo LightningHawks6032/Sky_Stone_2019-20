@@ -213,5 +213,9 @@ public class Auto {
         hardware.drivetrain.setRobotPos(hardware.detector.getRobotPosition());
     }
 
+    public void rest() throws InterruptedException{
+        Thread.sleep(0*1000);
+    }
+
 }
 

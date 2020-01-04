@@ -28,6 +28,7 @@ public class BlueFoundationOuterPark extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
+        auto.rest();
         auto.getFoundation(QUADRANT);
         hardware.drivetrain.turn(90, true);
         //auto.strafeToPark(true, QUADRANT);
