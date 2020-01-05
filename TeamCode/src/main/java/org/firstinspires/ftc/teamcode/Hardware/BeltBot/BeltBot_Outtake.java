@@ -225,4 +225,9 @@ public class BeltBot_Outtake {
         backClaw.setPosition(BACK_CLAW_OUT);
     }
     */
+
+    public void horizontalSlidePowers(double pow){
+        leftBelt.setPower(pow);
+        rightBelt.setPower(-pow);
+    }
 }

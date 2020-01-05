@@ -191,21 +191,32 @@ public class Auto {
         //hardware.drivetrain.strafeDistance(strafeDirection, fieldMap.SQUARE_LENGTH*1.5, 0.5);
 
         hardware.drivetrain.turn(90, quadrant == 4);
-        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.5);
-        hardware.drivetrain.turn(90, !(quadrant == 4));
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.1, 0.5);
+        hardware.drivetrain.turn(87, (quadrant == 4));
+
+        hardware.intake.clampersUp();
+        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
+
+        //New: grabbing and rotating foundation
+        hardware.intake.clampersDown();
+        hardware.drivetrain.turn(45, quadrant == 4);
+        hardware.intake.clampersUp();
+        hardware.drivetrain.turn(55, !(quadrant == 4));
 
         hardware.drivetrain.driveDistance(-1, nudgeDist, 0.3);
-        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
+        hardware.outtake.horizontalSlidePowers(-1);
         if(toInner){
-            hardware.drivetrain.driveDistance(1, 7, 0.5);
+            hardware.drivetrain.driveDistance(-1, 7, 0.5);
         }else{
             if(quadrant == 1) {
-                hardware.drivetrain.strafeDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
-            }else{
                 hardware.drivetrain.strafeDistance(-1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
+            }else{
+                hardware.drivetrain.strafeDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
             }
-            hardware.drivetrain.driveDistance(1, 7, 0.5);
+            hardware.drivetrain.driveDistance(-1, 7, 0.5);
         }
+        Thread.sleep(3500);
+        hardware.outtake.horizontalSlidePowers(0);
     }
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
