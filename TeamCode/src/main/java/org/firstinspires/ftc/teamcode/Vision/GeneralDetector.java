@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Vision;
 
+import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
+import org.openftc.easyopencv.OpenCvCamera;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,10 @@ public class GeneralDetector {
     public Orientation robotRotation;
 
     List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+
+    // DogeCV/OpenCV declarations
+    private OpenCvCamera phoneCam;
+    private SkystoneDetector skyStoneDetector;
 
     public GeneralDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
@@ -363,6 +369,20 @@ public class GeneralDetector {
         return getCamPosition();
     }
     */
+
+
+    /*
+     * Returns an int based off the alignment of the skystone:
+     * 0 (left), 1 (center), or 2 (right)
+     * Alliance parameter: 1 (red), 2 (blue). These are the same values as the AutonomousData class
+     */
+    public int detectSkyStoneAlign(int alliance){
+        int result = 0; //will default to center if no value is detected
+
+
+        return result;
+    }
+
 
 }
 
