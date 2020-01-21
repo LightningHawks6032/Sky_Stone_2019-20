@@ -84,10 +84,6 @@ public class GeneralDetector {
 
     List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
 
-    // DogeCV/OpenCV declarations
-    private OpenCvCamera phoneCam;
-    private SkystoneDetector skyStoneDetector;
-
     public GeneralDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
         this.hardwareMap = hwMap;
@@ -371,17 +367,7 @@ public class GeneralDetector {
     */
 
 
-    /*
-     * Returns an int based off the alignment of the skystone:
-     * 0 (left), 1 (center), or 2 (right)
-     * Alliance parameter: 1 (red), 2 (blue). These are the same values as the AutonomousData class
-     */
-    public int detectSkyStoneAlign(int alliance){
-        int result = 0; //will default to center if no value is detected
 
-
-        return result;
-    }
 
 
 }
