@@ -101,7 +101,7 @@ public class BeltBot_Outtake {
     // Uses left stick vert to control lift
     // Uses slide limiting
     private void manageLift(boolean slideLimiting){
-        double pow = -gamepad.left_stick_y*0.2;
+        double pow = -gamepad.left_stick_y*0.5;
         debugPow = pow;
         debugLift = autoExtend;
         debugLow = autoRetract;
@@ -161,7 +161,7 @@ public class BeltBot_Outtake {
     // Uses right stick vert to control horizontal slide
     // Uses slide limiting
     private void manageHorizontalSlide(){
-        double pow = gamepad.right_stick_y*0.5;
+        double pow = gamepad.right_stick_y;
 
         leftBelt.setPower(pow);
         rightBelt.setPower(-pow);

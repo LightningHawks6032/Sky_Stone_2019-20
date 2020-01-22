@@ -124,6 +124,16 @@ public class Auto {
         hardware.drivetrain.driveDistance(1, 0.5, 0.7);
         //
 
+        hardware.drivetrain.turn(90, quadrant != 1);
+        hardware.drivetrain.strafeDistance(directionS, distance, 0.8);
+        hardware.intake.clampersUp();
+
+
+
+        /*
+
+        //Old code that had the robot back up with the foundation
+
         hardware.drivetrain.driveDistance(-1, distance-4, 0.2);
         //hardware.drivetrain.goToBackwards(pos, 0.2);
 
@@ -135,6 +145,8 @@ public class Auto {
 
 
         //hardware.drivetrain.driveDistance(1,fieldMap.SQUARE_LENGTH, 0.5);
+
+        */
     }
 
     public void getFoundationStrafe (int quadrant) throws InterruptedException{
