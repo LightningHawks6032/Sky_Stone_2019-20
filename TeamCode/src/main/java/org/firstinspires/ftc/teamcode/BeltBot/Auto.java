@@ -231,6 +231,17 @@ public class Auto {
         hardware.outtake.horizontalSlidePowers(0);
     }
 
+    public void grabStone(int stone){
+
+        //movement to proper stone
+
+        hardware.intake.intakePowers(1);
+
+        //movement
+
+        hardware.intake.intakePowers(0);
+    }
+
     public void rotateFoundation(int quadrant) throws InterruptedException{
         hardware.intake.clampersDown();
         hardware.drivetrain.turn(90, (quadrant == 4));
