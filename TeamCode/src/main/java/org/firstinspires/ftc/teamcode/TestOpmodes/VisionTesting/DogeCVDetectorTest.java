@@ -15,14 +15,16 @@ public class DogeCVDetectorTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException{
         detect  = new DogeCVDetectorMethods(20, 10, hardwareMap);
         detect.initCameraConnection();
-
         int location;
 
+        waitForStart();
         location = detect.detectSkyStoneAlign();
 
         if(location == 0) telemetry.addLine("Left");
         else if(location == 1) telemetry.addLine("Center");
         else if(location == 2) telemetry.addLine("Right");
         telemetry.update();
+
+        Thread.sleep(10000);
     }
 }

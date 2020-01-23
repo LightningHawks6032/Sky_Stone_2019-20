@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.BeltBot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
+import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
 
 
 public class Auto {
     private LinearOpMode autonomous;
     private BeltBot_Hardware hardware;
+    private DogeCVDetectorMethods dogeCV;
     public FieldMap fieldMap = new FieldMap();
     private long startTime;
     public Vector startImage;
@@ -28,6 +31,7 @@ public class Auto {
         hardware.drivetrain.setStartTime(time);
         hardware.intake.setStartTime(time);
         hardware.outtake.setStartTime(time);
+        dogeCV.setStartTime(time);
     }
 
 
@@ -231,15 +235,63 @@ public class Auto {
         hardware.outtake.horizontalSlidePowers(0);
     }
 
-    public void grabStone(int stone){
+    public void grabFirstStone(int stone, int alliance) throws InterruptedException{
+        //Int stone: 0 = Left, 1 = center, 2 = right
 
-        //movement to proper stone
+        int buffer = 5;
+        int strafeAwayDist = 5;
+        int nudgeDist = 4;
+        /* Plan of action: approach the stone (or air) to the side of the skystone that is facing
+         * the bridges, knock it out of place, strafe away from the skystone, turn towards the
+         * skystone, engage the intake flippers, and intake it
+         */
 
-        hardware.intake.intakePowers(1);
+        //absolute value of distance needed to travel to get into place
+        double strafeDist = buffer + Math.abs(hardware.drivetrain.robotPos.getX())+fieldMap.HALF_ROBOT_WIDTH-fieldMap.SQUARE_LENGTH;
+        int strafeDirection = -1;
+        int innerStone = 0;
 
-        //movement
+        //initializes the direction of the target strafe/stone based off of the alliance (right if red)
+        if(alliance == AutonomousData.RED_ALLIANCE){
+            strafeDirection = 1;
+            innerStone = 2;
+        }
 
-        hardware.intake.intakePowers(0);
+        //adjustment to move to the proper stone
+        if(stone == innerStone){
+            //no movement
+        }else if(stone == 1){
+            strafeDist += fieldMap.STONE_WIDTH;
+        }else{
+            strafeDist += 2*fieldMap.STONE_WIDTH;
+        }
+
+        //strafes appropriate distance and direction
+        hardware.drivetrain.strafeDistance(strafeDirection, strafeDist, 0.6);
+
+        //intake procedure
+
+        if(stone == innerStone){
+            //grab from edge of stone formation, different procedure
+            //positioning:
+            hardware.drivetrain.driveDistance(1, (1.5*fieldMap.SQUARE_LENGTH-fieldMap.HALF_ROBOT_LENGTH), 0.6);
+            hardware.drivetrain.turn(45, strafeDirection == -1);
+            hardware.intake.clampersDown();
+            //hardware.intake.clampersUp();
+            hardware.intake.intakePowers(1);
+            hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*2, 0.4);
+        }else{
+            //moves appropriate distance and direction (with nudge)
+            hardware.drivetrain.driveDistance(1, (2*fieldMap.SQUARE_LENGTH-fieldMap.HALF_ROBOT_LENGTH) + nudgeDist, 0.6);
+            //grabbing stone
+            hardware.drivetrain.strafeDistance(strafeDirection, strafeAwayDist, 0.6);
+            hardware.drivetrain.turn(90, strafeDirection == -1);
+            hardware.intake.clampersDown();
+            //hardware.intake.clampersUp();
+            hardware.intake.intakePowers(1);
+            hardware.drivetrain.driveDistance(1, strafeAwayDist+fieldMap.STONE_WIDTH+(2*buffer), 0.4);
+        }
+
     }
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
@@ -255,6 +307,10 @@ public class Auto {
 
     public void rest() throws InterruptedException{
         Thread.sleep(0*1000);
+    }
+
+    public boolean autoRunning() {
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 
 }

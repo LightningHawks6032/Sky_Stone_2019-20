@@ -19,6 +19,8 @@ public class FieldMap {
     public final double ROBOT_WIDTH = 16;
     public final double HALF_ROBOT_WIDTH = ROBOT_WIDTH/2;
 
+    public final double STONE_WIDTH = SQUARE_LENGTH/3;
+
     public double pos2X = (SQUARE_LENGTH*2-HALF_ROBOT_WIDTH);
     public double pos2Y = 72-HALF_ROBOT_LENGTH;
 

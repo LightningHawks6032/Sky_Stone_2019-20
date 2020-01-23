@@ -82,6 +82,11 @@ public class SkystoneDetectorExample extends LinearOpMode {
             telemetry.addData("Pipeline time ms", phoneCam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", phoneCam.getOverheadTimeMs());
             telemetry.addData("Theoretical max FPS", phoneCam.getCurrentPipelineMaxFps());
+
+            if(skyStoneDetector.getScreenPosition().x < 100) telemetry.addLine("Left");
+            else if(skyStoneDetector.getScreenPosition().x > 150) telemetry.addLine("Right");
+            else telemetry.addLine("Center");
+
             telemetry.update();
 
             /*
