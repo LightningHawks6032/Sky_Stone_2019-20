@@ -30,7 +30,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
     private double wheelDiameter = 4.4;
 
-    private final double ORIGINAL_BOOST = 0.55;
+    private final double ORIGINAL_BOOST = 0.75;
     private double boost = ORIGINAL_BOOST;
 
     // AUTO BASED VARIABLES

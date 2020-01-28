@@ -19,8 +19,8 @@ public class BeltBot_Intake {
 
     public DcMotor leftIntake;
     public DcMotor rightIntake;
-    public CRServo leftIntakeExtender;
-    public CRServo rightIntakeExtender;
+    //public CRServo leftIntakeExtender;
+    //public CRServo rightIntakeExtender;
     public Servo leftFoundation;
     public Servo rightFoundation;
     private Gamepad gamepad;
@@ -34,14 +34,14 @@ public class BeltBot_Intake {
                          RIGHT_FOUNDATION_DOWN = 0.75;
 
 
-    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad, CRServo lie, CRServo rie){
+    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad/*, CRServo lie, CRServo rie*/){
         leftIntake = li;
         rightIntake = ri;
         leftFoundation = lf;
         rightFoundation = rf;
         gamepad = manipsGamepad;
-        leftIntakeExtender = lie;
-        rightIntakeExtender = rie;
+        //leftIntakeExtender = lie;
+        //rightIntakeExtender = rie;
     }
 
     public void initHardware(){
@@ -49,8 +49,8 @@ public class BeltBot_Intake {
         rightIntake.setDirection(DcMotor.Direction.FORWARD);
         //rightFoundation.setPosition(RIGHT_FOUNDATION_UP);
         //leftFoundation.setPosition(LEFT_FOUNDATION_UP);
-        leftIntakeExtender.setDirection(CRServo.Direction.FORWARD);
-        rightIntakeExtender.setDirection(CRServo.Direction.FORWARD);
+        //leftIntakeExtender.setDirection(CRServo.Direction.FORWARD);
+        //rightIntakeExtender.setDirection(CRServo.Direction.FORWARD);
     }
 
     //General Methods
@@ -105,10 +105,10 @@ public class BeltBot_Intake {
     private void manageIntake(){
         if (gamepad.a){
             //in
-            intakePowers(0.6);
+            intakePowers(0.5);
         }else if (gamepad.y){
             //out
-            intakePowers(-0.6);
+            intakePowers(-0.5);
         }else{
             intakePowers(0);
         }
@@ -117,8 +117,8 @@ public class BeltBot_Intake {
     public void intakePowers(double pow){
         leftIntake.setPower(-pow);
         rightIntake.setPower(pow);
-        leftIntakeExtender.setPower(pow);
-        rightIntakeExtender.setPower(-pow);
+        //leftIntakeExtender.setPower(pow);
+        //rightIntakeExtender.setPower(-pow);
     }
 
 
