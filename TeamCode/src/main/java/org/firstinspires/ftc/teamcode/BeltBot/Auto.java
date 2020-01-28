@@ -196,6 +196,33 @@ public class Auto {
         }
     }
 
+
+    // @Param angleToTurnRight: angle to turn to face foundation, negative if left
+    private void driveToParkFromStone (int angleToTurnRight , double fromX, double fromY, boolean inner, int alliance) throws InterruptedException{
+        Vector target;
+
+        if(alliance == AutonomousData.RED_ALLIANCE){
+            if(inner) target = fieldMap.get(FieldElement.RINNERPARK);
+            else target = fieldMap.get(FieldElement.ROUTERPARK);
+        }else{
+            if(inner) target = fieldMap.get(FieldElement.BINNERPARK);
+            else target = fieldMap.get(FieldElement.BOUTERPARK);
+        }
+
+        boolean right = true;
+        int turnAngle = angleToTurnRight;
+        if(turnAngle <0) {
+            right = false;
+            turnAngle = Math.abs(turnAngle);
+        }
+        int strafe = 1;
+        if(target.getY() > fromY) strafe = -1;
+
+        hardware.drivetrain.turn(turnAngle, right);
+        hardware.drivetrain.strafeDistance(strafe, target.getY() - fromY, 0.6);
+        hardware.drivetrain.driveDistance(1, Math.abs(target.getX()-fromX), 0.6);
+    }
+
     // *includes moving to nudging position and parking afterwards
     public void nudgeFoundation(int quadrant, boolean toInner) throws InterruptedException{
         //assumes init pos as pos after foundation move, facing the respective park
@@ -235,18 +262,23 @@ public class Auto {
         hardware.outtake.horizontalSlidePowers(0);
     }
 
-    public void grabFirstStone(int stone, int alliance) throws InterruptedException{
+    public void grabFirstStonePark(int stone, int alliance, boolean inner) throws InterruptedException{
         //Int stone: 0 = Left, 1 = center, 2 = right
-
+        double x = -1, y = alliance-2;
+        int toTurn = -(alliance-2);
         int buffer = 5;
         int strafeAwayDist = 5;
         int nudgeDist = 4;
-        /* Plan of action: approach the stone (or air) to the side of the skystone that is facing
+        /* Plan of action: approach the stone to the side of the skystone that is facing
          * the bridges, knock it out of place, strafe away from the skystone, turn towards the
          * skystone, engage the intake flippers, and intake it
+         *   -If the chosen is the one closest to the center of the field, then approach it at a
+         *    45 degree angle and intake it from there
+         * park (or at least get into a common area) and deposit the stone afterwards
          */
 
         //absolute value of distance needed to travel to get into place
+        //considering that the starting x is in the middle of the middle square
         double strafeDist = buffer + Math.abs(hardware.drivetrain.robotPos.getX())+fieldMap.HALF_ROBOT_WIDTH-fieldMap.SQUARE_LENGTH;
         int strafeDirection = -1;
         int innerStone = 0;
@@ -280,6 +312,11 @@ public class Auto {
             //hardware.intake.clampersUp();
             hardware.intake.intakePowers(1);
             hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*2, 0.4);
+            hardware.intake.intakePowers(0);
+            hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH*2, 0.4);
+            y *= (1.5*fieldMap.SQUARE_LENGTH);
+            x *= fieldMap.get(FieldElement.BPOS1).getX()+(strafeDist);
+            toTurn *= 135;
         }else{
             //moves appropriate distance and direction (with nudge)
             hardware.drivetrain.driveDistance(1, (2*fieldMap.SQUARE_LENGTH-fieldMap.HALF_ROBOT_LENGTH) + nudgeDist, 0.6);
@@ -290,8 +327,13 @@ public class Auto {
             //hardware.intake.clampersUp();
             hardware.intake.intakePowers(1);
             hardware.drivetrain.driveDistance(1, strafeAwayDist+fieldMap.STONE_WIDTH+(2*buffer), 0.4);
+            hardware.intake.intakePowers(0);
+            hardware.drivetrain.driveDistance(-1, strafeAwayDist+fieldMap.STONE_WIDTH+(2*buffer), 0.4);
+            x *= fieldMap.get(FieldElement.BPOS1).getX()+(strafeDist+strafeAwayDist);
+            y *= 2*fieldMap.SQUARE_LENGTH;
+            toTurn *= 180;
         }
-
+        driveToParkFromStone(toTurn, x, y, inner, alliance);
     }
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
