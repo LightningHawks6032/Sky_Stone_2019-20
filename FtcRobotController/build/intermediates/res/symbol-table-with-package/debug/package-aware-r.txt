@@ -705,6 +705,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable skystone_background
+drawable team_logo
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id RelativeLayout
@@ -830,6 +831,7 @@ id idActiveConfigHeader
 id idActiveConfigName
 id image
 id imageView
+id imageView3
 id included_header
 id inclusionlayout
 id info
