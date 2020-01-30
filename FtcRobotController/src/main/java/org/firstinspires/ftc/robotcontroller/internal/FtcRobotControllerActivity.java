@@ -603,7 +603,7 @@ public class FtcRobotControllerActivity extends Activity
     }
     else if (id == R.id.action_restart_robot) {
       dimmer.handleDimTimer();
-      AppUtil.getInstance().showToast(UILocation.BOTH, context.getString(R.string.toastRestartingRobot));
+      AppUtil.getInstance().showToast(UILocation.BOTH, /*context.getString(R.string.toastRestartingRobot)*/ "You couldn't live with your own failure");
       requestRobotRestart();
       return true;
     }
@@ -745,7 +745,7 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   private void requestRobotRestart() {
-    AppUtil.getInstance().showToast(UILocation.BOTH, AppUtil.getDefContext().getString(R.string.toastRestartingRobot));
+    AppUtil.getInstance().showToast(UILocation.BOTH, /*AppUtil.getDefContext().getString(R.string.toastRestartingRobot)*/ "And where did that bring you?");
     //
     RobotLog.clearGlobalErrorMsg();
     RobotLog.clearGlobalWarningMsg();
@@ -758,7 +758,7 @@ public class FtcRobotControllerActivity extends Activity
   }
 
   private void showRestartRobotCompleteToast(@StringRes int resid) {
-    AppUtil.getInstance().showToast(UILocation.BOTH, AppUtil.getDefContext().getString(resid));
+    AppUtil.getInstance().showToast(UILocation.BOTH, /*AppUtil.getDefContext().getString(resid)*/ "Back to me.");
   }
 
   private void checkPreferredChannel() {
