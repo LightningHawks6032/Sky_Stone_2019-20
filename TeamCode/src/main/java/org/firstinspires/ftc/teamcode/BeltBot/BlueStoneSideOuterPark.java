@@ -22,11 +22,12 @@ public class BlueStoneSideOuterPark extends LinearOpMode {
         auto.setStartPosition(QUADRANT);
         hardware.sounds.playMegalovenia();
         telemetry.addLine("Ready");
+        telemetry.update();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        hardware.drivetrain.turn(90, false);
-        hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
+        int stoneNum = auto.dogeCV.detectSkyStoneAlign();
+        auto.grabFirstStonePark(stoneNum, ALLIANCE, false);
     }
 }

@@ -56,7 +56,7 @@ public class DogeCVDetectorMethods {
         int result = 1; //will default to center if no value is detected
 
         //Thread.sleep(4000);
-
+        initCameraConnection();
         double initTime = System.currentTimeMillis();
 
         int numLeft = 0;
@@ -81,6 +81,7 @@ public class DogeCVDetectorMethods {
         }
 
 
+        closeCameraConnection();
         return result;
     }
 

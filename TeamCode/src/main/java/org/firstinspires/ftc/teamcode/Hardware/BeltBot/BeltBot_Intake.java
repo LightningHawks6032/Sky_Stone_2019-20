@@ -124,8 +124,9 @@ public class BeltBot_Intake {
 
     //Auto methods
 
-    public void intakeForTime (double secs) throws InterruptedException{
-        intakePowers(1);
+    //direction: 1 for in, -1 for out
+    public void intakeForTime (double secs, int direction) throws InterruptedException{
+        intakePowers(1*direction);
         Thread.sleep((long) secs*1000);
         intakePowers(0);
     }

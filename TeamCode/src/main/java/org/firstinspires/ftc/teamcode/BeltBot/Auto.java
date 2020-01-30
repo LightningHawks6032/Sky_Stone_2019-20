@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
 public class Auto {
     private LinearOpMode autonomous;
     private BeltBot_Hardware hardware;
-    private DogeCVDetectorMethods dogeCV;
+    public DogeCVDetectorMethods dogeCV;
     public FieldMap fieldMap = new FieldMap();
     private long startTime;
     public Vector startImage;
@@ -20,7 +20,6 @@ public class Auto {
     public Auto(LinearOpMode auto, BeltBot_Hardware hardware){
         autonomous = auto;
         this.hardware = hardware;
-
         hardware.drivetrain.setAuto(auto);
         hardware.intake.setAuto(auto);
         hardware.outtake.setAuto(auto);
