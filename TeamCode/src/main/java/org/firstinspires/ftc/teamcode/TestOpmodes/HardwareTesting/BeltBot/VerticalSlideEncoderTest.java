@@ -26,6 +26,8 @@ public class VerticalSlideEncoderTest extends OpMode {
         rightLiftEncoder = new Encoder(rightLift, AutonomousData.NEVEREST_20_ENCODER, 0);
         leftLiftEncoder.runWith();
         rightLiftEncoder.runWith();
+        leftLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void loop(){

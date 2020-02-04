@@ -117,8 +117,8 @@ public class BeltBot_Intake {
     public void intakePowers(double pow){
         leftIntake.setPower(-pow);
         rightIntake.setPower(pow);
-        leftIntakeExtender.setPower(pow);
-        rightIntakeExtender.setPower(-pow);
+        leftIntakeExtender.setPower(pow*2);
+        rightIntakeExtender.setPower(-pow*2);
     }
 
 

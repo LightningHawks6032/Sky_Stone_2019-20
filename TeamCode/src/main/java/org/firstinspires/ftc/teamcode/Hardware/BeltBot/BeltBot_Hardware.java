@@ -54,6 +54,7 @@ public class BeltBot_Hardware implements RobotHardware{
                 hardwareMap.get(CRServo.class, "rb"), //right horiz. belt
                 hardwareMap.get(DcMotor.class, "ll"), //left lifter
                 hardwareMap.get(DcMotor.class, "rl"), //right lifter
+                hardwareMap.get(Servo.class, "cs"), //capStoner
                 manipsGamepad
         );
         detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);

@@ -27,6 +27,8 @@ public class BeltBot_Outtake {
     public DcMotor leftLift;
     public DcMotor rightLift;
 
+    public Servo capStoner;
+
     public Encoder leftLiftEncoder;
     public Encoder rightLiftEncoder;
 
@@ -36,20 +38,19 @@ public class BeltBot_Outtake {
     private long startTime;
 
     //Encoder positions
-    private final double LEFT_LIFT_UPPER_ENCODER = 1800;
-    private final double LEFT_LIFT_LOWER_ENCODER = 0;
-    private final double RIGHT_LIFT_UPPER_ENCODER = -1800;
-    private final double RIGHT_LIFT_LOWER_ENCODER = 0;
-    private final double ENCODER_MARGIN_OF_ERROR = 50;
+    private final double LEFT_LIFT_UPPER_ENCODER = 1800, LEFT_LIFT_LOWER_ENCODER = 0,
+    RIGHT_LIFT_UPPER_ENCODER = -1800, RIGHT_LIFT_LOWER_ENCODER = 0, ENCODER_MARGIN_OF_ERROR = 50, TOP_AUTO_EXTEND = 601,
+    CAPPED_STONE = 0.4, UNCAPPED_STONE = 0.0;
 
 
-    public BeltBot_Outtake (CRServo fc, CRServo bc, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Gamepad manipsGamepad){
+    public BeltBot_Outtake (CRServo fc, CRServo bc, CRServo lb, CRServo rb, DcMotor ll, DcMotor rl, Servo cs, Gamepad manipsGamepad){
         frontClaw = fc;
         backClaw = bc;
         leftBelt = lb;
         rightBelt = rb;
         leftLift = ll;
         rightLift = rl;
+        capStoner = cs;
         gamepad = manipsGamepad;
 
         leftLiftEncoder = new Encoder(ll, AutonomousData.NEVEREST_20_ENCODER, 0);
@@ -85,6 +86,7 @@ public class BeltBot_Outtake {
         manageLift(slideLimiting);
         manageHorizontalSlide();
         manageOGrabMe();
+        cap();
     }
 
     // Conditions for auto retract/extend
@@ -97,11 +99,13 @@ public class BeltBot_Outtake {
     public String testLocation = "";
     private boolean autoRetract = false;
     private boolean autoExtend = false;
+    private double restingEncoder, prevRestingEncoder = 0;
 
     // Uses left stick vert to control lift
     // Uses slide limiting
     private void manageLift(boolean slideLimiting){
-        double pow = -gamepad.left_stick_y*0.5;
+        double pow = -gamepad.left_stick_y*0.6;
+
         debugPow = pow;
         debugLift = autoExtend;
         debugLow = autoRetract;
@@ -109,6 +113,7 @@ public class BeltBot_Outtake {
         double averageEncoder = -(leftLiftEncoder.getEncoderCount() + -(rightLiftEncoder.getEncoderCount()))/2;
         //double averageEncoder = leftLiftEncoder.getEncoderCount();
         debugEncoder = averageEncoder;
+        restingEncoder = averageEncoder;
 
         if(slideLimiting) {
 
@@ -123,7 +128,7 @@ public class BeltBot_Outtake {
                 rightLift.setPower(pow);
                 testLocation = "reached";
             }
-            else if (autoExtend && averageEncoder < LEFT_LIFT_UPPER_ENCODER){ //move up automatically
+            else if (autoExtend && averageEncoder < /*LEFT_LIFT_UPPER_ENCODER*/ TOP_AUTO_EXTEND){ //move up automatically
                 //autoRetract = false;
                 testLocation = "not reached";
                 leftLift.setPower(-0.4);
@@ -138,8 +143,14 @@ public class BeltBot_Outtake {
                 testLocation = "not reached";
                 autoRetract = false;
                 autoExtend = false;
-                leftLift.setPower(0);
-                rightLift.setPower(0);
+                if(restingEncoder < prevRestingEncoder){
+                    leftLift.setPower(-0.2);
+                    rightLift.setPower(0.2);
+                }else {
+                    leftLift.setPower(0);
+                    rightLift.setPower(0);
+                }
+
             }
 
 
@@ -156,12 +167,13 @@ public class BeltBot_Outtake {
             autoExtend = true;
             autoRetract = false;
         }
+        prevRestingEncoder = restingEncoder;
     }
 
     // Uses right stick vert to control horizontal slide
     // Uses slide limiting
     private void manageHorizontalSlide(){
-        double pow = gamepad.right_stick_y;
+        double pow = gamepad.right_stick_y*2;
 
         leftBelt.setPower(pow);
         rightBelt.setPower(-pow);
@@ -229,5 +241,10 @@ public class BeltBot_Outtake {
     public void horizontalSlidePowers(double pow){
         leftBelt.setPower(pow);
         rightBelt.setPower(-pow);
+    }
+
+    public void cap(){
+        if(gamepad.dpad_left) capStoner.setPosition(CAPPED_STONE);
+        else if (gamepad.dpad_right) capStoner.setPosition(UNCAPPED_STONE);
     }
 }
