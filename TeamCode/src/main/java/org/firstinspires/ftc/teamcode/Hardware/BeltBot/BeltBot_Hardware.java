@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.MRGyro;
 import org.firstinspires.ftc.teamcode.Hardware.MecanumWheelDrive;
 import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
+import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 public class BeltBot_Hardware implements RobotHardware{
@@ -23,6 +24,7 @@ public class BeltBot_Hardware implements RobotHardware{
     private final int ROBOT_CENTER_X = 225;
 
     public MecanumWheelDrive drivetrain;
+    public DogeCVDetectorMethods dogeCV;
     public BeltBot_Outtake outtake;
     public BeltBot_Intake intake;
     public GeneralDetector detector;
@@ -58,6 +60,7 @@ public class BeltBot_Hardware implements RobotHardware{
                 manipsGamepad
         );
         detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
+        dogeCV = new DogeCVDetectorMethods(0, 0, hardwareMap);
         sounds = new Sounds(hardwareMap);
     }
 

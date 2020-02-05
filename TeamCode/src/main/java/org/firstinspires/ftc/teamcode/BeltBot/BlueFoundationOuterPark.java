@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.BeltBot.Auto;
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
@@ -29,11 +30,13 @@ public class BlueFoundationOuterPark extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        auto.getFoundation(QUADRANT);
-        hardware.drivetrain.turn(90, true);
+        auto.getFoundation(QUADRANT, false);
+        //hardware.drivetrain.turn(90, true);
+        hardware.drivetrain.strafeDistance(-1, 5, 0.5);
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
         //auto.strafeToPark(true, QUADRANT);
 
         hardware.intake.clampersDown();
-        auto.nudgeFoundation(QUADRANT, false);
+        //auto.nudgeFoundation(QUADRANT, false);
     }
 }

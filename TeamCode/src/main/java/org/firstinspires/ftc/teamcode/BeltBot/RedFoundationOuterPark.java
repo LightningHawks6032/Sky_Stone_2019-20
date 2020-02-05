@@ -29,7 +29,7 @@ public class RedFoundationOuterPark extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        auto.getFoundation(QUADRANT);
+        auto.getFoundation(QUADRANT, false);
         hardware.drivetrain.turn(90, false);
         //auto.strafeToPark(true, QUADRANT);
 

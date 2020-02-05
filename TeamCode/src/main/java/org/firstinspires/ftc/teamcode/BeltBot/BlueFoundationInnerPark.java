@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
-@Autonomous (name = "Blue Foundation Side inner Park", group = "Autonomous")
+@Autonomous (name = "Blue Foundation Inner Park", group = "Autonomous")
 public class BlueFoundationInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
@@ -28,11 +28,19 @@ public class BlueFoundationInnerPark extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        auto.getFoundation(QUADRANT);
-        hardware.drivetrain.turn(90, true);
+        auto.getFoundation(QUADRANT, true);
+        //hardware.drivetrain.turn(90, true);
         //auto.strafeToPark(true, QUADRANT);
 
+        //hardware.intake.clampersUp();
+        //auto.nudgeFoundation(QUADRANT, true);
+
+        //hardware.drivetrain.strafeDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
+
+
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.7, 0.5);
+
+
         hardware.intake.clampersDown();
-        auto.nudgeFoundation(QUADRANT, true);
     }
 }

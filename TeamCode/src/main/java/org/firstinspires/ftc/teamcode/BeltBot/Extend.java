@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.BeltBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
+@Autonomous(name = "extend")
 public class Extend extends LinearOpMode {
 
     private BeltBot_Hardware hardware;

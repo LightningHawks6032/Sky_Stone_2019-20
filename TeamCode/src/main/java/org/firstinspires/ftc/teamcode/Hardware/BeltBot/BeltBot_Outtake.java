@@ -143,13 +143,16 @@ public class BeltBot_Outtake {
                 testLocation = "not reached";
                 autoRetract = false;
                 autoExtend = false;
+                /*
                 if(restingEncoder < prevRestingEncoder){
                     leftLift.setPower(-0.2);
                     rightLift.setPower(0.2);
                 }else {
+
+                 */
                     leftLift.setPower(0);
                     rightLift.setPower(0);
-                }
+                //}
 
             }
 

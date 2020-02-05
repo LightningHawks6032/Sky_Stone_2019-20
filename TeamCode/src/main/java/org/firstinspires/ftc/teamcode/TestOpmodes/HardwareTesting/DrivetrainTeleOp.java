@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Hardware.MRGyro;
 import org.firstinspires.ftc.teamcode.Hardware.MecanumWheelDrive;
 
 @TeleOp(name = "Drivtrain TeleOp", group = "Iterative Opmode")
-@Disabled
+//@Disabled
 public class DrivetrainTeleOp extends OpMode {
     private MecanumWheelDrive drive;
 
@@ -37,8 +37,8 @@ public class DrivetrainTeleOp extends OpMode {
         );
         leftFoundation = hardwareMap.get(Servo.class, "lf");
         rightFoundation = hardwareMap.get(Servo.class, "rf");
-        ExampleThread t1 = new ExampleThread(this);
-        t1.start();
+        //ExampleThread t1 = new ExampleThread(this);
+        //t1.start();
         //drive.setAllDirections(DcMotorSimple.Direction.REVERSE);
         //drive.setDirections(DcMotorSimple.Direction.REVERSE, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.FORWARD, DcMotorSimple.Direction.REVERSE);
     }
@@ -61,6 +61,7 @@ public class DrivetrainTeleOp extends OpMode {
         //////////////////////
         telemetry.addData("Gyro heading: ", drive.gyro.getHeading());
         telemetry.addData("Gyro Angle: ", drive.gyro.getAngle());
+        telemetry.addData("IMU heading: ", drive.imu.getHeading());
         telemetry.update();
     }
 }

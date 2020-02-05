@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.BeltBot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
@@ -7,6 +8,8 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
+
+import java.util.logging.Handler;
 
 
 public class Auto {
@@ -23,6 +26,7 @@ public class Auto {
         hardware.drivetrain.setAuto(auto);
         hardware.intake.setAuto(auto);
         hardware.outtake.setAuto(auto);
+        dogeCV = hardware.dogeCV;
     }
 
     public void setStartTime(long time) {
@@ -104,7 +108,7 @@ public class Auto {
 
     }
 
-    public void getFoundation (int quadrant) throws InterruptedException{
+    public void getFoundation (int quadrant, boolean inner) throws InterruptedException{
         hardware.intake.clampersUp();
 
         int targetY = (int) fieldMap.SQUARE_LENGTH;
@@ -116,7 +120,7 @@ public class Auto {
         if(quadrant == 1) directionS = -1; else directionS = 1;
 
         //utilized to get in place
-        hardware.drivetrain.strafeDistance(directionS, fieldMap.HALF_SQUARE_LENGTH, 0.5);
+        hardware.drivetrain.strafeDistance(directionS, fieldMap.HALF_SQUARE_LENGTH*0.75, 0.5);
 
         hardware.drivetrain.driveDistance(1, distance, 0.3);
         //Vector pos = new Vector (hardware.drivetrain.robotPos.getX(), hardware.drivetrain.robotPos.getY());
@@ -125,11 +129,14 @@ public class Auto {
         hardware.intake.clampersDown();
         //jimmies forward
         hardware.drivetrain.driveDistance(1, 0.5, 0.7);
-        //
+        //jimmies back
+        hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH*1.1, 0.6);
 
-        hardware.drivetrain.turn(90, quadrant != 1);
-        hardware.drivetrain.strafeDistance(directionS, distance, 0.8);
+        hardware.drivetrain.turn(85, quadrant != 1);
         hardware.intake.clampersUp();
+        hardware.drivetrain.driveDistance(1, 10, 0.7);
+        if(!inner) hardware.drivetrain.strafeDistance(directionS, distance, 0.8);
+
 
 
 
