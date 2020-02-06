@@ -30,10 +30,15 @@ public class RedFoundationOuterPark extends LinearOpMode {
 
         auto.rest();
         auto.getFoundation(QUADRANT, false);
-        hardware.drivetrain.turn(90, false);
+        //hardware.drivetrain.turn(90, false);
         //auto.strafeToPark(true, QUADRANT);
 
+
+        //auto.nudgeFoundation(QUADRANT, false);
+
+        hardware.drivetrain.strafeDistance(1, 5, 0.5);
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
+        
         hardware.intake.clampersDown();
-        auto.nudgeFoundation(QUADRANT, false);
     }
 }

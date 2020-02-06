@@ -30,10 +30,14 @@ public class RedFoundationInnerPark extends LinearOpMode {
 
         auto.rest();
         auto.getFoundation(QUADRANT, true);
-        hardware.drivetrain.turn(90, false);
+        //hardware.drivetrain.turn(90, false);
         //auto.strafeToPark(true, QUADRANT);
 
+        //hardware.intake.clampersDown();
+        //auto.nudgeFoundation(QUADRANT, true);
+
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.7, 0.5);
+
         hardware.intake.clampersDown();
-        auto.nudgeFoundation(QUADRANT, true);
     }
 }
