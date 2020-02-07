@@ -36,7 +36,8 @@ public class RedFoundationInnerPark extends LinearOpMode {
         //hardware.intake.clampersDown();
         //auto.nudgeFoundation(QUADRANT, true);
 
-        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.7, 0.5);
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*2, 0.5);
+        hardware.drivetrain.strafeDistance(-1, auto.fieldMap.STONE_WIDTH*2, 0.6);
 
         hardware.intake.clampersDown();
     }

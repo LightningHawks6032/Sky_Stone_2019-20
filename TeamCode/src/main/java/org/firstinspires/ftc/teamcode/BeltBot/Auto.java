@@ -37,6 +37,13 @@ public class Auto {
         dogeCV.setStartTime(time);
     }
 
+    //Precondition: edge of the robot is on the edge of the field closer to the park (robot is 1 square from park)
+    public void depotSidePark(boolean inner, int alliance) throws InterruptedException{
+        if(inner) hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.drivetrain.turn(90, alliance == AutonomousData.RED_ALLIANCE);
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.6);
+    }
+
 
     //sets the start position of the robot dependent
     public void setStartPosition(int quadrant) throws InterruptedException{
@@ -296,6 +303,7 @@ public class Auto {
         }
 
         //adjustment to move to the proper stone
+        /*
         if(stone == innerStone){
             //no movement
         }else if(stone == 1){
@@ -303,6 +311,8 @@ public class Auto {
         }else{
             strafeDist += 2*fieldMap.STONE_WIDTH;
         }
+        */
+
 
         //strafes appropriate distance and direction
         hardware.drivetrain.strafeDistance(strafeDirection, strafeDist, 0.6);
@@ -339,7 +349,7 @@ public class Auto {
             y *= 2*fieldMap.SQUARE_LENGTH;
             toTurn *= 180;
         }
-        driveToParkFromStone(toTurn, x, y, inner, alliance);
+        //driveToParkFromStone(toTurn, x, y, inner, alliance);
     }
 
     public void rotateFoundation(int quadrant) throws InterruptedException{

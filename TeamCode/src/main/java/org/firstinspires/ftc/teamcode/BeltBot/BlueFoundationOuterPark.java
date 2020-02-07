@@ -33,7 +33,7 @@ public class BlueFoundationOuterPark extends LinearOpMode {
         auto.getFoundation(QUADRANT, false);
         //hardware.drivetrain.turn(90, true);
         hardware.drivetrain.strafeDistance(-1, 5, 0.5);
-        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*2, 0.5);
         //auto.strafeToPark(true, QUADRANT);
 
         hardware.intake.clampersDown();

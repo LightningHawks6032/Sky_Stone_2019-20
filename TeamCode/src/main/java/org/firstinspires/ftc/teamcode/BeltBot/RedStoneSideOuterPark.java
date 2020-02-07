@@ -29,7 +29,8 @@ public class RedStoneSideOuterPark extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        int stoneNum = auto.dogeCV.detectSkyStoneAlign();
-        auto.grabFirstStonePark(stoneNum, ALLIANCE, false);
+        //int stoneNum = auto.dogeCV.detectSkyStoneAlign();
+        //auto.grabFirstStonePark(stoneNum, ALLIANCE, false);
+        auto.depotSidePark(false, ALLIANCE);
     }
 }

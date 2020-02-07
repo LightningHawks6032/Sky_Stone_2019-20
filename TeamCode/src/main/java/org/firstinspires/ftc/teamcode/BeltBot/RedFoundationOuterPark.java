@@ -37,8 +37,8 @@ public class RedFoundationOuterPark extends LinearOpMode {
         //auto.nudgeFoundation(QUADRANT, false);
 
         hardware.drivetrain.strafeDistance(1, 5, 0.5);
-        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*1.5, 0.5);
-        
+        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH*2, 0.5);
+
         hardware.intake.clampersDown();
     }
 }
