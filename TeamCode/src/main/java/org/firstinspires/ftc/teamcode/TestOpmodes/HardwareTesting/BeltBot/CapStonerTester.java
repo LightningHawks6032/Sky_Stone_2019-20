@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.TestOpmodes.ServoTester;
 
 @TeleOp(name="Capstone Servo Test", group="Test Opmode")
-//@Disabled
+@Disabled
 
 public class CapStonerTester extends OpMode {
     private ServoTester capStonerTester;

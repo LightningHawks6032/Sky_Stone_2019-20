@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
 @Autonomous(name = "Auto Tester", group = "Autonomous Tests")
+@Disabled
 public class MethodDumpingGrounds extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private FieldMap map;

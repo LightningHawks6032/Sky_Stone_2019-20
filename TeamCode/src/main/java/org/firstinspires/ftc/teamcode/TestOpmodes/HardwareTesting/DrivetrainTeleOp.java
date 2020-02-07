@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.Hardware.MRGyro;
 import org.firstinspires.ftc.teamcode.Hardware.MecanumWheelDrive;
 
 @TeleOp(name = "Drivtrain TeleOp", group = "Iterative Opmode")
-//@Disabled
+@Disabled
 public class DrivetrainTeleOp extends OpMode {
     private MecanumWheelDrive drive;
 

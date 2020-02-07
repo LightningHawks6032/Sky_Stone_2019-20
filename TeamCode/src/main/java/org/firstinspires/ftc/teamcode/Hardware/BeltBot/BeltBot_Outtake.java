@@ -119,7 +119,7 @@ public class BeltBot_Outtake {
 
             condition1 = (pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR);
             condition2 = (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR);
-            if ((pow > 0 && averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR) || (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
+            if ((pow > 0 )/*&& averageEncoder <= LEFT_LIFT_UPPER_ENCODER+ENCODER_MARGIN_OF_ERROR)*/ || (pow < 0 && averageEncoder >= LEFT_LIFT_LOWER_ENCODER-ENCODER_MARGIN_OF_ERROR)) {
                 //condition for when going up and the encoder count allows to go up more or going down and the encoder count allows to go down more
 
                 //autoExtend = false;
@@ -247,7 +247,7 @@ public class BeltBot_Outtake {
     }
 
     public void cap(){
-        if(gamepad.dpad_left) capStoner.setPosition(CAPPED_STONE);
-        else if (gamepad.dpad_right) capStoner.setPosition(UNCAPPED_STONE);
+        if(gamepad.left_bumper) capStoner.setPosition(CAPPED_STONE);
+        else if (gamepad.right_bumper) capStoner.setPosition(UNCAPPED_STONE);
     }
 }

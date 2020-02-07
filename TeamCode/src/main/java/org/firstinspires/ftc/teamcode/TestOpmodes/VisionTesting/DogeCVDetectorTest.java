@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.VisionTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
 
 @Autonomous (name = "Detector Auto Test", group = "Autonomous Testing")
+@Disabled
 public class DogeCVDetectorTest extends LinearOpMode {
 
     private DogeCVDetectorMethods detect;
