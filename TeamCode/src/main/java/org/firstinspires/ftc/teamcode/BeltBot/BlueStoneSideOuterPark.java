@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
-@Autonomous(name = "Blue Depot Side Outer Park", group = "Autonomous")
+@Autonomous(name = "Move Forwards", group = "Autonomous")
 public class BlueStoneSideOuterPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
@@ -29,6 +29,7 @@ public class BlueStoneSideOuterPark extends LinearOpMode {
         auto.rest();
         //int stoneNum = auto.dogeCV.detectSkyStoneAlign();
         //auto.grabFirstStonePark(stoneNum, ALLIANCE, false);
-        auto.depotSidePark(false, ALLIANCE);
+        //auto.depotSidePark(false, ALLIANCE);
+        hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
     }
 }
