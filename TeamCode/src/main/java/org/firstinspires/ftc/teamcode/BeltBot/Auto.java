@@ -371,5 +371,47 @@ public class Auto {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 
+    //Precondition: starting w/ camera centered on center stone
+    //Return: 0 (left), 1 (center), or 2 (right)
+    //Alliance: red = 1, blue = 2; will check away from skybridge first
+    public int vuforiaStone(int alliance) throws InterruptedException{
+        int stoneNum = 0;
+        int direction = -1;
+        if(alliance == 1){
+            stoneNum = 2;
+            direction = 1;
+        }
+        hardware.detector.setupTracker();
+        hardware.detector.lookForTargets();
+        if(hardware.detector.stoneDetected){
+            stoneNum = 1;
+        }else{
+            hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.4);
+            if(hardware.detector.stoneDetected) stoneNum = 1-direction;
+        }
+
+        int targetY = (int) fieldMap.SQUARE_LENGTH;
+
+        double distance = (Math.abs(hardware.drivetrain.robotPos.getY()) - targetY);
+
+        double strafeDist = fieldMap.STONE_WIDTH;
+        int strafeDirect = 1;
+        if (stoneNum == 2 && alliance == 1){
+            strafeDist += 2*fieldMap.STONE_WIDTH;
+        }else if (stoneNum == 0 && alliance == 2){
+            strafeDirect = -1;
+        }
+
+        hardware.drivetrain.strafeDistance(strafeDirect, strafeDist, 0.4);
+
+        hardware.drivetrain.driveDistance(-1, distance, 0.5);
+
+        hardware.intake.grabStone();
+
+        hardware.drivetrain.driveDistance(-1, -5, 0.7);
+
+        return stoneNum;
+    }
+
 }
 

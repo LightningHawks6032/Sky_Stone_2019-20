@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Misc.Sounds;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @TeleOp (name = "General vision tester", group = "Test")
-@Disabled
+//@Disabled
 public class IsVisionWorking extends OpMode {
     private GeneralDetector detector;
     private Sounds sounds;

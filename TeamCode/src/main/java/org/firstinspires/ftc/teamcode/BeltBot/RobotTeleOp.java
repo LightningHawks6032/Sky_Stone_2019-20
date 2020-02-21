@@ -19,6 +19,9 @@ public class RobotTeleOp extends OpMode {
     public void loop(){
         hardware.manageTeleOp(limiting);
 
+        //telemetry.addData("Left Alpha Amount", hardware.leftCS.alpha());
+        //telemetry.addData("Right Alpha Amount", hardware.rightCS.alpha());
+
         telemetry.update();
 
         //off switch for slide limiting

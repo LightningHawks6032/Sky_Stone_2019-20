@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware.BeltBot;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -29,6 +30,8 @@ public class BeltBot_Hardware implements RobotHardware{
     public BeltBot_Intake intake;
     public GeneralDetector detector;
     public Sounds sounds;
+    public ColorSensor leftCS;
+    public ColorSensor rightCS;
 
     public BeltBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors){
         drivetrain = new MecanumWheelDrive(
@@ -47,7 +50,8 @@ public class BeltBot_Hardware implements RobotHardware{
                 hardwareMap.get(Servo.class, "rf"), //right flipper
                 manipsGamepad,
                 hardwareMap.get(CRServo.class, "lie"), //left intake extender
-                hardwareMap.get(CRServo.class, "rie") //right intake extender
+                hardwareMap.get(CRServo.class, "rie"), //right intake extender
+                hardwareMap.get(Servo.class, "sg") //stone grabber
         );
         outtake = new BeltBot_Outtake(
                 hardwareMap.get(CRServo.class, "fc"), //front claw
@@ -62,6 +66,8 @@ public class BeltBot_Hardware implements RobotHardware{
         detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         dogeCV = new DogeCVDetectorMethods(0, 0, hardwareMap);
         sounds = new Sounds(hardwareMap);
+        leftCS = hardwareMap.get(ColorSensor.class, "lcs");
+        rightCS = hardwareMap.get(ColorSensor.class, "rcs");
     }
 
     public void initHardware(){
@@ -76,4 +82,6 @@ public class BeltBot_Hardware implements RobotHardware{
         intake.manageFoundationClamp(drivetrain.gamepad);
         drivetrain.manageTeleOp();
     }
+
+
 }

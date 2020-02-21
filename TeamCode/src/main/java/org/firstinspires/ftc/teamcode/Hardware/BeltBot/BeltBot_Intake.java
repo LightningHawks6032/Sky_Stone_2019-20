@@ -23,6 +23,7 @@ public class BeltBot_Intake {
     public CRServo rightIntakeExtender;
     public Servo leftFoundation;
     public Servo rightFoundation;
+    public Servo stoneGrab;
     private Gamepad gamepad;
 
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -31,10 +32,13 @@ public class BeltBot_Intake {
     private final double LEFT_FOUNDATION_UP = 0,
                          LEFT_FOUNDATION_DOWN = 0.25,
                          RIGHT_FOUNDATION_UP = 0.95,
-                         RIGHT_FOUNDATION_DOWN = 0.75;
+                         RIGHT_FOUNDATION_DOWN = 0.75,
+                         STONEGRAB_UP = 0.025,
+                         STONEGRAB_DOWN = 0.7;
 
 
-    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad, CRServo lie, CRServo rie){
+
+    public BeltBot_Intake (DcMotor li, DcMotor ri, Servo lf, Servo rf, Gamepad manipsGamepad, CRServo lie, CRServo rie, Servo sg){
         leftIntake = li;
         rightIntake = ri;
         leftFoundation = lf;
@@ -42,6 +46,7 @@ public class BeltBot_Intake {
         gamepad = manipsGamepad;
         leftIntakeExtender = lie;
         rightIntakeExtender = rie;
+        stoneGrab = sg;
     }
 
     public void initHardware(){
@@ -51,6 +56,7 @@ public class BeltBot_Intake {
         //leftFoundation.setPosition(LEFT_FOUNDATION_UP);
         leftIntakeExtender.setDirection(CRServo.Direction.FORWARD);
         rightIntakeExtender.setDirection(CRServo.Direction.FORWARD);
+        stoneGrab.setPosition(STONEGRAB_UP);
     }
 
     //General Methods
@@ -63,6 +69,14 @@ public class BeltBot_Intake {
     public void clampersDown(){
         leftFoundation.setPosition(LEFT_FOUNDATION_DOWN);
         rightFoundation.setPosition(RIGHT_FOUNDATION_DOWN);
+    }
+
+    public void grabStone(){
+        stoneGrab.setPosition(STONEGRAB_DOWN);
+    }
+
+    public void ungrabStone(){
+        stoneGrab.setPosition(STONEGRAB_UP);
     }
 
     public void setStartTime(long time) {

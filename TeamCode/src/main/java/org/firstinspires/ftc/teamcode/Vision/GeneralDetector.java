@@ -27,7 +27,7 @@ public class GeneralDetector {
 
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
-    private static final boolean PHONE_IS_PORTRAIT = false;
+    private static final boolean PHONE_IS_PORTRAIT = true;
 
 
     public boolean stoneDetected = false;
@@ -235,6 +235,15 @@ public class GeneralDetector {
         }
 
         targetsSkyStone.activate();
+
+        //Turn flash on
+
+        com.vuforia.CameraDevice.getInstance().setFlashTorchMode(true);
+
+        //Zoom in
+
+        com.vuforia.CameraDevice.getInstance().setField("opti-zoom", "opti-zoom-on");
+        com.vuforia.CameraDevice.getInstance().setField("zoom", "40");
     }
 
     public void lookForTargets() {

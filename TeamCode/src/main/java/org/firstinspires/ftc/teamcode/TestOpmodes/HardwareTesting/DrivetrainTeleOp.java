@@ -62,6 +62,8 @@ public class DrivetrainTeleOp extends OpMode {
         telemetry.addData("Gyro heading: ", drive.gyro.getHeading());
         telemetry.addData("Gyro Angle: ", drive.gyro.getAngle());
         telemetry.addData("IMU heading: ", drive.imu.getHeading());
+
+
         telemetry.update();
     }
 }
