@@ -426,6 +426,23 @@ public class MecanumWheelDrive implements RobotHardware {
         turn(Math.abs(turnAngle), turnRight);
     }
 
+    public void turnToAngle(int angle) throws InterruptedException{
+        int turnAngle = (int)((360-robotAngle) -angle);
+
+        boolean turnRight = false;
+        if(Math.abs(turnAngle) > 180) {
+            turnAngle = (turnAngle/Math.abs(turnAngle))*(Math.abs(turnAngle)-360);
+        }
+
+        if(robotAngle < 90 && angle > 270){
+            if (turnAngle > 0) turnRight = true;
+        }else{
+            if (turnAngle < 0) turnRight = true;
+        }
+
+        turn(Math.abs(turnAngle), turnRight);
+    }
+
     public void strafeForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(pow, -pow, -pow, pow);

@@ -81,11 +81,16 @@ public class Auto {
     //facing: own (closest) wall by default; in method with facing as parameter:
     //                      1: closest wall 2: left (if forward is facing the wall) 3: farther wall 4: right
     public void setStartAngle(int quadrant){
+        /*
         if(quadrant == 1 || quadrant == 2){
             hardware.drivetrain.setInitialRobotAngle(270);
         }else {
             hardware.drivetrain.setInitialRobotAngle(90);
         }
+        */
+
+        hardware.drivetrain.setInitialRobotAngle(0);
+        hardware.drivetrain.setInitialIMUHeading();
     }
 
     public void setStartAngle(int quadrant, int facing) {
@@ -277,6 +282,7 @@ public class Auto {
         hardware.outtake.horizontalSlidePowers(0);
     }
 
+
     public void grabFirstStonePark(int stone, int alliance, boolean inner) throws InterruptedException{
         //Int stone: 0 = Left, 1 = center, 2 = right
         double x = -1, y = alliance-2;
@@ -291,6 +297,7 @@ public class Auto {
          *    45 degree angle and intake it from there
          * park (or at least get into a common area) and deposit the stone afterwards
          */
+
 
         //absolute value of distance needed to travel to get into place
         //considering that the starting x is in the middle of the middle square
@@ -354,6 +361,7 @@ public class Auto {
         //driveToParkFromStone(toTurn, x, y, inner, alliance);
     }
 
+
     public void rotateFoundation(int quadrant) throws InterruptedException{
         hardware.intake.clampersDown();
         hardware.drivetrain.turn(90, (quadrant == 4));
@@ -380,9 +388,12 @@ public class Auto {
 
         int stoneNum = 2;
         int direction = -1;
+        double distToBridge = fieldMap.HALF_ROBOT_WIDTH+fieldMap.SQUARE_LENGTH; //Distance to under the bridge from the center of the robot
         if(alliance == AutonomousData.RED_ALLIANCE){
             direction = 1;
+            distToBridge = (5/3)*fieldMap.SQUARE_LENGTH-fieldMap.HALF_ROBOT_WIDTH;
         }
+
 
 
         hardware.detector.lookForTargets();
@@ -398,7 +409,8 @@ public class Auto {
             if (hardware.detector.stoneVisible()) {
                 stoneNum = 0;
             } else {
-                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.7);
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
+                distToBridge += fieldMap.STONE_WIDTH;
                 Thread.sleep(500);
                 if (hardware.detector.stoneVisible()) {
                     stoneNum = 1;
@@ -411,18 +423,21 @@ public class Auto {
             //Positioning
             if (stoneNum == 1) {
                 hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+                distToBridge -= 0.5*fieldMap.STONE_WIDTH;
             } else if (stoneNum == 0) {
                 hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5 * fieldMap.STONE_WIDTH, 0.5);
+                distToBridge -= 1.5*fieldMap.STONE_WIDTH;
             }
             else{
                 hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
+                distToBridge += 0.5*fieldMap.STONE_WIDTH;
             }
 
 
        /*
         * Precondition: robot camera is centered on center stone
         * Tests center, goes left (strafes right). If left isn't a stone, assumes right
-        * Strafes left (goes right),
+        * Strafes left (goes right) depending on stone pos
         */
         }else{ //Red
             //Detection
@@ -430,7 +445,20 @@ public class Auto {
             if(hardware.detector.stoneVisible()){
                 stoneNum = 1;
             }else{
-                hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
+                Thread.sleep(500);
+                if(hardware.detector.stoneVisible()){
+                    stoneNum = 0;
+                }
+            }
+
+            //Positioning
+            if(stoneNum == 0){
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+            }else if(stoneNum == 1){
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+            }else{
+                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 1.5 * fieldMap.STONE_WIDTH, 0.5);
             }
         }
 
@@ -459,20 +487,33 @@ public class Auto {
 */
 
         int targetY = (int) fieldMap.SQUARE_LENGTH;
-        double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1.5*fieldMap.STONE_WIDTH);
+        double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1*fieldMap.STONE_WIDTH);
         hardware.drivetrain.driveDistance(-1, distance, 0.5);
+        hardware.drivetrain.turnToAngle(0);
 
         hardware.intake.grabStone();
         Thread.sleep(500);
 
-        hardware.drivetrain.driveDistance(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
+        hardware.drivetrain.driveDistance(-1, 0.7*fieldMap.STONE_WIDTH, 0.5);
         hardware.intake.grabStone();
 
-        hardware.drivetrain.driveDistance(1, 1.3*fieldMap.STONE_WIDTH, 0.5);
+        hardware.drivetrain.driveDistance(1, 1.5*fieldMap.STONE_WIDTH, 0.5);
 
-        hardware.drivetrain.turn(90, alliance == AutonomousData.RED_ALLIANCE);
-        hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.drivetrain.turn(85, alliance != AutonomousData.RED_ALLIANCE);
+        /*
+        if(alliance == AutonomousData.BLUE_ALLIANCE){
+            hardware.drivetrain.turnToGyroAngle(270);
+        }
+        */
+        hardware.drivetrain.driveDistance(1, distToBridge, 0.6);
+        hardware.intake.clampersUp();
+        hardware.drivetrain.driveDistance(1, 1.5*fieldMap.SQUARE_LENGTH, 0.6);
+        //hardware.drivetrain.turn(180, true);
         hardware.intake.ungrabStone();
+        hardware.drivetrain.driveDistance(1, 0.5*fieldMap.SQUARE_LENGTH, 0.6);
+        //hardware.drivetrain.turn(90, true);
+        hardware.drivetrain.turnToAngle(180);
+        hardware.drivetrain.turnToAngle(180);
 
         return stoneNum;
     }

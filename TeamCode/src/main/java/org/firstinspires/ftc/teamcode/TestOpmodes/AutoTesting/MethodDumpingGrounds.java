@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
 @Autonomous(name = "Auto Tester", group = "Autonomous Tests")
-@Disabled
+//@Disabled
 public class MethodDumpingGrounds extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private FieldMap map;
@@ -28,7 +28,8 @@ public class MethodDumpingGrounds extends LinearOpMode {
 
         auto.setStartAngle(QUADRANT);
         auto.setStartPosition(QUADRANT);
-        telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
+        telemetry.addLine("Ready");
+        //telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
@@ -37,7 +38,14 @@ public class MethodDumpingGrounds extends LinearOpMode {
 
         //hardware.drivetrain.face(map.get(FieldElement.NINNERPARK));
 
-        hardware.drivetrain.strafeDistanceCorrectAngle(1, auto.fieldMap.SQUARE_LENGTH, 0.6);
+        //hardware.drivetrain.strafeDistanceCorrectAngle(1, auto.fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.drivetrain.turnToAngle(90);
+        //hardware.drivetrain.turn(90, true);
+        telemetry.addData("Angle", hardware.drivetrain.robotAngle);
+        Thread.sleep(3000);
+        //hardware.drivetrain.turnCorrectAngle(90, true);
+
+        //hardware.drivetrain.turnCorrectAngle(190, false);
     }
 
 }
