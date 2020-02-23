@@ -140,6 +140,8 @@ public class Auto {
         //Vector pos = new Vector (hardware.drivetrain.robotPos.getX(), hardware.drivetrain.robotPos.getY());
         //hardware.drivetrain.goToLerp(new Vector(hardware.drivetrain.robotPos.getX(), fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).getY()), 0.5);
 
+
+        /*
         hardware.intake.clampersDown();
         //jimmies forward
         hardware.drivetrain.driveDistance(1, 0.5, 0.7);
@@ -150,7 +152,9 @@ public class Auto {
         hardware.intake.clampersUp();
         hardware.drivetrain.driveDistance(1, 10, 0.7);
         if(!inner) hardware.drivetrain.strafeDistance(directionS, distance, 0.8);
+        */
 
+        secondHalfOfFoundation(inner, quadrant);
 
 
 
@@ -173,20 +177,33 @@ public class Auto {
         */
     }
 
-    public void getFoundationStrafe (int quadrant) throws InterruptedException{
-        int directionMult = -1;
-        int targetY = 24;
-
-
-        if (quadrant == 1){
-            directionMult = 1;
-        }
-
+    public void secondHalfOfFoundation(boolean inner, int quadrant) throws InterruptedException{
+        int targetY = (int) fieldMap.SQUARE_LENGTH;
         double distance = (Math.abs(hardware.drivetrain.robotPos.getY()) - targetY);
+        int directionS = 0;
 
-        hardware.drivetrain.strafeDistance(directionMult, distance, 0.5);
+        if(quadrant == 1) directionS = -1; else directionS = 1;
+
         hardware.intake.clampersDown();
-        hardware.drivetrain.strafeDistance(directionMult*-1, distance, 0.2);
+        //jimmies forward
+        hardware.drivetrain.driveDistance(1, 0.5, 0.7);
+        //jimmies back
+        hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH*1.1, 0.6);
+
+        hardware.drivetrain.turn(85, (quadrant != 1) && (quadrant != 2));
+        hardware.intake.clampersUp();
+        hardware.drivetrain.driveDistance(1, 10, 0.7);
+        if(!inner) hardware.drivetrain.strafeDistance(directionS, distance, 0.8);
+    }
+
+    public void getFoundationFromStone (boolean inner ,int quadrant) throws InterruptedException{
+        hardware.drivetrain.driveDistance(1, 0.75*fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.drivetrain.turnToAngle(180);
+        hardware.intake.ungrabStone();
+        hardware.drivetrain.turnToAngle(180);
+
+        hardware.drivetrain.driveDistance(1, 0.5*fieldMap.SQUARE_LENGTH, 0.4);
+        secondHalfOfFoundation(inner, quadrant);
     }
 
     public void strafeToPark (boolean inner, int quadrant) throws InterruptedException{
@@ -282,7 +299,7 @@ public class Auto {
         hardware.outtake.horizontalSlidePowers(0);
     }
 
-    
+
 
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
@@ -411,33 +428,29 @@ public class Auto {
 
         int targetY = (int) fieldMap.SQUARE_LENGTH;
         double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1*fieldMap.STONE_WIDTH);
-        hardware.drivetrain.driveDistance(-1, distance, 0.5);
+        hardware.drivetrain.lerpDriveDistance(-1, distance, 0.5);
         hardware.drivetrain.turnToAngle(0);
 
         hardware.intake.grabStone();
         Thread.sleep(500);
 
         hardware.drivetrain.driveDistance(-1, 0.7*fieldMap.STONE_WIDTH, 0.5);
-        hardware.intake.grabStone();
 
-        hardware.drivetrain.driveDistance(1, 1.5*fieldMap.STONE_WIDTH, 0.5);
+        //hardware.drivetrain.strafeDistance(direction,5,0.3);
+        hardware.intake.grabStone();
+        //hardware.drivetrain.strafeDistance(-direction,5,0.3);
+
+        hardware.drivetrain.driveDistance(1, 1.7*fieldMap.STONE_WIDTH, 0.5);
 
         hardware.drivetrain.turn(85, alliance != AutonomousData.RED_ALLIANCE);
-        /*
-        if(alliance == AutonomousData.BLUE_ALLIANCE){
-            hardware.drivetrain.turnToGyroAngle(270);
-        }
-        */
-        hardware.drivetrain.driveDistance(1, distToBridge, 0.6);
-        hardware.intake.clampersUp();
-        hardware.drivetrain.driveDistance(1, 1.5*fieldMap.SQUARE_LENGTH, 0.6);
-        //hardware.drivetrain.turn(180, true);
-        hardware.intake.ungrabStone();
-        hardware.drivetrain.driveDistance(1, 0.5*fieldMap.SQUARE_LENGTH, 0.6);
-        //hardware.drivetrain.turn(90, true);
-        hardware.drivetrain.turnToAngle(180);
-        hardware.drivetrain.turnToAngle(180);
 
+        if(alliance == AutonomousData.BLUE_ALLIANCE){
+            hardware.drivetrain.turnToAngle(90);
+        }
+
+        hardware.drivetrain.driveDistance(1, distToBridge+fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.intake.clampersUp();
+        //hardware.intake.ungrabStone();
         return stoneNum;
     }
 
