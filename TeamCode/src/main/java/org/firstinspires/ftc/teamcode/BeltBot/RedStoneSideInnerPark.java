@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
 @Autonomous(name = "Red Depot Side Inner Park", group = "Autonomous")
-//@Disabled
+@Disabled
 public class RedStoneSideInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;

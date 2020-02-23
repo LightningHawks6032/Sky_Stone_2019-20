@@ -399,6 +399,33 @@ public class MecanumWheelDrive implements RobotHardware {
         updateAngleFromIMU();
     }
 
+    public void strafeDistanceCorrectAngle(int direction, double distance, double pow) throws InterruptedException{
+        //gyro.zero();
+        int initAngle = gyro.getAngle();
+        strafeDistance(direction, distance, pow);
+        int turnAngle = initAngle-gyro.getAngle();
+        boolean turnRight = false;
+        if(Math.abs(turnAngle) > 180) {
+            turnAngle = (turnAngle/Math.abs(turnAngle))*(Math.abs(turnAngle)-360);
+        }
+
+        /*
+        if((gyro.getAngle() < 180 && initAngle < 180) || (gyro.getAngle() > 180 && initAngle > 180)){
+            if(turnAngle < 0) turnRight = true;
+        }else{
+            if(turnAngle > 0)
+        }
+        */
+
+        if(gyro.getAngle() < 90 && initAngle > 270){
+            if (turnAngle > 0) turnRight = true;
+        }else{
+            if (turnAngle < 0) turnRight = true;
+        }
+
+        turn(Math.abs(turnAngle), turnRight);
+    }
+
     public void strafeForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(pow, -pow, -pow, pow);

@@ -35,7 +35,9 @@ public class MethodDumpingGrounds extends LinearOpMode {
         //auto.getFoundation(QUADRANT);
         //hardware.drivetrain.strafeDistance(1, map.SQUARE_LENGTH*2, 0.5);
 
-        hardware.drivetrain.face(map.get(FieldElement.NINNERPARK));
+        //hardware.drivetrain.face(map.get(FieldElement.NINNERPARK));
+
+        hardware.drivetrain.strafeDistanceCorrectAngle(1, auto.fieldMap.SQUARE_LENGTH, 0.6);
     }
 
 }

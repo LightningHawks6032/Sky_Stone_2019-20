@@ -73,6 +73,8 @@ public class Auto {
                 break;
         }
 
+
+        hardware.detector.setupTracker();
     }
 
     //for simplicity of code, this method assumes that the robot is facing forwards in regards to the wall
@@ -371,44 +373,106 @@ public class Auto {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 
-    //Precondition: starting w/ camera centered on center stone
+    //Precondition: starting w/ camera centered on center stone (RED), or left stone (BLUE); detector is inited
     //Return: 0 (left), 1 (center), or 2 (right)
     //Alliance: red = 1, blue = 2; will check away from skybridge first
     public int vuforiaStone(int alliance) throws InterruptedException{
-        int stoneNum = 0;
+
+        int stoneNum = 2;
         int direction = -1;
-        if(alliance == 1){
-            stoneNum = 2;
+        if(alliance == AutonomousData.RED_ALLIANCE){
             direction = 1;
         }
+
+
+        hardware.detector.lookForTargets();
+
+        /*
+         * Precondition: robot camera is centered on left stone (closest to skybridge)
+         * Tests left, goes right (strafes left). If center isn't a stone, assumes right
+         * Strafes right (goes left), strafes again if stone is right
+        */
+        if(alliance == AutonomousData.BLUE_ALLIANCE) {
+            //Detection
+            Thread.sleep(500);
+            if (hardware.detector.stoneVisible()) {
+                stoneNum = 0;
+            } else {
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.7);
+                Thread.sleep(500);
+                if (hardware.detector.stoneVisible()) {
+                    stoneNum = 1;
+                }
+            }
+
+            // Debug: pretend you saw a stone
+            //stoneNum = 1;
+
+            //Positioning
+            if (stoneNum == 1) {
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+            } else if (stoneNum == 0) {
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5 * fieldMap.STONE_WIDTH, 0.5);
+            }
+            else{
+                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
+            }
+
+
+       /*
+        * Precondition: robot camera is centered on center stone
+        * Tests center, goes left (strafes right). If left isn't a stone, assumes right
+        * Strafes left (goes right),
+        */
+        }else{ //Red
+            //Detection
+            Thread.sleep(500);
+            if(hardware.detector.stoneVisible()){
+                stoneNum = 1;
+            }else{
+                hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.5);
+            }
+        }
+
+
+        /*
         hardware.detector.setupTracker();
         hardware.detector.lookForTargets();
         if(hardware.detector.stoneDetected){
             stoneNum = 1;
         }else{
             hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.4);
+            Thread.sleep(2000);
             if(hardware.detector.stoneDetected) stoneNum = 1-direction;
         }
 
-        int targetY = (int) fieldMap.SQUARE_LENGTH;
 
-        double distance = (Math.abs(hardware.drivetrain.robotPos.getY()) - targetY);
 
         double strafeDist = fieldMap.STONE_WIDTH;
         int strafeDirect = 1;
-        if (stoneNum == 2 && alliance == 1){
-            strafeDist += 2*fieldMap.STONE_WIDTH;
-        }else if (stoneNum == 0 && alliance == 2){
+        if (stoneNum == 2 && alliance == AutonomousData.RED_ALLIANCE){
             strafeDirect = -1;
+        }else if (stoneNum == 0 && alliance == AutonomousData.BLUE_ALLIANCE){
+            strafeDist += 2*fieldMap.STONE_WIDTH;
         }
-
         hardware.drivetrain.strafeDistance(strafeDirect, strafeDist, 0.4);
+*/
 
+        int targetY = (int) fieldMap.SQUARE_LENGTH;
+        double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1.5*fieldMap.STONE_WIDTH);
         hardware.drivetrain.driveDistance(-1, distance, 0.5);
 
         hardware.intake.grabStone();
+        Thread.sleep(500);
 
-        hardware.drivetrain.driveDistance(-1, -5, 0.7);
+        hardware.drivetrain.driveDistance(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
+        hardware.intake.grabStone();
+
+        hardware.drivetrain.driveDistance(1, 1.3*fieldMap.STONE_WIDTH, 0.5);
+
+        hardware.drivetrain.turn(90, alliance == AutonomousData.RED_ALLIANCE);
+        hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.intake.ungrabStone();
 
         return stoneNum;
     }

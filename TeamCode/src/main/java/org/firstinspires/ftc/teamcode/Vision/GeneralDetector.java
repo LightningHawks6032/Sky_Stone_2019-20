@@ -30,7 +30,7 @@ public class GeneralDetector {
     private static final boolean PHONE_IS_PORTRAIT = true;
 
 
-    public boolean stoneDetected = false;
+    private boolean stoneDetected = false;
 
     //Vuforia code
     private static final String VUFORIA_KEY =
@@ -244,6 +244,10 @@ public class GeneralDetector {
 
         com.vuforia.CameraDevice.getInstance().setField("opti-zoom", "opti-zoom-on");
         com.vuforia.CameraDevice.getInstance().setField("zoom", "40");
+    }
+
+    public void setZoom(int zoom){
+        com.vuforia.CameraDevice.getInstance().setField("zoom", zoom+"");
     }
 
     public void lookForTargets() {

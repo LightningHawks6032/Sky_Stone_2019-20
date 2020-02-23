@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 
 @Autonomous(name = "Blue Depot Side Inner Park", group = "Autonomous")
-@Disabled
+//@Disabled
 public class BlueStoneSideInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
@@ -29,8 +29,13 @@ public class BlueStoneSideInnerPark extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         auto.rest();
-        //int stoneNum = /*auto.dogeCV.detectSkyStoneAlign();*/ 1;
+        int stone = auto.vuforiaStone(ALLIANCE);
+        telemetry.addData("Stone num", stone);
+        telemetry.update();
+
+        //int stoneNum = auto.dogeCV.detectSkyStoneAlign();
         //auto.grabFirstStonePark(stoneNum, ALLIANCE, true);
-        auto.depotSidePark(true, ALLIANCE);
+        Thread.sleep(10000);
+        //auto.depotSidePark(true, ALLIANCE);
     }
 }
