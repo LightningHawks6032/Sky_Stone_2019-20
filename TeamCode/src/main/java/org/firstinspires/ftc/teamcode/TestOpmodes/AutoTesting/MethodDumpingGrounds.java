@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.BeltBot.Auto;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
+import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @Autonomous(name = "Auto Tester", group = "Autonomous Tests")
 //@Disabled
@@ -16,11 +17,13 @@ public class MethodDumpingGrounds extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private FieldMap map;
     private Auto auto;
+    private GeneralDetector detector;
     private final int QUADRANT = 1;
     private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
-
     public void runOpMode() throws InterruptedException{
+
+
         hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         map = new FieldMap();
         auto = new Auto(this, hardware);
@@ -32,7 +35,9 @@ public class MethodDumpingGrounds extends LinearOpMode {
         //telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
+        detector.lookForTargets();
 
+        /*
         //auto.getFoundation(QUADRANT);
         //hardware.drivetrain.strafeDistance(1, map.SQUARE_LENGTH*2, 0.5);
 
@@ -46,6 +51,10 @@ public class MethodDumpingGrounds extends LinearOpMode {
         //hardware.drivetrain.turnCorrectAngle(90, true);
 
         //hardware.drivetrain.turnCorrectAngle(190, false);
+        */
+
+
+
     }
 
 }

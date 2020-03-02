@@ -345,13 +345,13 @@ public class Auto {
         */
         if(alliance == AutonomousData.BLUE_ALLIANCE) {
             //Detection
-            Thread.sleep(500);
+            Thread.sleep(1000);
             if (hardware.detector.stoneVisible()) {
                 stoneNum = 0;
             } else {
-                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, 0.5*fieldMap.SQUARE_LENGTH, 0.5);
                 distToBridge += fieldMap.STONE_WIDTH;
-                Thread.sleep(500);
+                Thread.sleep(1000);
                 if (hardware.detector.stoneVisible()) {
                     stoneNum = 1;
                 }
@@ -361,15 +361,16 @@ public class Auto {
             //stoneNum = 1;
 
             //Positioning
+
             if (stoneNum == 1) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1 * fieldMap.STONE_WIDTH, 0.5);
                 distToBridge -= 0.5*fieldMap.STONE_WIDTH;
             } else if (stoneNum == 0) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5 * fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 3 * fieldMap.STONE_WIDTH, 0.5);
                 distToBridge -= 1.5*fieldMap.STONE_WIDTH;
             }
             else{
-                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 1 * fieldMap.STONE_WIDTH, 0.5);
                 distToBridge += 0.5*fieldMap.STONE_WIDTH;
             }
 
@@ -426,6 +427,7 @@ public class Auto {
         hardware.drivetrain.strafeDistance(strafeDirect, strafeDist, 0.4);
 */
 
+        /*
         int targetY = (int) fieldMap.SQUARE_LENGTH;
         double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1*fieldMap.STONE_WIDTH);
         hardware.drivetrain.lerpDriveDistance(-1, distance, 0.5);
@@ -451,6 +453,8 @@ public class Auto {
         hardware.drivetrain.driveDistance(1, distToBridge+fieldMap.SQUARE_LENGTH, 0.6);
         hardware.intake.clampersUp();
         //hardware.intake.ungrabStone();
+
+         */
         return stoneNum;
     }
 

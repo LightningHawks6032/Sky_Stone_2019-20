@@ -30,7 +30,7 @@ public class RedStoneSideInnerPark extends LinearOpMode {
 
         auto.rest();
         int stone = auto.vuforiaStone(ALLIANCE);
-        auto.getFoundationFromStone(true, QUADRANT);
+        //auto.getFoundationFromStone(true, QUADRANT);
         telemetry.addData("Stone num", stone);
         telemetry.update();
 
