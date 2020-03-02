@@ -24,16 +24,13 @@ public class MethodDumpingGrounds extends LinearOpMode {
     public void runOpMode() throws InterruptedException{
 
 
-
-        map = new FieldMap();
-        //auto = new Auto(this, hardware);
-        detector = new GeneralDetector(hardwareMap, 0, 0);
-        detector.setupTracker();
-        //hardware.initHardware();
         hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
-        //auto.setStartAngle(QUADRANT);
-        //auto.setStartPosition(QUADRANT);
+        map = new FieldMap();
+        auto = new Auto(this, hardware);
+        hardware.initHardware();
 
+        auto.setStartAngle(QUADRANT);
+        auto.setStartPosition(QUADRANT);
         telemetry.addLine("Ready");
         //telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
         waitForStart();
