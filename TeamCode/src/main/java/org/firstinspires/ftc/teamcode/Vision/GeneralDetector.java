@@ -243,7 +243,7 @@ public class GeneralDetector {
         //Zoom in
 
         com.vuforia.CameraDevice.getInstance().setField("opti-zoom", "opti-zoom-on");
-        com.vuforia.CameraDevice.getInstance().setField("zoom", "40");
+        com.vuforia.CameraDevice.getInstance().setField("zoom", "35");
     }
 
     public void setZoom(int zoom){

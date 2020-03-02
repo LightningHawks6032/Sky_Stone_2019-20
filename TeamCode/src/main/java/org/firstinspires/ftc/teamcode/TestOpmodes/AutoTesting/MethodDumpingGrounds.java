@@ -26,19 +26,22 @@ public class MethodDumpingGrounds extends LinearOpMode {
 
 
         map = new FieldMap();
-        //auto = new Auto(this, hardware);
         detector = new GeneralDetector(hardwareMap, 0, 0);
-        detector.setupTracker();
-        //hardware.initHardware();
+        //detector.setupTracker();
         hardware = new BeltBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
-        //auto.setStartAngle(QUADRANT);
-        //auto.setStartPosition(QUADRANT);
+        hardware.initHardware();
+        auto = new Auto(this, hardware);
+        auto.setStartAngle(QUADRANT);
+        auto.setStartPosition(QUADRANT);
 
         telemetry.addLine("Ready");
         //telemetry.addData("Theta of foundation: ", auto.fieldMap.get(FieldElement.BOUNDATION_GRAB_POINT).theta());
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
-        detector.lookForTargets();
+        //detector.lookForTargets();
+        hardware.drivetrain.strafeDistanceCorrectAngle(1, 12, 0.6);
+        Thread.sleep(500);
+        hardware.drivetrain.strafeDistanceCorrectAngle(-1, map.clawPhoneDist, 0.6);
 
         /*
         //auto.getFoundation(QUADRANT);

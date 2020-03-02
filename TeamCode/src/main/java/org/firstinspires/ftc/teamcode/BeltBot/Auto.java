@@ -16,7 +16,7 @@ import java.util.logging.Handler;
 public class Auto {
     private LinearOpMode autonomous;
     private BeltBot_Hardware hardware;
-    public DogeCVDetectorMethods dogeCV;
+    //public DogeCVDetectorMethods dogeCV;
     public FieldMap fieldMap = new FieldMap();
     private long startTime;
     public Vector startImage;
@@ -35,7 +35,7 @@ public class Auto {
         hardware.drivetrain.setStartTime(time);
         hardware.intake.setStartTime(time);
         hardware.outtake.setStartTime(time);
-        dogeCV.setStartTime(time);
+        //dogeCV.setStartTime(time);
     }
 
     //Precondition: edge of the robot is on the edge of the field closer to the park (robot is 1 square from park)
@@ -348,7 +348,7 @@ public class Auto {
             if (detector.stoneVisible()) {
                 stoneNum = 0;
             } else {
-                hardware.drivetrain.strafeDistanceCorrectAngle(direction, 0.5*fieldMap.SQUARE_LENGTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
                 distToBridge += fieldMap.STONE_WIDTH;
                 Thread.sleep(1000);
                 if (detector.stoneVisible()) {
@@ -362,14 +362,14 @@ public class Auto {
             //Positioning
 
             if (stoneNum == 1) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1 * fieldMap.STONE_WIDTH, 0.5);
-                distToBridge -= 0.5*fieldMap.STONE_WIDTH;
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1*fieldMap.clawPhoneDist, 0.5);
+                distToBridge -= fieldMap.clawPhoneDist;
             } else if (stoneNum == 0) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 3 * fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5*fieldMap.STONE_WIDTH, 0.5);
                 distToBridge -= 1.5*fieldMap.STONE_WIDTH;
             }
             else{
-                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 1 * fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
                 distToBridge += 0.5*fieldMap.STONE_WIDTH;
             }
 
@@ -394,7 +394,7 @@ public class Auto {
 
             //Positioning
             if(stoneNum == 0){
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, fieldMap.clawPhoneDist, 0.5);
             }else if(stoneNum == 1){
                 hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.5 * fieldMap.STONE_WIDTH, 0.5);
             }else{
@@ -403,34 +403,13 @@ public class Auto {
         }
 
 
-        /*
-        detector.setupTracker();
-        detector.lookForTargets();
-        if(detector.stoneDetected){
-            stoneNum = 1;
-        }else{
-            hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.4);
-            Thread.sleep(2000);
-            if(detector.stoneDetected) stoneNum = 1-direction;
-        }
 
 
-
-        double strafeDist = fieldMap.STONE_WIDTH;
-        int strafeDirect = 1;
-        if (stoneNum == 2 && alliance == AutonomousData.RED_ALLIANCE){
-            strafeDirect = -1;
-        }else if (stoneNum == 0 && alliance == AutonomousData.BLUE_ALLIANCE){
-            strafeDist += 2*fieldMap.STONE_WIDTH;
-        }
-        hardware.drivetrain.strafeDistance(strafeDirect, strafeDist, 0.4);
-*/
-
-        /*
         int targetY = (int) fieldMap.SQUARE_LENGTH;
         double distance = (Math.abs(targetY - Math.abs(hardware.drivetrain.robotPos.getY()))-1*fieldMap.STONE_WIDTH);
         hardware.drivetrain.lerpDriveDistance(-1, distance, 0.5);
         hardware.drivetrain.turnToAngle(0);
+
 
         hardware.intake.grabStone();
         Thread.sleep(500);
@@ -440,6 +419,8 @@ public class Auto {
         //hardware.drivetrain.strafeDistance(direction,5,0.3);
         hardware.intake.grabStone();
         //hardware.drivetrain.strafeDistance(-direction,5,0.3);
+
+        /*
 
         hardware.drivetrain.driveDistance(1, 1.7*fieldMap.STONE_WIDTH, 0.5);
 

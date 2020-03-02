@@ -23,6 +23,7 @@ public class FieldMap {
 
     public double pos2X = (SQUARE_LENGTH*2-HALF_ROBOT_WIDTH);
     public double pos2Y = 72-HALF_ROBOT_LENGTH;
+    public double clawPhoneDist = 10.5;
 
     // Constructor generates the map
     public FieldMap() {
