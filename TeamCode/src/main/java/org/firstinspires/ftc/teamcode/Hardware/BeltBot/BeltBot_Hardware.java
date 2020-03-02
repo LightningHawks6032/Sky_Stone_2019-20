@@ -25,10 +25,10 @@ public class BeltBot_Hardware implements RobotHardware{
     private final int ROBOT_CENTER_X = 225;
 
     public MecanumWheelDrive drivetrain;
-    public DogeCVDetectorMethods dogeCV;
+    //public DogeCVDetectorMethods dogeCV;
     public BeltBot_Outtake outtake;
     public BeltBot_Intake intake;
-    public GeneralDetector detector;
+    //public GeneralDetector detector;
     public Sounds sounds;
     public ColorSensor leftCS;
     public ColorSensor rightCS;
@@ -63,8 +63,8 @@ public class BeltBot_Hardware implements RobotHardware{
                 hardwareMap.get(Servo.class, "cs"), //capStoner
                 manipsGamepad
         );
-        detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
-        dogeCV = new DogeCVDetectorMethods(0, 0, hardwareMap);
+        //detector = new GeneralDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
+        //dogeCV = new DogeCVDetectorMethods(0, 0, hardwareMap);
         sounds = new Sounds(hardwareMap);
         leftCS = hardwareMap.get(ColorSensor.class, "lcs");
         rightCS = hardwareMap.get(ColorSensor.class, "rcs");
