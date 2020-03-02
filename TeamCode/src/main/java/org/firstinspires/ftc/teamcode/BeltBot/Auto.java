@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.DogeCVDetectorMethods;
+import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 import java.util.logging.Handler;
 
@@ -26,7 +27,7 @@ public class Auto {
         hardware.drivetrain.setAuto(auto);
         hardware.intake.setAuto(auto);
         hardware.outtake.setAuto(auto);
-        dogeCV = hardware.dogeCV;
+        //dogeCV = hardware.dogeCV;
     }
 
     public void setStartTime(long time) {
@@ -73,8 +74,6 @@ public class Auto {
                 break;
         }
 
-
-        hardware.detector.setupTracker();
     }
 
     //for simplicity of code, this method assumes that the robot is facing forwards in regards to the wall
@@ -308,9 +307,9 @@ public class Auto {
         hardware.intake.clampersUp();
     }
 
-    public void updatePosFromNav(){
-        hardware.detector.lookForTargets();
-        hardware.drivetrain.setRobotPos(hardware.detector.getRobotPosition());
+    public void updatePosFromNav(GeneralDetector detector){
+        detector.lookForTargets();
+        hardware.drivetrain.setRobotPos(detector.getRobotPosition());
     }
 
     public void rest() throws InterruptedException{
@@ -324,7 +323,7 @@ public class Auto {
     //Precondition: starting w/ camera centered on center stone (RED), or left stone (BLUE); detector is inited
     //Return: 0 (left), 1 (center), or 2 (right)
     //Alliance: red = 1, blue = 2; will check away from skybridge first
-    public int vuforiaStone(int alliance) throws InterruptedException{
+    public int vuforiaStone(int alliance, GeneralDetector detector) throws InterruptedException{
 
         int stoneNum = 2;
         int direction = -1;
@@ -336,7 +335,7 @@ public class Auto {
 
 
 
-        hardware.detector.lookForTargets();
+        detector.lookForTargets();
 
         /*
          * Precondition: robot camera is centered on left stone (closest to skybridge)
@@ -346,13 +345,13 @@ public class Auto {
         if(alliance == AutonomousData.BLUE_ALLIANCE) {
             //Detection
             Thread.sleep(1000);
-            if (hardware.detector.stoneVisible()) {
+            if (detector.stoneVisible()) {
                 stoneNum = 0;
             } else {
                 hardware.drivetrain.strafeDistanceCorrectAngle(direction, 0.5*fieldMap.SQUARE_LENGTH, 0.5);
                 distToBridge += fieldMap.STONE_WIDTH;
                 Thread.sleep(1000);
-                if (hardware.detector.stoneVisible()) {
+                if (detector.stoneVisible()) {
                     stoneNum = 1;
                 }
             }
@@ -383,12 +382,12 @@ public class Auto {
         }else{ //Red
             //Detection
             Thread.sleep(500);
-            if(hardware.detector.stoneVisible()){
+            if(detector.stoneVisible()){
                 stoneNum = 1;
             }else{
                 hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
                 Thread.sleep(500);
-                if(hardware.detector.stoneVisible()){
+                if(detector.stoneVisible()){
                     stoneNum = 0;
                 }
             }
@@ -405,14 +404,14 @@ public class Auto {
 
 
         /*
-        hardware.detector.setupTracker();
-        hardware.detector.lookForTargets();
-        if(hardware.detector.stoneDetected){
+        detector.setupTracker();
+        detector.lookForTargets();
+        if(detector.stoneDetected){
             stoneNum = 1;
         }else{
             hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH, 0.4);
             Thread.sleep(2000);
-            if(hardware.detector.stoneDetected) stoneNum = 1-direction;
+            if(detector.stoneDetected) stoneNum = 1-direction;
         }
 
 
