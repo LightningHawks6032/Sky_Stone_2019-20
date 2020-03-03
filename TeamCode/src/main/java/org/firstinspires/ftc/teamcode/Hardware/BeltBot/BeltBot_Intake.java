@@ -116,6 +116,20 @@ public class BeltBot_Intake {
 
     }
 
+    private boolean grabingIn  = true;
+    private boolean grabPressed = false;
+    private boolean grabLastPressed = false;
+
+    private void manageStoneGrab(){
+        grabPressed = gamepad.x;
+
+        if(grabPressed && !grabLastPressed) grabingIn = !grabingIn;
+
+        grabLastPressed = grabPressed;
+
+        if(grabingIn) {grabStone();} else {ungrabStone();}
+    }
+
     private void manageIntake(){
         if (gamepad.a){
             //in

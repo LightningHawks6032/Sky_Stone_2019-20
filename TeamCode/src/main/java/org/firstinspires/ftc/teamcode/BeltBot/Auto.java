@@ -185,7 +185,7 @@ public class Auto {
 
         hardware.intake.clampersDown();
         //jimmies forward
-        hardware.drivetrain.driveDistance(1, 0.5, 0.7);
+        hardware.drivetrain.driveDistance(1, 0.5, 0.6);
         //jimmies back
         hardware.drivetrain.driveDistance(-1, fieldMap.SQUARE_LENGTH*1.1, 0.6);
 
@@ -197,26 +197,15 @@ public class Auto {
 
     public void getFoundationFromStone (boolean inner ,int quadrant) throws InterruptedException{
         hardware.drivetrain.driveDistance(1, 0.75*fieldMap.SQUARE_LENGTH, 0.6);
+
         hardware.drivetrain.turnToAngle(180);
-        hardware.intake.ungrabStone();
+        //hardware.intake.ungrabStone();
         hardware.drivetrain.turnToAngle(180);
 
-        hardware.drivetrain.driveDistance(1, 0.5*fieldMap.SQUARE_LENGTH, 0.4);
+        hardware.drivetrain.lerpDriveDistance(1, 0.5*fieldMap.SQUARE_LENGTH, 0.4);
         secondHalfOfFoundation(inner, quadrant);
     }
 
-    public void strafeToPark (boolean inner, int quadrant) throws InterruptedException{
-        int direction;
-        double distance;
-        if(quadrant == 1 || quadrant == 3) direction = 1;
-        else direction = -1;
-
-        //distance = Math.abs(hardware.drivetrain.robotPos.getX());
-        distance = fieldMap.SQUARE_LENGTH*2;
-        hardware.drivetrain.strafeDistance(direction, distance, 0.5);
-
-        if(inner) hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.5);
-    }
 
     public void driveToPark (boolean inner, boolean fromInner, int quadrant) throws InterruptedException{
         double distance = Math.abs(hardware.drivetrain.robotPos.getX());
@@ -325,6 +314,7 @@ public class Auto {
     //Alliance: red = 1, blue = 2; will check away from skybridge first
     public int vuforiaStone(int alliance, GeneralDetector detector) throws InterruptedException{
 
+        double strafeMod = 1.5;
         int stoneNum = 2;
         int direction = -1;
         double distToBridge = fieldMap.HALF_ROBOT_WIDTH+fieldMap.SQUARE_LENGTH; //Distance to under the bridge from the center of the robot
@@ -348,11 +338,14 @@ public class Auto {
             if (detector.stoneVisible()) {
                 stoneNum = 0;
             } else {
-                hardware.drivetrain.strafeDistanceCorrectAngle(direction, fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(direction, strafeMod*fieldMap.STONE_WIDTH, 0.5);
                 distToBridge += fieldMap.STONE_WIDTH;
                 Thread.sleep(1000);
+                detector.lookForTargets();
                 if (detector.stoneVisible()) {
                     stoneNum = 1;
+                }else{
+                    stoneNum = 2;
                 }
             }
 
@@ -362,15 +355,15 @@ public class Auto {
             //Positioning
 
             if (stoneNum == 1) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1*fieldMap.clawPhoneDist, 0.5);
-                distToBridge -= fieldMap.clawPhoneDist;
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.35*fieldMap.clawPhoneDist, 0.6);
+                distToBridge -= 1.5*fieldMap.STONE_WIDTH;
             } else if (stoneNum == 0) {
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5*fieldMap.STONE_WIDTH, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.45*fieldMap.clawPhoneDist, 0.5);
                 distToBridge -= 1.5*fieldMap.STONE_WIDTH;
             }
             else{
-                hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.5*fieldMap.STONE_WIDTH, 0.5);
-                distToBridge += 0.5*fieldMap.STONE_WIDTH;
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 0.4*fieldMap.STONE_WIDTH, 0.5);
+                distToBridge -= 0.5*fieldMap.STONE_WIDTH;
             }
 
 
@@ -416,13 +409,13 @@ public class Auto {
 
         hardware.drivetrain.driveDistance(-1, 0.7*fieldMap.STONE_WIDTH, 0.5);
 
-        //hardware.drivetrain.strafeDistance(direction,5,0.3);
+        //hardware.drivetrain.strafeDistance(direction,2,0.3);
         hardware.intake.grabStone();
-        //hardware.drivetrain.strafeDistance(-direction,5,0.3);
+        //hardware.drivetrain.strafeDistance(-direction,2,0.3);
 
-        /*
 
-        hardware.drivetrain.driveDistance(1, 1.7*fieldMap.STONE_WIDTH, 0.5);
+
+        hardware.drivetrain.driveDistance(1, 1.85*fieldMap.STONE_WIDTH, 0.5);
 
         hardware.drivetrain.turn(85, alliance != AutonomousData.RED_ALLIANCE);
 
@@ -430,11 +423,11 @@ public class Auto {
             hardware.drivetrain.turnToAngle(90);
         }
 
-        hardware.drivetrain.driveDistance(1, distToBridge+fieldMap.SQUARE_LENGTH, 0.6);
+        hardware.drivetrain.driveDistance(1, distToBridge+1.3*fieldMap.SQUARE_LENGTH, 0.6);
         hardware.intake.clampersUp();
         //hardware.intake.ungrabStone();
 
-         */
+
         return stoneNum;
     }
 
