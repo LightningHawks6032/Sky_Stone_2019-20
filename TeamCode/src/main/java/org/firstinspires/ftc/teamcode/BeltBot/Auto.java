@@ -223,39 +223,20 @@ public class Auto {
 
 
     // @Param angleToTurnRight: angle to turn to face foundation, negative if left
-    private void driveToParkFromStone (int angleToTurnRight , double fromX, double fromY, boolean inner, int alliance) throws InterruptedException{
-        Vector target;
-
-        if(alliance == AutonomousData.RED_ALLIANCE){
-            if(inner) target = fieldMap.get(FieldElement.RINNERPARK);
-            else target = fieldMap.get(FieldElement.ROUTERPARK);
+    public void driveToParkFromStone (boolean inner, int alliance) throws InterruptedException{
+        hardware.drivetrain.turn(180, true);
+        if(alliance == AutonomousData.BLUE_ALLIANCE){
+            hardware.drivetrain.turnToAngle(270);
         }else{
-            if(inner) target = fieldMap.get(FieldElement.BINNERPARK);
-            else target = fieldMap.get(FieldElement.BOUTERPARK);
+            hardware.drivetrain.turnToAngle(90);
         }
-
-        boolean right = true;
-        int turnAngle = angleToTurnRight;
-        if(turnAngle <0) {
-            right = false;
-            turnAngle = Math.abs(turnAngle);
+        hardware.intake.ungrabStone();
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH, 0.5);
+        int direction = -1;
+        if((inner && alliance == AutonomousData.RED_ALLIANCE) || (!inner && alliance == AutonomousData.BLUE_ALLIANCE)){
+            direction = 1;
         }
-        int strafe = 1;
-        if(target.getY() > fromY) strafe = -1;
-
-        hardware.drivetrain.turn(turnAngle, right);
-        hardware.drivetrain.strafeDistance(strafe, target.getY() - fromY, 0.6);
-        hardware.drivetrain.driveDistance(1, Math.abs(target.getX()-fromX), 0.6);
-    }
-
-    public void parkAfterFoundation(boolean inner, int alliance){
-        
-    }
-
-    public void rotateFoundation(int quadrant) throws InterruptedException{
-        hardware.intake.clampersDown();
-        hardware.drivetrain.turn(90, (quadrant == 4));
-        hardware.intake.clampersUp();
+        hardware.drivetrain.strafeDistance(direction, fieldMap.STONE_WIDTH*2, 0.6);
     }
 
     public void updatePosFromNav(GeneralDetector detector){

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @Autonomous(name = "Blue Stone-Foundation Inner Park", group = "Autonomous")
 //@Disabled
-public class BlueStoneSideInnerPark extends LinearOpMode {
+public class BlueStoneFoundationInner extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private GeneralDetector detector;
     private Auto auto;
@@ -40,21 +40,8 @@ public class BlueStoneSideInnerPark extends LinearOpMode {
 
 
         hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH, 0.5);
-        hardware.drivetrain.turn(180, true);
-        hardware.drivetrain.turnToAngle(270);
-        hardware.intake.ungrabStone();
-        hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
-        hardware.drivetrain.strafeDistance(-1, auto.fieldMap.STONE_WIDTH*2, 0.6);
+        auto.driveToParkFromStone(true, ALLIANCE);
 
         hardware.intake.clampersDown();
-
-
-
-        telemetry.addData("Stone num", stone);
-        telemetry.update();
-
-        //auto.grabFirstStonePark(stoneNum, ALLIANCE, true);
-        Thread.sleep(10000);
-        //auto.depotSidePark(true, ALLIANCE);
     }
 }
