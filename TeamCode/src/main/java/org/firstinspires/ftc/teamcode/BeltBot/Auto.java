@@ -248,47 +248,9 @@ public class Auto {
         hardware.drivetrain.driveDistance(1, Math.abs(target.getX()-fromX), 0.6);
     }
 
-    // *includes moving to nudging position and parking afterwards
-    public void nudgeFoundation(int quadrant, boolean toInner) throws InterruptedException{
-        //assumes init pos as pos after foundation move, facing the respective park
-        int strafeDirection = 1;
-        double nudgeDist = fieldMap.SQUARE_LENGTH*.6;
-        if (quadrant == 1) strafeDirection = -1;
-        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.3);
-
-        //hardware.drivetrain.strafeDistance(strafeDirection, fieldMap.SQUARE_LENGTH*1.5, 0.5);
-
-        hardware.drivetrain.turn(90, quadrant == 4);
-        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH*1.1, 0.5);
-        hardware.drivetrain.turn(87, (quadrant == 4));
-
-        hardware.intake.clampersUp();
-        hardware.drivetrain.driveDistance(1, nudgeDist, 0.3);
-
-        //New: grabbing and rotating foundation
-        hardware.intake.clampersDown();
-        hardware.drivetrain.turn(45, quadrant == 4);
-        hardware.intake.clampersUp();
-        hardware.drivetrain.turn(55, !(quadrant == 4));
-
-        hardware.drivetrain.driveDistance(-1, nudgeDist, 0.3);
-        hardware.outtake.horizontalSlidePowers(-1);
-        if(toInner){
-            hardware.drivetrain.driveDistance(-1, 7, 0.5);
-        }else{
-            if(quadrant == 1) {
-                hardware.drivetrain.strafeDistance(-1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
-            }else{
-                hardware.drivetrain.strafeDistance(1, fieldMap.SQUARE_LENGTH*1.5, 0.5);
-            }
-            hardware.drivetrain.driveDistance(-1, 7, 0.5);
-        }
-        Thread.sleep(3500);
-        hardware.outtake.horizontalSlidePowers(0);
+    public void parkAfterFoundation(boolean inner, int alliance){
+        
     }
-
-
-
 
     public void rotateFoundation(int quadrant) throws InterruptedException{
         hardware.intake.clampersDown();

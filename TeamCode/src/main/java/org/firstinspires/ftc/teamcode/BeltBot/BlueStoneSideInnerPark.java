@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
-@Autonomous(name = "Blue Depot Side Inner Park", group = "Autonomous")
+@Autonomous(name = "Blue Stone-Foundation Inner Park", group = "Autonomous")
 //@Disabled
 public class BlueStoneSideInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
