@@ -1,21 +1,19 @@
 package org.firstinspires.ftc.teamcode.BeltBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
-@Autonomous(name = "Red Stone-Foundation Outer", group = "Autonomous")
-//@Disabled
-public class RedStoneFoundationOuter extends LinearOpMode {
+@Autonomous(name = "Blue Stone Inner", group = "Autonomous")
+public class BlueStoneInnerPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
-    private Auto auto;
     private GeneralDetector detector;
-    private final int QUADRANT = 3;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private Auto auto;
+    private final int QUADRANT = 2;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws  InterruptedException{
         detector = new GeneralDetector(hardwareMap,0,0);
@@ -35,11 +33,8 @@ public class RedStoneFoundationOuter extends LinearOpMode {
         auto.rest();
         int stone = auto.vuforiaStone(ALLIANCE, detector);
         //hardware.drivetrain.driveDistance(1, auto.fieldMap.STONE_WIDTH, 0.5);
-        auto.getFoundationFromStone(false, QUADRANT);
 
-
-        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH, 0.5);
-        auto.driveToParkFromStone(false, ALLIANCE);
+        auto.driveToParkFromStone(true, ALLIANCE);
 
         hardware.intake.clampersDown();
     }

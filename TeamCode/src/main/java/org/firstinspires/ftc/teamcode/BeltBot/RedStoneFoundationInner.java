@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
-@Autonomous(name = "Red Depot Side Inner Park", group = "Autonomous")
+@Autonomous(name = "Red Stone-Foundation Inner", group = "Autonomous")
 //@Disabled
 public class RedStoneFoundationInner extends LinearOpMode {
     private BeltBot_Hardware hardware;
