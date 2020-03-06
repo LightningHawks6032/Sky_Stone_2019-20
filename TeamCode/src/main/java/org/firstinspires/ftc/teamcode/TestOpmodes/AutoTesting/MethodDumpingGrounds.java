@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.GeneralDetector;
 
 @Autonomous(name = "Auto Tester", group = "Autonomous Tests")
-//@Disabled
+@Disabled
 public class MethodDumpingGrounds extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private FieldMap map;
