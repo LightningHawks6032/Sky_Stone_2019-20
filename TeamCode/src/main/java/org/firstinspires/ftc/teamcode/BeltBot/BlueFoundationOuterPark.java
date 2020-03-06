@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.BeltBot.BeltBot_Hardware;
 import org.firstinspires.ftc.teamcode.Misc.Sounds;
 
-@Autonomous(name = "Blue Foundation Outer Park", group = "Autonomous")
+@Autonomous(name = "Blue Foundation Outer", group = "Autonomous")
 public class BlueFoundationOuterPark extends LinearOpMode {
     private BeltBot_Hardware hardware;
     private Auto auto;
