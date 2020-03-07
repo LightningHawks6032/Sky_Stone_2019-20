@@ -38,7 +38,7 @@ public class RedStoneFoundationInner extends LinearOpMode {
         auto.getFoundationFromStone(true, QUADRANT);
 
 
-        hardware.drivetrain.driveDistance(-1, auto.fieldMap.SQUARE_LENGTH, 0.5);
+        hardware.drivetrain.driveDistance(-1, 1.3*auto.fieldMap.SQUARE_LENGTH, 0.5);
         auto.driveToParkFromStone(true, ALLIANCE);
 
         hardware.intake.clampersDown();

@@ -22,7 +22,9 @@ public class RobotTeleOp extends OpMode {
         //telemetry.addData("Left Alpha Amount", hardware.leftCS.alpha());
         //telemetry.addData("Right Alpha Amount", hardware.rightCS.alpha());
 
-        telemetry.update();
+        //telemetry.addData("Gyro angle", hardware.drivetrain.gyro.getAngle());
+
+        //telemetry.update();
 
         //off switch for slide limiting
         if(gamepad1.a && gamepad1.dpad_down){

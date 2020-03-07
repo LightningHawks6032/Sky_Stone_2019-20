@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.BeltBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 
 @TeleOp (name = "Color Sensor Test lol", group = "Hardware Tests")
+@Disabled
 public class DualColorSensorTest extends OpMode {
     public ColorSensor leftCS = null;
     public ColorSensor rightCS = null;
