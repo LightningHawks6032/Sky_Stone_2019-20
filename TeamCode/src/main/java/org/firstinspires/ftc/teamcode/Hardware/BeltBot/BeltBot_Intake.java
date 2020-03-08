@@ -89,6 +89,7 @@ public class BeltBot_Intake {
     //Tele-op Methods
     public void manageTeleOp(){
         manageIntake();
+        manageStoneGrab();
     }
 
     // Booleans to manage clamping foundation for tele-op
@@ -116,7 +117,7 @@ public class BeltBot_Intake {
 
     }
 
-    private boolean grabingIn  = true;
+    private boolean grabingIn  = false;
     private boolean grabPressed = false;
     private boolean grabLastPressed = false;
 

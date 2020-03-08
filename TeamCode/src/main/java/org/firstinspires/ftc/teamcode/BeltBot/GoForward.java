@@ -23,5 +23,6 @@ public class GoForward extends LinearOpMode {
         auto.setStartTime(System.currentTimeMillis());
 
         hardware.drivetrain.driveDistance(1, auto.fieldMap.SQUARE_LENGTH, 0.5);
+        hardware.intake.clampersDown();
     }
 }

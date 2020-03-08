@@ -336,15 +336,16 @@ public class Auto {
 
             //Positioning
             if(stoneNum == 0){
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.35*fieldMap.clawPhoneDist, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.4*fieldMap.clawPhoneDist, 0.5);
             }else if(stoneNum == 1){
-                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.35*fieldMap.clawPhoneDist, 0.5);
+                hardware.drivetrain.strafeDistanceCorrectAngle(1, 1.5*fieldMap.clawPhoneDist, 0.5);
             }else{
                 hardware.drivetrain.strafeDistanceCorrectAngle(-1, 0.65*fieldMap.clawPhoneDist, 0.5);
             }
         }
 
-
+        //                  |  ||
+        //                  || |_
 
         //hardware.drivetrain.turnToAngle(0);
         int targetY = (int) fieldMap.SQUARE_LENGTH;
